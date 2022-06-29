@@ -1,8 +1,11 @@
 import axios from 'axios'
 
-const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_BASE_URL,
+const tmdb = axios.create({
+    baseURL: import.meta.env.VITE_BASE_URL, // tmdb
 })
 
+const omdb = axios.create({
+    baseURL: import.meta.env.VITE_OMDB_URL, // omdb
+})
 
-export default axiosInstance
+export { tmdb, omdb }
