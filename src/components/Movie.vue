@@ -1,5 +1,13 @@
 <template>
-    <div class="relative text-white w-full h-full bg-gray-500 pb-5 flex flex-col">
+    <div
+        v-if="isLoading"
+        class="bg-black w-full h-full flex justify-center items-center"
+    >
+        <van-loading size="40"/>
+    </div>
+    <div
+        class="relative text-white w-full h-full bg-gray-500 pb-5 flex flex-col"
+    >
         <div class="backdrop">
             <div
                 :style="{ backgroundImage: backgroundImage }"
@@ -13,7 +21,7 @@
                 <van-icon name="arrow-left" size="30" />
             </div>
         </div>
-        <div class="info hide-scrollbar" v-if="data.info">
+        <div class="info hide-scrollbar" v-if="data.info" ref="infoRef">
             <!-- title -->
             <div class="text-3xl font-bold">{{ data.info.title }}</div>
             <!-- runtime & date -->
@@ -31,7 +39,7 @@
                 </div>
             </div>
             <!-- ratings -->
-            <div class="flex items-center mt-4 flex-wrap gap-y-4">
+            <div class="flex items-center mt-6 flex-wrap gap-y-4">
                 <!-- tmdb rating -->
                 <div class="flex items-center">
                     <div class="mb-0.5">
@@ -79,7 +87,7 @@
                 <span>{{ data.info.overview }}</span>
             </div>
             <!-- cast -->
-            <div class="mt-4">
+            <div class="mt-5">
                 <div class="text-stone-400 font-medium mb-2">主演：</div>
                 <div class="flex flex-wrap gap-y-2">
                     <div v-for="item in data.cast" :key="'cast' + item.id">
@@ -95,12 +103,12 @@
             </div>
 
             <!-- self rate -->
-            <div class="flex items-center mt-4">
+            <div class="flex items-center mt-8">
                 <span class="text-stone-400 font-medium mr-1"> 評分： </span>
                 <van-rate v-model="rate" allow-half />
             </div>
             <!-- trailer -->
-            <div v-if="data.trailer" class="w-1/2 mt-4">
+            <div v-if="data.trailer" class="w-1/2 mt-8">
                 <div class="trailer">
                     <iframe
                         width="950"
@@ -113,12 +121,33 @@
                     ></iframe>
                 </div>
             </div>
+            <!-- similar -->
+            <div v-if="data.similar" class="mt-10">
+                <div class="text-stone-400 font-medium mb-2">相似電影：</div>
+                <div class="flex justify-start gap-x-5">
+                    <div
+                        v-for="item in data.similar"
+                        :key="`similar-${item.id}`"
+                        class="cursor-pointer"
+                        @click="$router.push(`/movie?id=${item.id}`)"
+                    >
+                        <div class="poster">
+                            <img
+                                :src="`${IMAGE_URL}w185${item.poster_path}`"
+                                :alt="item.title"
+                            />
+                            <div class="poster__bottom"></div>
+                        </div>
+                        <div class="text-xs">{{ item.title }}</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { inject, onBeforeMount, reactive, ref } from 'vue'
+import { inject, onBeforeMount, reactive, ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 const { $axios, $filterNum, $omdb, IMAGE_URL } = inject('$global')
@@ -129,16 +158,21 @@ const data = reactive({
     ratings: null,
     cast: null,
     trailer: null,
+    similar: null,
 })
-
+const isLoading = ref(true)
+const infoRef = ref(null)
 const backgroundImage = ref('url()')
 const rate = ref(0)
 const runTime = ref('')
 
-onBeforeMount(async () => {
+const id = computed(() => {
+    return route.query.id
+})
+
+async function init() {
     // 拿電影資訊
-    const id = route.query.id
-    const res = await $axios.get(`movie/${id}`)
+    const res = await $axios.get(`movie/${id.value}`)
     data.info = res.data
     backgroundImage.value = `url(${IMAGE_URL}w1280${data.info.backdrop_path})`
     // tmdb 時長抓不到，所以打 omdb 拿時間和其他評分
@@ -170,12 +204,26 @@ onBeforeMount(async () => {
     })
 
     // 電影卡司
-    const res_cast = await $axios.get(`movie/${id}/credits`)
+    const res_cast = await $axios.get(`movie/${id.value}/credits`)
     data.cast = res_cast.data.cast.slice(0, 6).filter(el => el.profile_path)
 
     // 預告片
-    const res_video = await $axios.get(`movie/${id}/videos`)
+    const res_video = await $axios.get(`movie/${id.value}/videos`)
     data.trailer = res_video.data.results.find(el => el.site === 'YouTube')
+
+    // 相關影片
+    const res_similar = await $axios.get(`movie/${id.value}/similar?page=1`)
+    data.similar = res_similar.data.results.splice(0, 8)
+
+    isLoading.value = false
+}
+onBeforeMount(async () => {
+    init()
+})
+
+watch(id, () => {
+    init()
+    infoRef.value.scrollTo(0, 0)
 })
 </script>
 
@@ -216,6 +264,28 @@ onBeforeMount(async () => {
     padding-bottom: 56.25%;
     iframe {
         @apply absolute top-0 left-0 w-full h-full;
+    }
+}
+.poster {
+    @apply overflow-hidden relative;
+    width: 150px;
+    height: 214px;
+    img {
+        @apply w-full h-full;
+    }
+    &__bottom {
+        @apply absolute bottom-0 w-full h-1/2;
+        background-image: linear-gradient(
+            179deg,
+            rgba(17, 19, 25, 0) 1%,
+            rgba(17, 19, 25, 0.05) 17%,
+            rgba(17, 19, 25, 0.2) 31%,
+            rgba(17, 19, 25, 0.39) 44%,
+            rgba(17, 19, 25, 0.61) 56%,
+            rgba(17, 19, 25, 0.8) 69%,
+            rgba(17, 19, 25, 0.95) 83%,
+            rgb(17, 19, 25) 99%
+        );
     }
 }
 .backdrop {
