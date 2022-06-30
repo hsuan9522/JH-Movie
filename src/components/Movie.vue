@@ -8,7 +8,13 @@
             <div class="backdrop__left"></div>
             <div class="backdrop__bottom"></div>
         </div>
-        <div class="info">
+        <div class="info" v-if="data.info">
+            <div
+                class="cursor-pointer mb-4 -ml-4 -mt-4"
+                @click="$router.go(-1)"
+            >
+                <van-icon name="arrow-left" size="30" />
+            </div>
             <!-- title -->
             <div class="text-3xl font-bold">{{ data.info.title }}</div>
             <!-- runtime & date -->
@@ -26,7 +32,7 @@
                 </div>
             </div>
             <!-- ratings -->
-            <div class="flex items-center mt-4">
+            <div class="flex items-center mt-4 flex-wrap gap-y-4">
                 <!-- tmdb rating -->
                 <div class="flex items-center">
                     <div class="mb-0.5">
@@ -50,7 +56,7 @@
                     <div
                         v-for="item in data.ratings"
                         :key="item.Source"
-                        class="flex items-center mx-3"
+                        class="flex items-center mr-4"
                     >
                         <Image :path="item.icon" :css="'icon'" />
                         <div class="flex items-center">
@@ -69,22 +75,24 @@
             </div>
 
             <!-- desc -->
-            <div class="mt-4 w-3/4">
+            <div class="mt-4 w-full lg:w-3/4">
                 <span class="text-stone-400 font-medium"> 描述： </span>
                 <span>{{ data.info.overview }}</span>
             </div>
             <!-- cast -->
             <div class="mt-4">
-                <div class="text-stone-400 font-medium mb-2"> 主演： </div>
-                <div class="flex">
-                    <div v-for="item in data.cast" :key="'cast'+item.id">
+                <div class="text-stone-400 font-medium mb-2">主演：</div>
+                <div class="flex flex-wrap gap-y-2">
+                    <div v-for="item in data.cast" :key="'cast' + item.id">
                         <div class="avator">
-                            <img :src="`${IMAGE_URL}w185${item.profile_path}`" :alt="item.name" />
+                            <img
+                                :src="`${IMAGE_URL}w185${item.profile_path}`"
+                                :alt="item.name"
+                            />
                         </div>
                         <!-- <div class="text-xs">{{item.name}}</div> -->
                     </div>
                 </div>
-
             </div>
 
             <!-- self rate -->
@@ -100,13 +108,14 @@
 import { inject, onBeforeMount, reactive, ref } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
 import Image from './Image.vue'
-const { $axios, $filterNum, $omdb, IMAGE_URL, API_KEY, LAN, OMDB_KEY } =
-    inject('$global')
+
+const { $axios, $filterNum, $omdb, IMAGE_URL } = inject('$global')
 const route = useRoute()
+
 const data = reactive({
     info: null,
     ratings: null,
-    cast: null
+    cast: null,
 })
 
 const backgroundImage = ref('url()')
@@ -116,14 +125,12 @@ const runTime = ref('')
 onBeforeMount(async () => {
     // 拿電影資訊
     const id = route.query.id
-    const res = await $axios.get(
-        `movie/${id}?api_key=${API_KEY}&language=${LAN}`
-    )
+    const res = await $axios.get(`movie/${id}`)
     data.info = res.data
     backgroundImage.value = `url(${IMAGE_URL}w1280${data.info.backdrop_path})`
     // tmdb 時長抓不到，所以打 omdb 拿時間和其他評分
     const imdbId = data.info.imdb_id
-    const omdb = await $omdb.get(`?i=${imdbId}&apikey=${OMDB_KEY}&t=`)
+    const omdb = await $omdb.get(`?i=${imdbId}`)
     runTime.value = omdb.data.Runtime
     data.ratings = omdb.data.Ratings.map(el => {
         const path = '@/assets/images/'
@@ -149,12 +156,13 @@ onBeforeMount(async () => {
         return el
     })
 
-
     // 電影卡司
-    const res_cast = await $axios.get(`movie/${id}/credits?api_key=${API_KEY}&language=${LAN}`)
-    data.cast = res_cast.data.cast.slice(0,6)
-})
+    const res_cast = await $axios.get(`movie/${id}/credits`)
+    data.cast = res_cast.data.cast.slice(0, 6)
 
+    // 預告片
+    // const res_video = await $axios.get(`movie/${id}/videos`)
+})
 </script>
 
 <style lang="scss" scoped>
@@ -173,7 +181,7 @@ onBeforeMount(async () => {
 }
 .info {
     @apply relative;
-    @apply w-1/2 text-left py-8 px-10;
+    @apply w-full lg:w-1/2 text-left p-10;
     z-index: 1;
 }
 
@@ -184,7 +192,7 @@ onBeforeMount(async () => {
 }
 .line {
     @apply bg-gray-400 bg-opacity-25;
-    @apply mr-3 ml-5;
+    @apply mx-5;
     height: 20px;
     width: 1px;
 }

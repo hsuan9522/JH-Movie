@@ -39,7 +39,7 @@
 
 <script setup>
 import { reactive, inject, ref, onBeforeMount, onUpdated } from 'vue'
-const { $axios, IMAGE_URL, API_KEY, LAN } = inject('$global')
+const { $axios, IMAGE_URL } = inject('$global')
 
 const data = reactive({
     movies: null,
@@ -50,7 +50,7 @@ const currentRate = ref([])
 
 onBeforeMount(async () => {
     const res = await $axios.get(
-        `/movie/popular?api_key=${API_KEY}&language=${LAN}&page=1`
+        `/movie/popular?page=1`
     )
     data.movies = res.data.results
     data.movies.forEach(el => currentRate.value.push(0))
