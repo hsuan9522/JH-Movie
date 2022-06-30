@@ -1,7 +1,7 @@
 <template>
-    <div class="flex px-14">
-        <div class="w-1/4">block</div>
-        <div class="pl-6">
+    <div class="flex px-14 h-full">
+        <!-- <div class="w-1/4 h-full">block</div> -->
+        <div class="pl-6 h-full overflow-y-auto hide-scrollbar">
             <div class="grid grid-cols-4 lg:grid-cols-5 gap-10">
                 <div
                     v-for="(item, index) in data.movies"

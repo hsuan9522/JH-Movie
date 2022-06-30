@@ -105,9 +105,8 @@
 </template>
 
 <script setup>
-import { inject, onBeforeMount, reactive, ref } from '@vue/runtime-core'
+import { inject, onBeforeMount, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import Image from './Image.vue'
 
 const { $axios, $filterNum, $omdb, IMAGE_URL } = inject('$global')
 const route = useRoute()
