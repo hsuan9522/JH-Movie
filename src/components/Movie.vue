@@ -3,7 +3,7 @@
         v-if="isLoading"
         class="bg-black w-full h-full flex justify-center items-center"
     >
-        <van-loading size="40"/>
+        <van-loading size="40" />
     </div>
     <div
         class="relative text-white w-full h-full bg-gray-500 pb-5 flex flex-col"
@@ -87,10 +87,13 @@
                 <span>{{ data.info.overview }}</span>
             </div>
             <!-- cast -->
-            <div class="mt-5">
+            <div class="mt-5" v-if="data.cast">
                 <div class="text-stone-400 font-medium mb-2">主演：</div>
-                <div class="flex flex-wrap gap-y-2">
-                    <div v-for="item in data.cast" :key="'cast' + item.id">
+                <div class="flex flex-wrap gap-y-2 items-center">
+                    <div
+                        v-for="item in data.cast.slice(0, 6)"
+                        :key="'cast' + item.id"
+                    >
                         <div class="avator">
                             <img
                                 :src="`${IMAGE_URL}w185${item.profile_path}`"
@@ -98,6 +101,11 @@
                             />
                         </div>
                         <!-- <div class="text-xs">{{item.name}}</div> -->
+                    </div>
+                    <div class="ml-4">
+                        <div class="more" @click="moreCast = true">
+                            <van-icon name="arrow" size="12" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -124,7 +132,9 @@
             <!-- similar -->
             <div v-if="data.similar" class="mt-10">
                 <div class="text-stone-400 font-medium mb-2">相似電影：</div>
-                <div class="flex justify-start gap-x-5">
+                <div
+                    class="flex justify-start gap-x-5 overflow-x-auto hide-scrollbar"
+                >
                     <div
                         v-for="item in data.similar"
                         :key="`similar-${item.id}`"
@@ -144,10 +154,50 @@
             </div>
         </div>
     </div>
+    <!-- more cast -->
+    <transition name="van-fade">
+        <div
+            v-show="moreCast"
+            class="w-full h-full absolute top-0 z-10 text-white bg-black bg-opacity-80"
+            @click="moreCast = false"
+        >
+            <div class="flex h-full justify-center items-center">
+                <div class="popup-dialog">
+                    <div class="flex justify-end -mt-3 -mr-2">
+                        <span class="cursor-pointer" @click="moreCast = false">
+                            <van-icon name="cross" />
+                        </span>
+                    </div>
+                    <div
+                        class="divide-y divide-gray-800 h-full px-10 overflow-y-auto hide-scrollbar"
+                    >
+                        <div
+                            v-for="item in data.cast"
+                            :key="`cast-m-${item.id}`"
+                            class="text-center py-4"
+                        >
+                            <div class="font-bold">{{ item.name }}</div>
+                            <div class="text-sm text-stone-400">
+                                {{ item.character.replace(/ \/.*/g, '') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </transition>
 </template>
 
 <script setup>
-import { inject, onBeforeMount, reactive, ref, computed, watch } from 'vue'
+import {
+    inject,
+    onBeforeMount,
+    reactive,
+    ref,
+    computed,
+    watch,
+    onMounted,
+} from 'vue'
 import { useRoute } from 'vue-router'
 
 const { $axios, $filterNum, $omdb, IMAGE_URL } = inject('$global')
@@ -165,12 +215,14 @@ const infoRef = ref(null)
 const backgroundImage = ref('url()')
 const rate = ref(0)
 const runTime = ref('')
+const moreCast = ref(false)
 
 const id = computed(() => {
     return route.query.id
 })
 
-async function init() {
+async function getMovie(where) {
+    console.log(where)
     // 拿電影資訊
     const res = await $axios.get(`movie/${id.value}`)
     data.info = res.data
@@ -205,7 +257,7 @@ async function init() {
 
     // 電影卡司
     const res_cast = await $axios.get(`movie/${id.value}/credits`)
-    data.cast = res_cast.data.cast.slice(0, 6).filter(el => el.profile_path)
+    data.cast = res_cast.data.cast.slice(0, 20).filter(el => el.profile_path)
 
     // 預告片
     const res_video = await $axios.get(`movie/${id.value}/videos`)
@@ -217,12 +269,23 @@ async function init() {
 
     isLoading.value = false
 }
+
+function reset() {
+    isLoading.value = true
+    backgroundImage.value = 'url()'
+    rate.value = 0
+    runTime.value = ''
+    moreCast.value = false
+}
 onBeforeMount(async () => {
-    init()
+    reset()
+    getMovie('onbeforemount')
 })
 
 watch(id, () => {
-    init()
+    isLoading.value = true
+    if (route.path.replace(/\//g, '').toLowerCase() !== 'movie') return // go(-1) 會觸發，所以不是 movie 頁面 return
+    getMovie('watch')
     infoRef.value.scrollTo(0, 0)
 })
 </script>
@@ -243,7 +306,7 @@ watch(id, () => {
 }
 .info {
     @apply w-full;
-    @apply relative h-full overflow-auto;
+    @apply relative h-full overflow-y-auto overflow-x-hidden;
     @apply text-left p-10 pt-2;
     z-index: 1;
 }
@@ -325,5 +388,21 @@ watch(id, () => {
             rgb(17, 19, 25) 99%
         );
     }
+}
+.more {
+    @apply flex items-center justify-center;
+    @apply w-5 h-5;
+    @apply border rounded-full cursor-pointer;
+    &:hover {
+        @apply bg-gray-200 bg-opacity-20;
+    }
+}
+
+.popup-dialog {
+    @apply rounded-lg;
+    @apply bg-gray-500 p-8 overflow-hidden h-full;
+    box-shadow: 0px 1px 7px #494949;
+    min-width: 500px;
+    max-height: 600px;
 }
 </style>

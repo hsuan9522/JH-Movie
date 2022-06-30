@@ -10,11 +10,11 @@ const pathName = computed(() => {
 
 <template>
     <div class="h-screen w-screen overflow-hidden">
-        <div class="h-full">
+        <div class="h-full overflow-hidden">
             <Home />
         </div>
         <transition name="van-slide-right">
-            <div v-if="pathName === 'movie'" class="absolute top-0 h-full w-full overflow-hidden">
+            <div v-if="pathName === 'movie'" class="absolute top-0 h-screen w-full overflow-hidden">
                 <Movie />
             </div>
         </transition>
