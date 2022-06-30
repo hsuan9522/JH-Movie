@@ -221,8 +221,7 @@ const id = computed(() => {
     return route.query.id
 })
 
-async function getMovie(where) {
-    console.log(where)
+async function getMovie() {
     // 拿電影資訊
     const res = await $axios.get(`movie/${id.value}`)
     data.info = res.data
@@ -279,14 +278,16 @@ function reset() {
 }
 onBeforeMount(async () => {
     reset()
-    getMovie('onbeforemount')
+    getMovie()
 })
 
 watch(id, () => {
     isLoading.value = true
     if (route.path.replace(/\//g, '').toLowerCase() !== 'movie') return // go(-1) 會觸發，所以不是 movie 頁面 return
-    getMovie('watch')
-    infoRef.value.scrollTo(0, 0)
+    getMovie()
+    if (infoRef.value) {
+        infoRefinfoRef.value.scrollTo(0, 0)
+    }
 })
 </script>
 

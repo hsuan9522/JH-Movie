@@ -7,6 +7,12 @@ module.exports = {
                     500: '#121319',
                 },
             },
+            width: {
+                50: '12.5rem',
+            },
+            height: {
+                50: '12.5rem',
+            },
         },
     },
     plugins: [],

@@ -3,7 +3,7 @@
         <!-- <div class="w-1/4 h-full">block</div> -->
         <div class="h-full w-full overflow-y-auto hide-scrollbar">
             <div
-                class="w-full grid grid-cols-4 lg:grid-cols-5 justify-items-center gap-y-10"
+                class="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 justify-items-center gap-y-10"
             >
                 <div
                     v-for="(item, index) in data.movies"
@@ -17,7 +17,7 @@
                     </div>
 
                     <div class="detail">
-                        <div class="font-semibold w-40">{{ item.title }}</div>
+                        <div class="font-semibold w-4/5">{{ item.title }}</div>
                         <div class="flex text-stone-400">
                             {{ item.release_date }}
                         </div>
@@ -85,11 +85,12 @@ function getColor(val) {
 .movie {
     @apply flex flex-col cursor-pointer;
     @apply rounded-md overflow-hidden;
+    @apply w-36 md:w-50;
 }
 .poster {
-    @apply overflow-hidden;
-    width: 200px;
-    height: 286px;
+    @apply overflow-hidden w-full;
+    @apply h-50 md:h-72;
+    
     img {
         @apply w-full h-full;
     }
