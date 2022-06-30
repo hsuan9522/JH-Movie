@@ -14,7 +14,7 @@ const pathName = computed(() => {
             <Home />
         </div>
         <transition name="van-slide-right">
-            <div v-if="pathName === 'movie'" class="absolute top-0 h-full">
+            <div v-if="pathName === 'movie'" class="absolute top-0 h-full w-full overflow-hidden">
                 <Movie />
             </div>
         </transition>

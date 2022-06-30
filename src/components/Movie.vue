@@ -1,5 +1,5 @@
 <template>
-    <div class="relative text-white w-full h-full bg-gray-500">
+    <div class="relative text-white w-full h-full bg-gray-500 pb-5 flex flex-col">
         <div class="backdrop">
             <div
                 :style="{ backgroundImage: backgroundImage }"
@@ -8,13 +8,12 @@
             <div class="backdrop__left"></div>
             <div class="backdrop__bottom"></div>
         </div>
-        <div class="info" v-if="data.info">
-            <div
-                class="cursor-pointer mb-4 -ml-4 -mt-4"
-                @click="$router.go(-1)"
-            >
+        <div class="flex py-4 pl-4" @click="$router.go(-1)">
+            <div class="cursor-pointer">
                 <van-icon name="arrow-left" size="30" />
             </div>
+        </div>
+        <div class="info hide-scrollbar" v-if="data.info">
             <!-- title -->
             <div class="text-3xl font-bold">{{ data.info.title }}</div>
             <!-- runtime & date -->
@@ -75,7 +74,7 @@
             </div>
 
             <!-- desc -->
-            <div class="mt-4 w-full lg:w-3/4">
+            <div class="mt-4 w-full lg:w-1/2">
                 <span class="text-stone-400 font-medium"> 描述： </span>
                 <span>{{ data.info.overview }}</span>
             </div>
@@ -100,6 +99,20 @@
                 <span class="text-stone-400 font-medium mr-1"> 評分： </span>
                 <van-rate v-model="rate" allow-half />
             </div>
+            <!-- trailer -->
+            <div v-if="data.trailer" class="w-1/2 mt-4">
+                <div class="trailer">
+                    <iframe
+                        width="950"
+                        height="534"
+                        :src="`https://www.youtube.com/embed/${data.trailer.key}`"
+                        :title="data.trailer.name"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                    ></iframe>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -115,6 +128,7 @@ const data = reactive({
     info: null,
     ratings: null,
     cast: null,
+    trailer: null,
 })
 
 const backgroundImage = ref('url()')
@@ -157,10 +171,11 @@ onBeforeMount(async () => {
 
     // 電影卡司
     const res_cast = await $axios.get(`movie/${id}/credits`)
-    data.cast = res_cast.data.cast.slice(0, 6)
+    data.cast = res_cast.data.cast.slice(0, 6).filter(el => el.profile_path)
 
     // 預告片
-    // const res_video = await $axios.get(`movie/${id}/videos`)
+    const res_video = await $axios.get(`movie/${id}/videos`)
+    data.trailer = res_video.data.results.find(el => el.site === 'YouTube')
 })
 </script>
 
@@ -179,8 +194,9 @@ onBeforeMount(async () => {
     }
 }
 .info {
-    @apply relative;
-    @apply w-full lg:w-1/2 text-left p-10;
+    @apply w-full;
+    @apply relative h-full overflow-auto;
+    @apply text-left p-10 pt-2;
     z-index: 1;
 }
 
@@ -194,6 +210,13 @@ onBeforeMount(async () => {
     @apply mx-5;
     height: 20px;
     width: 1px;
+}
+.trailer {
+    @apply relative w-full h-0;
+    padding-bottom: 56.25%;
+    iframe {
+        @apply absolute top-0 left-0 w-full h-full;
+    }
 }
 .backdrop {
     @apply absolute flex justify-end w-full bg-gray-500;
