@@ -134,7 +134,7 @@
                 <van-rate v-model="rate" allow-half />
             </div>
             <!-- trailer -->
-            <div v-if="data.trailer" class="w-1/2 mt-8">
+            <div v-if="data.trailer" class="w-full md:w-1/2 mt-8">
                 <div class="trailer">
                     <iframe
                         width="950"
