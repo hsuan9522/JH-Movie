@@ -4,7 +4,15 @@ import router from './router'
 import { tmdb, omdb } from './axios'
 import './assets/css/index.css'
 
-import { Circle, Icon, Rate, Loading, List } from 'vant'
+import {
+    Circle,
+    Icon,
+    Rate,
+    Loading,
+    List,
+    Lazyload,
+    Image as VanImage,
+} from 'vant'
 
 const app = createApp(App)
 
@@ -24,6 +32,12 @@ const global = {
 
 app.provide('$global', global)
 
-app.use(Circle).use(Icon).use(Rate).use(Loading).use(List)
+app.use(Circle)
+    .use(Icon)
+    .use(Rate)
+    .use(Loading)
+    .use(List)
+    .use(VanImage)
+    .use(Lazyload)
 
 app.use(router).mount('#app')

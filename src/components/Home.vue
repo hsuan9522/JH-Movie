@@ -1,16 +1,34 @@
 <template>
-    <div class="flex py-14 px-8 h-full bg-gray-500 text-white">
-        <!-- <div class="w-1/4 h-full">block</div> -->
-        <div class="h-full w-full overflow-y-auto hide-scrollbar">
+    <div class="flex flex-col p-8 h-full bg-gray-500 text-white">
+        <div class="flex items-center">
+            <Image path="logo.png" css="w-12 h-12" />
+            <div class="line"></div>
+            <div class="type">
+                <div
+                    v-for="item in data.type"
+                    :key="`type-${item.id}`"
+                    :class="{
+                        'type__label-active': item.key === data.selected,
+                    }"
+                    class="type__label"
+                    @click="selectType(item.key)"
+                >
+                    <span>{{ item.label }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="h-full w-full overflow-y-auto hide-scrollbar mt-10">
             <van-list
                 v-model:loading="loading"
                 :finished="finished"
                 finished-text="Finished"
                 offset="0"
+                :immediate-check="false"
                 @load="onLoad"
             >
                 <div
                     class="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 justify-items-center gap-y-10"
+                    v-if="data.movies.length > 0"
                 >
                     <div
                         v-for="(item, index) in data.movies"
@@ -62,11 +80,30 @@
 </template>
 
 <script setup>
-import { reactive, inject, ref, onBeforeMount } from 'vue'
+import {
+    reactive,
+    inject,
+    ref,
+    onBeforeMount,
+    computed,
+    watch,
+    watchEffect,
+    onMounted,
+} from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 const { $axios, IMAGE_URL } = inject('$global')
+const router = useRouter()
+const route = useRoute()
 
 const data = reactive({
+    selected: 'popular',
     movies: [],
+    type: [
+        { label: '熱門', id: 1, key: 'popular' },
+        // { label: '最新', id: 2, key: 'latest' },
+        { label: '現正熱映', id: 3, key: 'now_playing' },
+        { label: '即將上映', id: 4, key: 'upcoming' },
+    ],
 })
 
 const currentRate = ref([])
@@ -75,29 +112,47 @@ const totalPages = ref(1)
 const loading = ref(false)
 const finished = ref(false)
 
-const onLoad = () => {
-    if(page.value > totalPages.value) {
+function onLoad() {
+    if (page.value > totalPages.value) {
         finished.value = true
         return
-    } 
+    }
     loading.value = false
-    getPopularMovies()
+    getMovieList()
 }
 
-async function getPopularMovies() {
-    console.log(page.value)
-    const res = await $axios.get(`/movie/popular?page=${page.value}`)
+function reset() {
+    data.selected = 'popular'
+    data.movies = []
+    currentRate.value = []
+    page.value = 1
+    totalPages.value = 1
+    loading.value = false
+    finished.value = false
+}
+
+async function getMovieList() {
+    const res = await $axios.get(
+        `/movie/${data.selected}?page=${page.value}&region=TW`
+    )
     data.movies = data.movies.concat(res.data.results)
     data.movies.forEach(el => currentRate.value.push(0))
-    if(page.value === 1) {
+    if (page.value === 1) {
         totalPages.value = res.data.total_pages
     }
     page.value++
 }
 
+function selectType(val) {
+    reset()
+    data.selected = val
+    router.push(`?t=${val}`)
+    getMovieList()
+}
+
 function getColor(val) {
     const rate = parseInt(val)
-    if (rate <= 40) {
+    if (rate > 0 && rate <= 40) {
         return '#C93861'
     } else if (rate > 40 && rate <= 70) {
         return '#D4D553'
@@ -107,6 +162,12 @@ function getColor(val) {
         return '#666666'
     }
 }
+
+onBeforeMount(async () => {
+    await router.isReady()
+    data.selected = route.query.t ? route.query.t : data.selected
+    getMovieList()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -126,5 +187,35 @@ function getColor(val) {
 .detail {
     @apply p-2 text-left relative flex-grow;
     background-color: rgb(29 29 29);
+}
+
+.line {
+    @apply bg-gray-400 bg-opacity-25;
+    @apply mx-5;
+    height: 20px;
+    width: 1px;
+}
+
+.type {
+    @apply ml-8 flex items-end gap-x-8 font-semibold;
+    &__label {
+        @apply px-1;
+        @apply cursor-pointer;
+        &-active {
+            @apply relative;
+            &:before {
+                @apply absolute -bottom-2;
+                content: '';
+                width: 25px;
+                left: 50%;
+                transform: translateX(-50%);
+                height: 4px;
+                background: #edc748;
+            }
+        }
+        &:hover {
+            color: #ebd489;
+        }
+    }
 }
 </style>
