@@ -21,13 +21,13 @@
             <van-list
                 v-model:loading="loading"
                 :finished="finished"
-                finished-text="Finished"
+                finished-text="沒啦"
                 offset="0"
                 :immediate-check="false"
                 @load="onLoad"
             >
                 <div
-                    class="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 justify-items-center gap-y-10"
+                    class="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 justify-items-center gap-y-10 pb-3"
                     v-if="data.movies.length > 0"
                 >
                     <div
@@ -51,7 +51,11 @@
                             <div class="absolute right-2 bottom-2">
                                 <van-circle
                                     v-model:current-rate="currentRate[index]"
-                                    :rate="item.vote_average * 10"
+                                    :rate="
+                                        item.vote_average
+                                            ? item.vote_average * 10
+                                            : 100
+                                    "
                                     :stroke-width="100"
                                     :color="getColor(item.vote_average * 10)"
                                     layer-color="#ebedf0"
@@ -61,13 +65,23 @@
                                         class="h-full flex justify-center items-center"
                                     >
                                         <span
-                                            class="text-white font-semibold font-mono -mr-0.5"
-                                            >{{ item.vote_average * 10 }}</span
+                                            class="text-white font-semibold font-mono"
+                                            :class="{
+                                                '-mr-0.5': item.vote_average,
+                                            }"
                                         >
+                                            {{
+                                                item.vote_average
+                                                    ? item.vote_average * 10
+                                                    : 'NaN'
+                                            }}
+                                        </span>
                                         <span
+                                            v-if="item.vote_average"
                                             class="text-xs leading-none -mb-1 transfrom scale-75 -mr-0.5"
-                                            >%</span
                                         >
+                                            %
+                                        </span>
                                     </div>
                                 </van-circle>
                             </div>
