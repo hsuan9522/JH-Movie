@@ -8,7 +8,7 @@
     <div
         class="relative text-white w-full h-full bg-gray-500 pb-5 flex flex-col"
     >
-        <div class="backdrop">
+        <div v-if="!isError" class="backdrop">
             <div
                 :style="{ backgroundImage: backgroundImage }"
                 class="backdrop__image"
@@ -21,6 +21,10 @@
                 <van-icon name="arrow-left" size="30" />
             </div>
         </div>
+        <div v-if="isError" class="h-full flex items-center justify-center">
+            <van-empty image="error" description="發生錯誤，回去重來吧！" />
+        </div>
+
         <div class="info hide-scrollbar" v-if="data.info" ref="infoRef">
             <!-- title -->
             <div class="text-3xl font-bold">{{ data.info.title }}</div>
@@ -231,6 +235,7 @@ const data = reactive({
     trailer: null,
     similar: null,
 })
+const isError = ref(false)
 const isLoading = ref(true)
 const infoRef = ref(null)
 const backgroundImage = ref('url()')
@@ -243,53 +248,60 @@ const id = computed(() => {
 })
 
 async function getMovie() {
-    // 拿電影資訊
-    const res = await $axios.get(`movie/${id.value}`)
-    data.info = res.data
-    backgroundImage.value = `url(${IMAGE_URL}w1280${data.info.backdrop_path})`
-    // tmdb 時長抓不到，所以打 omdb 拿時間和其他評分
-    const imdbId = data.info.imdb_id
-    if (imdbId) {
-        const omdb = await $omdb.get(`?i=${imdbId}`)
-        runTime.value = omdb.data.Runtime
-        data.ratings = omdb.data.Ratings?.map(el => {
-            const path = '@/assets/images/'
-            switch (el.Source) {
-                case 'Internet Movie Database':
-                    el.icon = 'IMDb.png'
-                    const tmpI = el.Value.split('/')
-                    el.value = tmpI[0]
-                    el.base = tmpI[1]
-                    break
-                case 'Rotten Tomatoes':
-                    el.icon = 'Rotten_Tomatoes.png'
-                    el.value = el.Value
-                    el.base = ''
-                    break
-                case 'Metacritic':
-                    el.icon = 'Metacritic.png'
-                    const tmpM = el.Value.split('/')
-                    el.value = tmpM[0]
-                    el.base = tmpM[1]
-                    break
-            }
-            return el
-        })
+    try {
+        // 拿電影資訊
+        const res = await $axios.get(`movie/${id.value}`)
+        data.info = res.data
+        backgroundImage.value = `url(${IMAGE_URL}w1280${data.info.backdrop_path})`
+        // tmdb 時長抓不到，所以打 omdb 拿時間和其他評分
+        const imdbId = data.info.imdb_id
+        if (imdbId) {
+            const omdb = await $omdb.get(`?i=${imdbId}`)
+            runTime.value = omdb.data.Runtime
+            data.ratings = omdb.data.Ratings?.map(el => {
+                const path = '@/assets/images/'
+                switch (el.Source) {
+                    case 'Internet Movie Database':
+                        el.icon = 'IMDb.png'
+                        const tmpI = el.Value.split('/')
+                        el.value = tmpI[0]
+                        el.base = tmpI[1]
+                        break
+                    case 'Rotten Tomatoes':
+                        el.icon = 'Rotten_Tomatoes.png'
+                        el.value = el.Value
+                        el.base = ''
+                        break
+                    case 'Metacritic':
+                        el.icon = 'Metacritic.png'
+                        const tmpM = el.Value.split('/')
+                        el.value = tmpM[0]
+                        el.base = tmpM[1]
+                        break
+                }
+                return el
+            })
+        }
+
+        // 電影卡司
+        const res_cast = await $axios.get(`movie/${id.value}/credits`)
+        data.cast = res_cast.data.cast
+            .slice(0, 20)
+            .filter(el => el.profile_path)
+
+        // 預告片
+        const res_video = await $axios.get(`movie/${id.value}/videos`)
+        data.trailer = res_video.data.results.find(el => el.site === 'YouTube')
+
+        // 相關影片
+        const res_similar = await $axios.get(`movie/${id.value}/similar?page=1`)
+        data.similar = res_similar.data.results.splice(0, 8)
+
+        isLoading.value = false
+    } catch {
+        isLoading.value = false
+        isError.value = true
     }
-
-    // 電影卡司
-    const res_cast = await $axios.get(`movie/${id.value}/credits`)
-    data.cast = res_cast.data.cast.slice(0, 20).filter(el => el.profile_path)
-
-    // 預告片
-    const res_video = await $axios.get(`movie/${id.value}/videos`)
-    data.trailer = res_video.data.results.find(el => el.site === 'YouTube')
-
-    // 相關影片
-    const res_similar = await $axios.get(`movie/${id.value}/similar?page=1`)
-    data.similar = res_similar.data.results.splice(0, 8)
-
-    isLoading.value = false
 }
 
 function reset() {
@@ -298,6 +310,12 @@ function reset() {
     rate.value = 0
     runTime.value = ''
     moreCast.value = false
+    isError.value = false
+    data.info = null
+    data.ratings = null
+    data.cast = null
+    data.trailer = null
+    data.similar = null
 }
 
 function toFixed(val) {
@@ -309,8 +327,8 @@ onBeforeMount(async () => {
 })
 
 watch(id, () => {
-    isLoading.value = true
     if (route.path.replace(/\//g, '').toLowerCase() !== 'movie') return // go(-1) 會觸發，所以不是 movie 頁面 return
+    reset()
     getMovie()
     if (infoRef.value) {
         infoRef.value.scrollTo(0, 0)

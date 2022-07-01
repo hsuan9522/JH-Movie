@@ -11,6 +11,7 @@ import {
     Loading,
     List,
     Lazyload,
+    Empty,
     Image as VanImage,
 } from 'vant'
 
@@ -39,5 +40,6 @@ app.use(Circle)
     .use(List)
     .use(VanImage)
     .use(Lazyload)
+    .use(Empty)
 
 app.use(router).mount('#app')
