@@ -24,8 +24,11 @@
         <div class="info hide-scrollbar" v-if="data.info" ref="infoRef">
             <!-- title -->
             <div class="text-3xl font-bold">{{ data.info.title }}</div>
+            <div class="text-sm font-medium">
+                {{ data.info.original_title }}
+            </div>
             <!-- runtime & date -->
-            <div class="pl-0.5">
+            <div class="pl-0.5 mt-3 font-sans">
                 {{ data.info.release_date.replace(/-/g, '/') }} · {{ runTime }}
             </div>
             <!-- genres -->
@@ -149,8 +152,8 @@
                     <div
                         v-for="item in data.similar"
                         :key="`similar-${item.id}`"
-                        class="cursor-pointer"
-                        @click="$router.push(`/movie?id=${item.id}`)"
+                        class="movie-block"
+                        @click="$router.replace(`/movie?id=${item.id}`)"
                     >
                         <div class="poster">
                             <van-image
@@ -161,7 +164,12 @@
                             />
                             <div class="poster__bottom"></div>
                         </div>
-                        <div class="text-xs">{{ item.title }}</div>
+                        <div class="text-xs mt-1">
+                            {{ item.title }}
+                            <span class="ml-2 font-semibold text-yellow-500">
+                                {{ toFixed(item.vote_average) }}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -291,6 +299,10 @@ function reset() {
     runTime.value = ''
     moreCast.value = false
 }
+
+function toFixed(val) {
+    return val.toFixed(1)
+}
 onBeforeMount(async () => {
     reset()
     getMovie()
@@ -328,7 +340,7 @@ watch(id, () => {
 
 .tag {
     @apply text-sm text-stone-300;
-    @apply px-2.5 py-0.5 ml-1;
+    @apply px-2.5 py-0.5 mr-1.5;
     @apply rounded-md bg-gray-300 bg-opacity-20;
 }
 .line {
@@ -344,9 +356,14 @@ watch(id, () => {
         @apply absolute top-0 left-0 w-full h-full;
     }
 }
+.movie-block {
+    @apply cursor-pointer;
+    width: 150px;
+}
 .poster {
     @apply overflow-hidden relative;
     width: 150px;
+
     height: 214px;
     img {
         @apply w-full h-full;
