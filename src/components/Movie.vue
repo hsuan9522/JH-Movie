@@ -84,20 +84,31 @@
             <!-- desc -->
             <div class="mt-4 w-full lg:w-1/2">
                 <span class="text-stone-400 font-medium"> 描述： </span>
-                <span>{{ data.info.overview }}</span>
+                <span>{{ data.info.overview || '-' }}</span>
             </div>
             <!-- cast -->
             <div class="mt-5" v-if="data.cast">
-                <div class="text-stone-400 font-medium mb-2">主演：</div>
-                <div class="flex flex-wrap gap-y-2 items-center">
+                <div class="text-stone-400 font-medium mb-2">
+                    主演：
+                    <span v-if="data.cast.length === 0" class="text-white">
+                        -
+                    </span>
+                </div>
+                <div
+                    v-if="data.cast.length > 0"
+                    class="flex flex-wrap gap-y-2 items-center"
+                >
                     <div
                         v-for="item in data.cast.slice(0, 6)"
                         :key="'cast' + item.id"
                     >
                         <div class="avator">
-                            <img
+                            <van-image
+                                width="100%"
+                                height="100%"
+                                fit="cover"
+                                lazy-load
                                 :src="`${IMAGE_URL}w185${item.profile_path}`"
-                                :alt="item.name"
                             />
                         </div>
                         <!-- <div class="text-xs">{{item.name}}</div> -->
@@ -142,9 +153,11 @@
                         @click="$router.push(`/movie?id=${item.id}`)"
                     >
                         <div class="poster">
-                            <img
+                            <van-image
+                                width="100%"
+                                height="100%"
+                                lazy-load
                                 :src="`${IMAGE_URL}w185${item.poster_path}`"
-                                :alt="item.title"
                             />
                             <div class="poster__bottom"></div>
                         </div>
@@ -228,31 +241,33 @@ async function getMovie() {
     backgroundImage.value = `url(${IMAGE_URL}w1280${data.info.backdrop_path})`
     // tmdb 時長抓不到，所以打 omdb 拿時間和其他評分
     const imdbId = data.info.imdb_id
-    const omdb = await $omdb.get(`?i=${imdbId}`)
-    runTime.value = omdb.data.Runtime
-    data.ratings = omdb.data.Ratings.map(el => {
-        const path = '@/assets/images/'
-        switch (el.Source) {
-            case 'Internet Movie Database':
-                el.icon = 'IMDb.png'
-                const tmpI = el.Value.split('/')
-                el.value = tmpI[0]
-                el.base = tmpI[1]
-                break
-            case 'Rotten Tomatoes':
-                el.icon = 'Rotten_Tomatoes.png'
-                el.value = el.Value
-                el.base = ''
-                break
-            case 'Metacritic':
-                el.icon = 'Metacritic.png'
-                const tmpM = el.Value.split('/')
-                el.value = tmpM[0]
-                el.base = tmpM[1]
-                break
-        }
-        return el
-    })
+    if (imdbId) {
+        const omdb = await $omdb.get(`?i=${imdbId}`)
+        runTime.value = omdb.data.Runtime
+        data.ratings = omdb.data.Ratings?.map(el => {
+            const path = '@/assets/images/'
+            switch (el.Source) {
+                case 'Internet Movie Database':
+                    el.icon = 'IMDb.png'
+                    const tmpI = el.Value.split('/')
+                    el.value = tmpI[0]
+                    el.base = tmpI[1]
+                    break
+                case 'Rotten Tomatoes':
+                    el.icon = 'Rotten_Tomatoes.png'
+                    el.value = el.Value
+                    el.base = ''
+                    break
+                case 'Metacritic':
+                    el.icon = 'Metacritic.png'
+                    const tmpM = el.Value.split('/')
+                    el.value = tmpM[0]
+                    el.base = tmpM[1]
+                    break
+            }
+            return el
+        })
+    }
 
     // 電影卡司
     const res_cast = await $axios.get(`movie/${id.value}/credits`)
@@ -286,7 +301,7 @@ watch(id, () => {
     if (route.path.replace(/\//g, '').toLowerCase() !== 'movie') return // go(-1) 會觸發，所以不是 movie 頁面 return
     getMovie()
     if (infoRef.value) {
-        infoRefinfoRef.value.scrollTo(0, 0)
+        infoRef.value.scrollTo(0, 0)
     }
 })
 </script>
@@ -300,8 +315,7 @@ watch(id, () => {
 .avator {
     @apply w-16 h-16 rounded-full overflow-hidden;
     @apply mx-2;
-    img {
-        @apply w-full h-full object-cover;
+    ::v-deep img {
         object-position: 50% 30%;
     }
 }
