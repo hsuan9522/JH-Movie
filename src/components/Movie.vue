@@ -147,6 +147,19 @@
                     ></iframe>
                 </div>
             </div>
+            <!-- series -->
+            <div class="series mt-8 rounded-xl overflow-hidden">
+                <van-image
+                    height="100%"
+                    lazy-load
+                    :src="`${IMAGE_URL}w780${data.info.belongs_to_collection.backdrop_path}`"
+                />
+                <van-image
+                    height="100%"
+                    lazy-load
+                    :src="`${IMAGE_URL}w185${data.info.belongs_to_collection.poster_path}`"
+                />
+            </div>
             <!-- similar -->
             <div v-if="data.similar" class="mt-10">
                 <div class="text-stone-400 font-medium mb-2">相似電影：</div>
@@ -454,5 +467,8 @@ watch(id, () => {
     box-shadow: 0px 1px 7px #494949;
     min-width: 500px;
     max-height: 600px;
+}
+.series {
+    height: 280px;
 }
 </style>

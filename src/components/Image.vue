@@ -20,13 +20,13 @@ watchEffect(async () => {
         case '.jpg':
             image.value = (
                 await import(
-                    /* @vite-ignore */ `../assets/images/${imageName}.jpg`
+                    /* @vite-ignore */ `/images/${imageName}.jpg`
                 )
             ).default
         case '.png':
             image.value = (
                 await import(
-                    /* @vite-ignore */ `../assets/images/${imageName}.png`
+                    /* @vite-ignore */ `/images/${imageName}.png`
                 )
             ).default
             break
