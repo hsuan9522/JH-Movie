@@ -336,7 +336,18 @@ function reset() {
 function toFixed(val) {
     return val.toFixed(1)
 }
+
+function preloadImage() {
+    // 沒先 preload 的話 github page 不知道為什麼會吃不到
+    const image_IMDB = new Image()
+    const image_Metacritic = new Image()
+    const image_Tomatoes = new Image()
+    image_IMDB.src = '/images/IMDB.png'
+    image_Metacritic.src = '/images/Metacritic.png'
+    image_Tomatoes.src = '/images/Rotten_Tomatoes.png'
+}
 onBeforeMount(async () => {
+    preloadImage()
     reset()
     getMovie()
 })
