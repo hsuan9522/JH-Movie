@@ -55,7 +55,7 @@
                     <div class="flex flex-col ml-2">
                         <div class="flex items-center">
                             <span class="text-lg font-semibold leading-none">
-                                {{ data.info.vote_average }}
+                                {{ data.info.vote_average.toFixed(1) }}
                             </span>
                             <span class="text-sm pl-1 leading-none"> / 10</span>
                         </div>
@@ -229,6 +229,10 @@
 </template>
 
 <script setup>
+import image_IMDB from '/images/IMDb.png'
+import image_Metacritic from '/images/Metacritic.png'
+import image_Tomatoes from '/images/Rotten_Tomatoes.png'
+
 import {
     inject,
     onBeforeMount,
@@ -337,17 +341,7 @@ function toFixed(val) {
     return val.toFixed(1)
 }
 
-function preloadImage() {
-    // 沒先 preload 的話 github page 不知道為什麼會吃不到
-    const image_IMDB = new Image()
-    const image_Metacritic = new Image()
-    const image_Tomatoes = new Image()
-    image_IMDB.src = '/images/IMDB.png'
-    image_Metacritic.src = '/images/Metacritic.png'
-    image_Tomatoes.src = '/images/Rotten_Tomatoes.png'
-}
 onBeforeMount(async () => {
-    preloadImage()
     reset()
     getMovie()
 })
