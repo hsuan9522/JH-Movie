@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col p-8 h-full bg-gray-500 text-white">
         <div class="flex items-center">
-            <Image path="logo.png" css="w-12 h-12" />
+            <img src="/images/logo.png" class="w-12 h-12"/>
             <div class="line"></div>
             <div class="type">
                 <div

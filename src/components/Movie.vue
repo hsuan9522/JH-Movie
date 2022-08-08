@@ -72,7 +72,9 @@
                         :key="item.Source"
                         class="flex items-center mr-4"
                     >
-                        <Image :path="item.icon" :css="'icon'" />
+                        <img :src="`/images/${item.icon}`" class="icon" />
+                        <!-- 下面的方法 github page 還是吃不到 -->
+                        <!-- <Image :path="item.icon" :css="'icon'" /> -->
                         <div class="flex items-center">
                             <span class="text-lg font-semibold leading-none">
                                 {{ item.value }}
