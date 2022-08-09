@@ -7,7 +7,7 @@ TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
 
 VERSION=(${TAG//./ })
 MINOR_VERSION=${VERSION[2]}
-MINOR_VERSION=$((MINIOR_VERSION+1))
+MINOR_VERSION=$((MINOR_VERSION+1))
 
 sed -i '' -e "s/{VERSION}/${VERSION[0]}.${VERSION[1]}.$MINOR_VERSION/g" $BASE/src/components/Home.vue
 
@@ -31,3 +31,4 @@ git commit -m 'deploy'
 git push -f git@github.com:hsuan9522/JH-Movie.git master:gh-pages
 
 cd -
+git checkout .
