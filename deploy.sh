@@ -6,10 +6,10 @@ set -e
 TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
 
 VERSION=(${TAG//./ })
-MINIOR_VERSION=${VERSION[2]}
-MINIOR_VERSION=$((MINIOR_VERSION+1))
+MINOR_VERSION=${VERSION[2]}
+MINOR_VERSION=$((MINIOR_VERSION+1))
 
-sed -i '' -e "s/{VERSION}/${VERSION[0]}.${VERSION[1]}.$MINIOR_VERSION/g" $BASE/src/components/Home.vue
+sed -i '' -e "s/{VERSION}/${VERSION[0]}.${VERSION[1]}.$MINOR_VERSION/g" $BASE/src/components/Home.vue
 
 # build
 npm run build

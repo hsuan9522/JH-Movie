@@ -91,7 +91,7 @@
             </van-list>
         </div>
     </div>
-    <div class="version">v1.0.MINIOR_VERSION$</div>
+    <div class="version">{VERSION}</div>
 </template>
 
 <script setup>
