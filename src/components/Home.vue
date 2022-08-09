@@ -91,6 +91,7 @@
             </van-list>
         </div>
     </div>
+    <div class="version">v1.0.MINIOR_VERSION$</div>
 </template>
 
 <script setup>
@@ -231,5 +232,9 @@ onBeforeMount(async () => {
             color: #ebd489;
         }
     }
+}
+
+.version {
+    @apply absolute bottom-2 right-2 text-white text-opacity-20 text-xs;
 }
 </style>
