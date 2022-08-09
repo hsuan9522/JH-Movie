@@ -3,6 +3,9 @@ export BASE=$(cd $(dirname $0) && pwd -P)
 
 # abort on errors
 set -e
+
+git fetch
+
 TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
 
 VERSION=(${TAG//./ })
