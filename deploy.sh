@@ -14,6 +14,7 @@ MINOR_VERSION=$((MINOR_VERSION+1))
 
 sed -i '' -e "s/{VERSION}/${VERSION[0]}.${VERSION[1]}.$MINOR_VERSION/g" $BASE/src/components/Home.vue
 
+echo 🏷️ ${VERSION[0]}.${VERSION[1]}.$MINOR_VERSION
 # build
 npm run build
 
