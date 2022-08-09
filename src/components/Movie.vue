@@ -72,7 +72,7 @@
                         :key="item.Source"
                         class="flex items-center mr-4"
                     >
-                        <img :src="`/images/${item.icon}`" class="icon" />
+                        <img :src="item.icon" class="icon" />
                         <!-- 下面的方法 github page 還是吃不到 -->
                         <!-- <Image :path="item.icon" :css="'icon'" /> -->
                         <div class="flex items-center">
@@ -150,7 +150,7 @@
                 </div>
             </div>
             <!-- series -->
-            <div class="series mt-8 rounded-xl overflow-hidden">
+            <!-- <div class="series mt-8 rounded-xl overflow-hidden">
                 <van-image
                     height="100%"
                     lazy-load
@@ -161,7 +161,7 @@
                     lazy-load
                     :src="`${IMAGE_URL}w185${data.info.belongs_to_collection.poster_path}`"
                 />
-            </div>
+            </div> -->
             <!-- similar -->
             <div v-if="data.similar" class="mt-10">
                 <div class="text-stone-400 font-medium mb-2">相似電影：</div>
@@ -281,18 +281,18 @@ async function getMovie() {
                 const path = '@/assets/images/'
                 switch (el.Source) {
                     case 'Internet Movie Database':
-                        el.icon = 'IMDb.png'
+                        el.icon = image_IMDB//'IMDb.png'
                         const tmpI = el.Value.split('/')
                         el.value = tmpI[0]
                         el.base = tmpI[1]
                         break
                     case 'Rotten Tomatoes':
-                        el.icon = 'Rotten_Tomatoes.png'
+                        el.icon = image_Tomatoes//'Rotten_Tomatoes.png'
                         el.value = el.Value
                         el.base = ''
                         break
                     case 'Metacritic':
-                        el.icon = 'Metacritic.png'
+                        el.icon = image_Metacritic//'Metacritic.png'
                         const tmpM = el.Value.split('/')
                         el.value = tmpM[0]
                         el.base = tmpM[1]
