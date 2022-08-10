@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col p-8 h-full bg-gray-500 text-white">
         <div class="flex items-center">
-            <img src="/images/logo.png" class="w-12 h-12"/>
+            <img src="/images/logo.png" class="w-12 h-12" />
             <div class="line"></div>
             <div class="type">
                 <div
@@ -11,7 +11,7 @@
                         'type__label-active': item.key === data.selected,
                     }"
                     class="type__label"
-                    @click="selectType(item.key)"
+                    @click="selectType(item)"
                 >
                     <span>{{ item.label }}</span>
                 </div>
@@ -35,7 +35,7 @@
                         :key="item.id"
                         ref="itemRefs"
                         class="movie"
-                        @click="$router.push(`/movie?id=${item.id}`)"
+                        @click="$router.push(`/${data.nowType}?id=${item.id}`)"
                     >
                         <div class="poster">
                             <img :src="`${IMAGE_URL}w342${item.poster_path}`" />
@@ -43,10 +43,15 @@
 
                         <div class="detail">
                             <div class="font-semibold w-4/5">
-                                {{ item.title }}
+                                <!-- 電影名字 title, 電視劇名字 name -->
+                                {{ item.title || item.name }}
                             </div>
                             <div class="flex text-stone-400">
-                                {{ item.release_date }}
+                                <!-- 電影上映日 release_date, 電視劇首播 first_air_date -->
+                                {{
+                                    item.release_date ||
+                                    item.first_air_date.split('-')[0]
+                                }}
                             </div>
                             <div class="absolute right-2 bottom-2">
                                 <van-circle
@@ -111,13 +116,14 @@ const router = useRouter()
 const route = useRoute()
 
 const data = reactive({
+    nowType: 'movie',
     selected: 'popular',
     movies: [],
     type: [
-        { label: '熱門', id: 1, key: 'popular' },
-        // { label: '最新', id: 2, key: 'latest' },
-        { label: '現正熱映', id: 3, key: 'now_playing' },
-        { label: '即將上映', id: 4, key: 'upcoming' },
+        { label: '熱門電影', id: 1, key: 'popular', type: 'movie' },
+        { label: '現正熱映', id: 3, key: 'now_playing', type: 'movie' },
+        { label: '即將上映', id: 4, key: 'upcoming', type: 'movie' },
+        // { label: '電視劇', id: 5, key: 'tv_popular', type: 'tv' }, // 正在寫
     ],
 })
 
@@ -133,11 +139,24 @@ function onLoad() {
         return
     }
     loading.value = false
-    getMovieList()
+
+    getData()
+}
+
+function getData() {
+    switch (data.nowType) {
+        case 'movie':
+            getMovieList()
+            break
+        case 'tv':
+            getTVList()
+            break
+    }
 }
 
 function reset() {
     data.selected = 'popular'
+    data.nowType = 'movie'
     data.movies = []
     currentRate.value = []
     page.value = 1
@@ -158,11 +177,23 @@ async function getMovieList() {
     page.value++
 }
 
-function selectType(val) {
+async function getTVList() {
+    const key = data.selected.replace(/tv_/, '')
+    const res = await $axios.get(`/tv/${key}?page=${page.value}&region=TW`)
+    data.movies = data.movies.concat(res.data.results)
+    data.movies.forEach(el => currentRate.value.push(0))
+    if (page.value === 1) {
+        totalPages.value = res.data.total_pages
+    }
+    page.value++
+}
+
+function selectType(item) {
     reset()
-    data.selected = val
-    router.push(`?t=${val}`)
-    getMovieList()
+    data.selected = item.key
+    data.nowType = item.type
+    router.push(`?t=${item.key}`)
+    getData()
 }
 
 function getColor(val) {
@@ -181,7 +212,10 @@ function getColor(val) {
 onBeforeMount(async () => {
     await router.isReady()
     data.selected = route.query.t ? route.query.t : data.selected
-    getMovieList()
+    const regex = new RegExp(/tv_(.*)/)
+    const tv = regex.test(data.selected)
+    data.nowType = tv ? 'tv' : 'movie'
+    getData()
 })
 </script>
 

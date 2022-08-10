@@ -18,6 +18,11 @@ const pathName = computed(() => {
                 <Movie />
             </div>
         </transition>
+        <transition name="van-slide-right">
+            <div v-if="pathName === 'tv'" class="absolute top-0 h-screen w-full overflow-hidden">
+                <TV />
+            </div>
+        </transition>
     </div>
 
     <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
