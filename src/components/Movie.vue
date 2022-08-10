@@ -165,27 +165,32 @@
                 </div>
                 <div class="series-name">{{ data.series.name }}</div>
                 <div class="series-movies hide-scrollbar">
-                    <div
-                        v-for="item in data.series.parts"
-                        :key="`series-${item.id}`"
-                        class="movie-block flex-shrink-0"
-                        @click="$router.replace(`/movie?id=${item.id}`)"
-                    >
-                        <div class="poster">
-                            <van-image
-                                width="100%"
-                                height="100%"
-                                lazy-load
-                                :src="`${IMAGE_URL}w185${item.poster_path}`"
-                            />
+                    <template v-for="item in data.series.parts">
+                        <!-- 沒有 poster 就不要顯示了 -->
+                        <div
+                            v-if="item.poster_path"
+                            :key="`series-${item.id}`"
+                            class="movie-block flex-shrink-0"
+                            @click="$router.replace(`/movie?id=${item.id}`)"
+                        >
+                            <div class="poster">
+                                <van-image
+                                    width="100%"
+                                    height="100%"
+                                    lazy-load
+                                    :src="`${IMAGE_URL}w185${item.poster_path}`"
+                                />
+                            </div>
+                            <div class="text-xs mt-1">
+                                {{ item.title }}
+                                <span
+                                    class="ml-2 font-semibold text-yellow-500"
+                                >
+                                    {{ toFixed(item.vote_average) }}
+                                </span>
+                            </div>
                         </div>
-                        <div class="text-xs mt-1">
-                            {{ item.title }}
-                            <span class="ml-2 font-semibold text-yellow-500">
-                                {{ toFixed(item.vote_average) }}
-                            </span>
-                        </div>
-                    </div>
+                    </template>
                 </div>
                 <div class="series-right-mask"></div>
                 <div class="series-left-mask"></div>
