@@ -150,18 +150,46 @@
                 </div>
             </div>
             <!-- series -->
-            <!-- <div class="series mt-8 rounded-xl overflow-hidden">
-                <van-image
-                    height="100%"
-                    lazy-load
-                    :src="`${IMAGE_URL}w780${data.info.belongs_to_collection.backdrop_path}`"
-                />
-                <van-image
-                    height="100%"
-                    lazy-load
-                    :src="`${IMAGE_URL}w185${data.info.belongs_to_collection.poster_path}`"
-                />
-            </div> -->
+            <div v-if="data.series" class="series">
+                <div class="relative w-full h-full">
+                    <van-image
+                        v-if="data.series.backdrop_path"
+                        width="100%"
+                        height="100%"
+                        position="left top"
+                        fit="cover"
+                        lazy-load
+                        :src="`${IMAGE_URL}w780${data.series.backdrop_path}`"
+                    />
+                    <div class="series-mask"></div>
+                </div>
+                <div class="series-name">{{ data.series.name }}</div>
+                <div class="series-movies hide-scrollbar">
+                    <div
+                        v-for="item in data.series.parts"
+                        :key="`series-${item.id}`"
+                        class="movie-block flex-shrink-0"
+                        @click="$router.replace(`/movie?id=${item.id}`)"
+                    >
+                        <div class="poster">
+                            <van-image
+                                width="100%"
+                                height="100%"
+                                lazy-load
+                                :src="`${IMAGE_URL}w185${item.poster_path}`"
+                            />
+                        </div>
+                        <div class="text-xs mt-1">
+                            {{ item.title }}
+                            <span class="ml-2 font-semibold text-yellow-500">
+                                {{ toFixed(item.vote_average) }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="series-right-mask"></div>
+                <div class="series-left-mask"></div>
+            </div>
             <!-- similar -->
             <div v-if="data.similar" class="mt-10">
                 <div class="text-stone-400 font-medium mb-2">相似電影：</div>
@@ -253,6 +281,7 @@ const data = reactive({
     cast: null,
     trailer: null,
     similar: null,
+    series: null,
 })
 const isError = ref(false)
 const isLoading = ref(true)
@@ -281,18 +310,18 @@ async function getMovie() {
                 const path = '@/assets/images/'
                 switch (el.Source) {
                     case 'Internet Movie Database':
-                        el.icon = image_IMDB//'IMDb.png'
+                        el.icon = image_IMDB //'IMDb.png'
                         const tmpI = el.Value.split('/')
                         el.value = tmpI[0]
                         el.base = tmpI[1]
                         break
                     case 'Rotten Tomatoes':
-                        el.icon = image_Tomatoes//'Rotten_Tomatoes.png'
+                        el.icon = image_Tomatoes //'Rotten_Tomatoes.png'
                         el.value = el.Value
                         el.base = ''
                         break
                     case 'Metacritic':
-                        el.icon = image_Metacritic//'Metacritic.png'
+                        el.icon = image_Metacritic //'Metacritic.png'
                         const tmpM = el.Value.split('/')
                         el.value = tmpM[0]
                         el.base = tmpM[1]
@@ -316,8 +345,16 @@ async function getMovie() {
         const res_similar = await $axios.get(`movie/${id.value}/similar?page=1`)
         data.similar = res_similar.data.results.splice(0, 8)
 
+        const seriesId = data.info.belongs_to_collection?.id
+        if (seriesId) {
+            // 系列電影
+            const res_series = await $axios.get(`collection/${seriesId}`)
+            data.series = res_series.data
+        }
+
         isLoading.value = false
-    } catch {
+    } catch (err) {
+        console.log(err)
         isLoading.value = false
         isError.value = true
     }
@@ -335,6 +372,7 @@ function reset() {
     data.cast = null
     data.trailer = null
     data.similar = null
+    data.series = null
 }
 
 function toFixed(val) {
@@ -401,7 +439,6 @@ watch(id, () => {
 .poster {
     @apply overflow-hidden relative;
     width: 150px;
-
     height: 214px;
     img {
         @apply w-full h-full;
@@ -476,6 +513,52 @@ watch(id, () => {
     max-height: 600px;
 }
 .series {
-    height: 280px;
+    @apply relative w-full;
+    @apply mt-8 rounded-xl overflow-hidden;
+    height: 400px;
+    .movie-block {
+        width: 173px;
+    }
+    .poster {
+        height: 260px;
+        width: 100%;
+    }
+
+    .series-mask {
+        @apply absolute bottom-0 w-full h-full;
+        background: rgba(26, 17, 5, 0.85);
+    }
+
+    .series-movies {
+        @apply absolute top-1/2;
+        @apply flex justify-start items-start gap-x-5 overflow-x-auto;
+        @apply w-full pl-28 pr-16 pt-2;
+        transform: translateY(-48%);
+    }
+    .series-name {
+        @apply absolute top-0 h-full text-center px-9 py-4 text-lg font-medium;
+        @apply overflow-hidden whitespace-nowrap;
+        z-index: 1;
+        writing-mode: vertical-lr;
+        background: rgba(19, 12, 3, 0.9);
+        text-overflow: ellipsis;
+    }
+
+    .series-right-mask {
+        @apply absolute right-0 bottom-0 w-40 h-full;
+        background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(11, 10, 9, 1) 80%
+        );
+    }
+    .series-left-mask {
+        @apply absolute left-0 bottom-0 w-36 h-full;
+        background: linear-gradient(
+            90deg,
+            rgba(11, 10, 9, 1) 20%,
+            rgba(255, 255, 255, 0) 80%
+        );
+    }
 }
 </style>
