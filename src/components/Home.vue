@@ -1,20 +1,35 @@
 <template>
     <div class="flex flex-col p-8 h-full bg-gray-500 text-white">
-        <div class="flex items-center">
-            <img src="/images/logo.png" class="w-12 h-12" />
-            <div class="line"></div>
-            <div class="type">
-                <div
-                    v-for="item in data.type"
-                    :key="`type-${item.id}`"
-                    :class="{
-                        'type__label-active': item.key === data.selected,
-                    }"
-                    class="type__label"
-                    @click="selectType(item)"
-                >
-                    <span>{{ item.label }}</span>
+        <div
+            class="flex items-center justify-between flex-wrap sm:flex-initial"
+        >
+            <div class="flex items-center">
+                <img src="/images/logo.png" class="w-12 h-12" />
+                <div class="line"></div>
+                <div class="type">
+                    <div
+                        v-for="item in data.type"
+                        :key="`type-${item.id}`"
+                        :class="{
+                            'type__label-active': item.key === data.selected,
+                        }"
+                        class="type__label"
+                        @click="selectType(item)"
+                    >
+                        <span>{{ item.label }}</span>
+                    </div>
                 </div>
+            </div>
+            <div class="search">
+                <van-search
+                    v-model="search"
+                    placeholder="Search"
+                    shape="round"
+                    background="#121319"
+                    @search="onSearch"
+                    @click-left-icon="onSearch(search)"
+                    @clear="onClear"
+                />
             </div>
         </div>
         <div class="h-full w-full overflow-y-auto hide-scrollbar mt-10">
@@ -35,22 +50,35 @@
                         :key="item.id"
                         ref="itemRefs"
                         class="movie"
-                        @click="$router.push(`/${data.nowType}?id=${item.id}`)"
+                        @click="
+                            $router.push(`/${item.media_type}?id=${item.id}`)
+                        "
                     >
                         <div class="poster">
-                            <img :src="`${IMAGE_URL}w342${item.poster_path}`" />
+                            <van-image
+                                width="100%"
+                                height="100%"
+                                lazy-load
+                                :src="`${IMAGE_URL}w342${item.poster_path}`"
+                            />
+                            <!-- <img  /> -->
                         </div>
 
                         <div class="detail">
                             <div class="font-semibold w-4/5">
                                 <!-- 電影名字 title, 電視劇名字 name -->
-                                {{ item.title || item.name }}
+                                {{
+                                    item.media_type === 'movie'
+                                        ? item.title
+                                        : item.name
+                                }}
                             </div>
                             <div class="flex text-stone-400">
                                 <!-- 電影上映日 release_date, 電視劇首播 first_air_date -->
                                 {{
-                                    item.release_date ||
-                                    item.first_air_date.split('-')[0]
+                                    item.media_type === 'movie'
+                                        ? item.release_date
+                                        : item.first_air_date?.split('-')[0]
                                 }}
                             </div>
                             <div class="absolute right-2 bottom-2">
@@ -132,8 +160,10 @@ const page = ref(1)
 const totalPages = ref(1)
 const loading = ref(false)
 const finished = ref(false)
+const search = ref('')
 
 function onLoad() {
+    console.log('onLoad')
     if (page.value > totalPages.value) {
         finished.value = true
         return
@@ -151,6 +181,8 @@ function getData() {
         case 'tv':
             getTVList()
             break
+        case 'search':
+            getSearchList(search.value)
     }
 }
 
@@ -170,7 +202,10 @@ async function getMovieList() {
         `/movie/${data.selected}?page=${page.value}&region=TW`
     )
     data.movies = data.movies.concat(res.data.results)
-    data.movies.forEach(el => currentRate.value.push(0))
+    data.movies.forEach(el => {
+        currentRate.value.push(0)
+        el.media_type = 'movie'
+    })
     if (page.value === 1) {
         totalPages.value = res.data.total_pages
     }
@@ -181,7 +216,10 @@ async function getTVList() {
     const key = data.selected.replace(/tv_/, '')
     const res = await $axios.get(`/tv/${key}?page=${page.value}&region=TW`)
     data.movies = data.movies.concat(res.data.results)
-    data.movies.forEach(el => currentRate.value.push(0))
+    data.movies.forEach(el => {
+        currentRate.value.push(0)
+        el.media_type = 'tv'
+    })
     if (page.value === 1) {
         totalPages.value = res.data.total_pages
     }
@@ -209,13 +247,43 @@ function getColor(val) {
     }
 }
 
-onBeforeMount(async () => {
+async function getSearchList(val) {
+    console.log(val)
+    if (!val) return
+    data.nowType = 'search'
+    const res = await $axios.get(`search/multi?page=${page.value}&query=${val}`)
+
+    data.movies = data.movies
+        .concat(res.data.results)
+        .filter(el => ['movie', 'tv'].includes(el.media_type))
+    data.movies.forEach(el => currentRate.value.push(0))
+    if (page.value === 1) {
+        totalPages.value = res.data.total_pages
+    }
+    page.value++
+}
+
+function onSearch(val) {
+    reset()
+    getSearchList(val)
+}
+
+function onClear(val) {
+    if (!val || data.nowType !== 'search') return
+    reset()
+    init()
+}
+
+async function init() {
     await router.isReady()
     data.selected = route.query.t ? route.query.t : data.selected
     const regex = new RegExp(/tv_(.*)/)
     const tv = regex.test(data.selected)
     data.nowType = tv ? 'tv' : 'movie'
     getData()
+}
+onBeforeMount(async () => {
+    init()
 })
 </script>
 
@@ -246,7 +314,7 @@ onBeforeMount(async () => {
 }
 
 .type {
-    @apply ml-8 flex items-end gap-x-8 font-semibold;
+    @apply ml-0 md:ml-8 flex items-end gap-x-8 font-semibold;
     &__label {
         @apply px-1;
         @apply cursor-pointer;
@@ -270,5 +338,21 @@ onBeforeMount(async () => {
 
 .version {
     @apply absolute bottom-2 right-2 text-white text-opacity-20 text-xs;
+}
+
+.search {
+    @apply w-64 ml-auto pt-4 sm:pt-0;
+    ::v-deep .van-field__left-icon {
+        @apply cursor-pointer;
+    }
+    ::v-deep .van-search__content {
+        @apply bg-black;
+    }
+    ::v-deep .van-field__control {
+        @apply text-white;
+    }
+    ::v-deep input::placeholder {
+        @apply text-gray-400 text-opacity-80;
+    }
 }
 </style>

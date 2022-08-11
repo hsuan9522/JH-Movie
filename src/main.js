@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import { tmdb, omdb } from './axios'
 import './assets/css/index.css'
-
+import '@vant/touch-emulator' // 沒有這個，vant 有些 click 不會被觸發，例如: Search 裡的 clear
 import {
     Circle,
     Icon,
@@ -12,6 +12,7 @@ import {
     List,
     Lazyload,
     Empty,
+    Search,
     Image as VanImage,
 } from 'vant'
 
@@ -41,5 +42,6 @@ app.use(Circle)
     .use(VanImage)
     .use(Lazyload)
     .use(Empty)
+    .use(Search)
 
 app.use(router).mount('#app')
