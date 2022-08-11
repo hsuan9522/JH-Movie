@@ -228,6 +228,7 @@ async function getTVList() {
 
 function selectType(item) {
     reset()
+    search.value = ''
     data.selected = item.key
     data.nowType = item.type
     router.push(`?t=${item.key}`)
@@ -248,8 +249,8 @@ function getColor(val) {
 }
 
 async function getSearchList(val) {
-    console.log(val)
     if (!val) return
+    data.selected = 'search'
     data.nowType = 'search'
     const res = await $axios.get(`search/multi?page=${page.value}&query=${val}`)
 

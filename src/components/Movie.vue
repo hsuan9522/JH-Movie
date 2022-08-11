@@ -33,7 +33,7 @@
             </div>
             <!-- runtime & date -->
             <div class="pl-0.5 mt-3 font-sans">
-                {{ data.info.release_date.replace(/-/g, '/') }} · {{ runTime }}
+                {{ data.info?.release_date.replace(/-/g, '/') }} · {{ runTime }}
             </div>
             <!-- genres -->
             <div class="flex items-center mt-4">
