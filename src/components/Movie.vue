@@ -161,10 +161,23 @@
                         lazy-load
                         :src="`${IMAGE_URL}w780${data.series.backdrop_path}`"
                     />
+                    <div
+                        class="series-arrow next"
+                        @click="scrollSeries('next')"
+                    >
+                        <van-icon name="arrow" size="28" />
+                    </div>
+                    <div
+                        v-show="seriesScrollLeft != 0"
+                        class="series-arrow prev"
+                        @click="scrollSeries('prev')"
+                    >
+                        <van-icon name="arrow-left" size="28" />
+                    </div>
                     <div class="series-mask"></div>
                 </div>
                 <div class="series-name">{{ data.series.name }}</div>
-                <div class="series-movies hide-scrollbar">
+                <div class="series-movies hide-scrollbar" ref="$series">
                     <template v-for="item in data.series.parts">
                         <!-- 沒有 poster 就不要顯示了 -->
                         <div
@@ -273,7 +286,7 @@ import {
     ref,
     computed,
     watch,
-    onMounted,
+    onUpdated
 } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -295,7 +308,9 @@ const backgroundImage = ref('url()')
 const rate = ref(0)
 const runTime = ref('')
 const moreCast = ref(false)
-
+const $series = ref(null)
+const seriesScrollLeft = ref(0)
+const seriesWidth = ref(0)
 const id = computed(() => {
     return route.query.id
 })
@@ -365,6 +380,21 @@ async function getMovie() {
     }
 }
 
+function scrollSeries(direction) {
+    const $el = $series.value
+    const moveDistance = 173 * 3 // 173 is poster width
+
+    switch (direction) {
+        case 'next':
+            $el.scrollLeft += 173 * 3
+            break
+        case 'prev':
+            $el.scrollLeft -= 173 * 3
+            break
+    }
+    seriesScrollLeft.value = $el.scrollLeft
+}
+
 function reset() {
     isLoading.value = true
     backgroundImage.value = 'url()'
@@ -387,6 +417,11 @@ function toFixed(val) {
 onBeforeMount(async () => {
     reset()
     getMovie()
+})
+
+onUpdated(()=> {
+    // 因為 series 有 v-if 的關西，會導致 ref 即便在 onMounted 也會是 undefinded
+    seriesWidth.value = $series.value?.clientWidth
 })
 
 watch(id, () => {
@@ -564,6 +599,18 @@ watch(id, () => {
             rgba(11, 10, 9, 1) 20%,
             rgba(255, 255, 255, 0) 80%
         );
+    }
+
+    .series-arrow {
+        @apply absolute top-1/2 transform -translate-y-1/2;
+        @apply mr-5 cursor-pointer;
+        z-index: 1;
+        &.next {
+            @apply right-0;
+        }
+        &.prev {
+            @apply left-28;
+        }
     }
 }
 </style>
