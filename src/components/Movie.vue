@@ -162,13 +162,18 @@
                         :src="`${IMAGE_URL}w780${data.series.backdrop_path}`"
                     />
                     <div
+                        v-show="
+                            seriesEl.scrollWidth > seriesEl.clientWidth &&
+                            seriesEl.clientWidth + seriesEl.scrollLeft !=
+                                seriesEl.scrollWidth
+                        "
                         class="series-arrow next"
                         @click="scrollSeries('next')"
                     >
                         <van-icon name="arrow" size="28" />
                     </div>
                     <div
-                        v-show="seriesScrollLeft != 0"
+                        v-show="seriesEl.scrollLeft != 0"
                         class="series-arrow prev"
                         @click="scrollSeries('prev')"
                     >
@@ -177,33 +182,35 @@
                     <div class="series-mask"></div>
                 </div>
                 <div class="series-name">{{ data.series.name }}</div>
-                <div class="series-movies hide-scrollbar" ref="$series">
-                    <template v-for="item in data.series.parts">
+                <div class="series-movies-wrapper">
+                    <div class="series-movies hide-scrollbar" ref="$series">
                         <!-- 沒有 poster 就不要顯示了 -->
-                        <div
-                            v-if="item.poster_path"
-                            :key="`series-${item.id}`"
-                            class="movie-block flex-shrink-0"
-                            @click="$router.replace(`/movie?id=${item.id}`)"
-                        >
-                            <div class="poster">
-                                <van-image
-                                    width="100%"
-                                    height="100%"
-                                    lazy-load
-                                    :src="`${IMAGE_URL}w185${item.poster_path}`"
-                                />
+                        <template v-for="item in data.series.parts">
+                            <div
+                                v-if="item.poster_path"
+                                :key="`series-${item.id}`"
+                                class="movie-block flex-shrink-0"
+                                @click="$router.replace(`/movie?id=${item.id}`)"
+                            >
+                                <div class="poster">
+                                    <van-image
+                                        width="100%"
+                                        height="100%"
+                                        lazy-load
+                                        :src="`${IMAGE_URL}w185${item.poster_path}`"
+                                    />
+                                </div>
+                                <div class="text-xs mt-1">
+                                    {{ item.title }}
+                                    <span
+                                        class="ml-2 font-semibold text-yellow-500"
+                                    >
+                                        {{ toFixed(item.vote_average) }}
+                                    </span>
+                                </div>
                             </div>
-                            <div class="text-xs mt-1">
-                                {{ item.title }}
-                                <span
-                                    class="ml-2 font-semibold text-yellow-500"
-                                >
-                                    {{ toFixed(item.vote_average) }}
-                                </span>
-                            </div>
-                        </div>
-                    </template>
+                        </template>
+                    </div>
                 </div>
                 <div class="series-right-mask"></div>
                 <div class="series-left-mask"></div>
@@ -309,8 +316,11 @@ const rate = ref(0)
 const runTime = ref('')
 const moreCast = ref(false)
 const $series = ref(null)
-const seriesScrollLeft = ref(0)
-const seriesWidth = ref(0)
+const seriesEl = reactive({
+    scrollWidth: 0,
+    clientWidth: 0,
+    scrollLeft: 0,
+})
 const id = computed(() => {
     return route.query.id
 })
@@ -386,13 +396,16 @@ function scrollSeries(direction) {
 
     switch (direction) {
         case 'next':
-            $el.scrollLeft += 173 * 3
+            $el.scrollLeft += moveDistance
             break
         case 'prev':
-            $el.scrollLeft -= 173 * 3
+            $el.scrollLeft -= moveDistance
             break
     }
-    seriesScrollLeft.value = $el.scrollLeft
+    setTimeout(() => {
+        // 應該是因為 smooth 的關西，導致他會有時間差
+        seriesEl.scrollLeft = $el.scrollLeft
+    }, 300)
 }
 
 function reset() {
@@ -419,9 +432,10 @@ onBeforeMount(async () => {
     getMovie()
 })
 
-onUpdated(()=> {
+onUpdated(() => {
     // 因為 series 有 v-if 的關西，會導致 ref 即便在 onMounted 也會是 undefinded
-    seriesWidth.value = $series.value?.clientWidth
+    seriesEl.scrollWidth = $series.value?.scrollWidth
+    seriesEl.clientWidth = $series.value?.clientWidth
 })
 
 watch(id, () => {
@@ -568,12 +582,14 @@ watch(id, () => {
         @apply absolute bottom-0 w-full h-full;
         background: rgba(26, 17, 5, 0.85);
     }
-
-    .series-movies {
-        @apply absolute top-1/2;
-        @apply flex justify-start items-start gap-x-5 overflow-x-auto;
-        @apply w-full pl-28 pr-16 pt-2;
+    .series-movies-wrapper {
+        @apply absolute top-1/2 w-full;
         transform: translateY(-48%);
+        @apply pl-28 pr-16 pt-2;
+    }
+    .series-movies {
+        @apply flex justify-start items-start gap-x-5 overflow-x-auto;
+        scroll-behavior: smooth;
     }
     .series-name {
         @apply absolute top-0 h-full text-center px-9 py-4 text-lg font-medium;
