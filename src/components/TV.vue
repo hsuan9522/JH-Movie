@@ -245,12 +245,14 @@ import {
     ref,
     computed,
     watch,
-    onMounted,
 } from 'vue'
 import { useRoute } from 'vue-router'
+import { useLoading, useError } from '@/hook'
 
-const { $axios, $filterNum, $omdb, IMAGE_URL } = inject('$global')
+const { $axios, $filterNum, IMAGE_URL } = inject('$global')
 const route = useRoute()
+const { isLoading, startLoading, finishLoading} = useLoading()
+const { isError, setError, unsetError } = useError()
 
 const data = reactive({
     info: null,
@@ -259,8 +261,6 @@ const data = reactive({
     similar: null,
     series: null,
 })
-const isError = ref(false)
-const isLoading = ref(true)
 const infoRef = ref(null)
 const backgroundImage = ref('url()')
 const rate = ref(0)
@@ -298,22 +298,21 @@ async function getTV() {
         //     const res_series = await $axios.get(`collection/${seriesId}`)
         //     data.series = res_series.data
         // }
-
-        isLoading.value = false
     } catch (err) {
         console.log(err)
-        isLoading.value = false
-        isError.value = true
+        setError()
+    } finally {
+        finishLoading()
     }
 }
 
 function reset() {
-    isLoading.value = true
+    startLoading()
+    unsetError()
     backgroundImage.value = 'url()'
     rate.value = 0
     runTime.value = ''
     moreCast.value = false
-    isError.value = false
     data.info = null
     data.cast = null
     data.trailer = null

@@ -183,7 +183,7 @@
                 </div>
                 <div class="series-name">{{ data.series.name }}</div>
                 <div class="series-movies-wrapper">
-                    <div class="series-movies hide-scrollbar" ref="$series">
+                    <div class="series-movies hide-scrollbar" ref="seriesRef">
                         <!-- 沒有 poster 就不要顯示了 -->
                         <template v-for="item in data.series.parts">
                             <div
@@ -296,9 +296,12 @@ import {
     onUpdated
 } from 'vue'
 import { useRoute } from 'vue-router'
+import { useLoading, useError } from '@/hook'
 
 const { $axios, $filterNum, $omdb, IMAGE_URL } = inject('$global')
 const route = useRoute()
+const { isLoading, startLoading, finishLoading } = useLoading();
+const { isError, setError, unsetError } = useError() 
 
 const data = reactive({
     info: null,
@@ -308,14 +311,12 @@ const data = reactive({
     similar: null,
     series: null,
 })
-const isError = ref(false)
-const isLoading = ref(true)
 const infoRef = ref(null)
 const backgroundImage = ref('url()')
 const rate = ref(0)
 const runTime = ref('')
 const moreCast = ref(false)
-const $series = ref(null)
+const seriesRef = ref(null)
 const seriesEl = reactive({
     scrollWidth: 0,
     clientWidth: 0,
@@ -382,16 +383,16 @@ async function getMovie() {
             data.series = res_series.data
         }
 
-        isLoading.value = false
     } catch (err) {
         console.log(err)
-        isLoading.value = false
-        isError.value = true
+        setError()
+    } finally {
+        finishLoading()
     }
 }
 
 function scrollSeries(direction) {
-    const $el = $series.value
+    const $el = seriesRef.value
     const moveDistance = 173 * 3 // 173 is poster width
 
     switch (direction) {
@@ -409,12 +410,12 @@ function scrollSeries(direction) {
 }
 
 function reset() {
-    isLoading.value = true
+    startLoading()
+    unsetError()
     backgroundImage.value = 'url()'
     rate.value = 0
     runTime.value = ''
     moreCast.value = false
-    isError.value = false
     data.info = null
     data.ratings = null
     data.cast = null
@@ -434,8 +435,8 @@ onBeforeMount(async () => {
 
 onUpdated(() => {
     // 因為 series 有 v-if 的關西，會導致 ref 即便在 onMounted 也會是 undefinded
-    seriesEl.scrollWidth = $series.value?.scrollWidth
-    seriesEl.clientWidth = $series.value?.clientWidth
+    seriesEl.scrollWidth = seriesRef.value?.scrollWidth
+    seriesEl.clientWidth = seriesRef.value?.clientWidth
 })
 
 watch(id, () => {
