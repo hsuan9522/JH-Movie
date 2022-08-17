@@ -1,4 +1,10 @@
 <template>
+    <div
+        v-if="isLoading"
+        class="bg-black w-full h-full flex justify-center items-center"
+    >
+        <van-loading size="40" />
+    </div>
     <div class="flex flex-col p-8 h-full bg-gray-500 text-white">
         <div
             class="flex items-center justify-between flex-wrap sm:flex-initial"
@@ -8,10 +14,10 @@
                 <div class="line"></div>
                 <div class="type">
                     <div
-                        v-for="item in data.type"
+                        v-for="item in menu"
                         :key="`type-${item.id}`"
                         :class="{
-                            'type__label-active': item.key === data.selected,
+                            'type__label-active': item.key === current.key,
                         }"
                         class="type__label"
                         @click="selectType(item)"
@@ -22,17 +28,20 @@
             </div>
             <div class="search">
                 <van-search
-                    v-model="search"
+                    v-model="current.search"
                     placeholder="Search"
                     shape="round"
                     background="#121319"
                     @search="onSearch"
-                    @click-left-icon="onSearch(search)"
+                    @click-left-icon="onSearch(current.search)"
                     @clear="onClear"
                 />
             </div>
         </div>
-        <div class="h-full w-full overflow-y-auto hide-scrollbar mt-10">
+        <div
+            v-if="filmTv.list.length > 0"
+            class="h-full w-full overflow-y-auto hide-scrollbar mt-10"
+        >
             <van-list
                 v-model:loading="loading"
                 :finished="finished"
@@ -43,10 +52,9 @@
             >
                 <div
                     class="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 justify-items-center gap-y-10 pb-3"
-                    v-if="data.movies.length > 0"
                 >
                     <div
-                        v-for="(item, index) in data.movies"
+                        v-for="(item, index) in filmTv.list"
                         :key="item.id"
                         ref="itemRefs"
                         class="movie"
@@ -83,7 +91,7 @@
                             </div>
                             <div class="absolute right-2 bottom-2">
                                 <van-circle
-                                    v-model:current-rate="currentRate[index]"
+                                    v-model:current-rate="filmTv.rates[index]"
                                     :rate="
                                         item.vote_average
                                             ? item.vote_average * 10
@@ -123,48 +131,53 @@
                 </div>
             </van-list>
         </div>
+        <div v-else class="flex items-center justify-center h-full" :data="``">
+            <van-empty
+                image="search"
+                :description="`\'${searchTmp}'，找不到哇`"
+            />
+        </div>
     </div>
     <div class="version">{VERSION}</div>
 </template>
 
 <script setup>
-import {
-    reactive,
-    inject,
-    ref,
-    onBeforeMount,
-    computed,
-    watch,
-    watchEffect,
-    onMounted,
-} from 'vue'
+import { reactive, inject, ref, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useLoading } from '@/hook'
 const { $axios, IMAGE_URL } = inject('$global')
 const router = useRouter()
 const route = useRoute()
+const { isLoading, startLoading, finishLoading } = useLoading()
 
-const data = reactive({
-    nowType: 'movie',
-    selected: 'popular',
-    movies: [],
-    type: [
-        { label: '熱門電影', id: 1, key: 'popular', type: 'movie' },
-        { label: '現正熱映', id: 3, key: 'now_playing', type: 'movie' },
-        { label: '即將上映', id: 4, key: 'upcoming', type: 'movie' },
-        // { label: '電視劇', id: 5, key: 'tv_popular', type: 'tv' }, // 正在寫
-    ],
-})
+const initFilmTv = {
+    list: [],
+    rates: [],
+    page: 1,
+    totalPages: 1,
+}
+const initCurrent = {
+    type: 'movie',
+    key: 'popular',
+    search: '',
+    searchTmp: '',
+}
 
-const currentRate = ref([])
-const page = ref(1)
-const totalPages = ref(1)
+const filmTv = reactive({ ...initFilmTv })
+const current = reactive({ ...initCurrent })
+
+const menu = ref([
+    { label: '熱門電影', id: 1, key: 'popular', type: 'movie' },
+    { label: '現正熱映', id: 3, key: 'now_playing', type: 'movie' },
+    { label: '即將上映', id: 4, key: 'upcoming', type: 'movie' },
+    // { label: '電視劇', id: 5, key: 'tv_popular', type: 'tv' }, // 正在寫
+])
+
 const loading = ref(false)
 const finished = ref(false)
-const search = ref('')
 
 function onLoad() {
-    console.log('onLoad')
-    if (page.value > totalPages.value) {
+    if (filmTv.page > filmTv.totalPages) {
         finished.value = true
         return
     }
@@ -174,7 +187,10 @@ function onLoad() {
 }
 
 function getData() {
-    switch (data.nowType) {
+    if (filmTv.page === 1) {
+        startLoading() // 因為是全屏，首次有 loading 就好
+    }
+    switch (current.type) {
         case 'movie':
             getMovieList()
             break
@@ -182,57 +198,73 @@ function getData() {
             getTVList()
             break
         case 'search':
-            getSearchList(search.value)
+            getSearchList(current.search)
     }
-}
-
-function reset() {
-    data.selected = 'popular'
-    data.nowType = 'movie'
-    data.movies = []
-    currentRate.value = []
-    page.value = 1
-    totalPages.value = 1
-    loading.value = false
-    finished.value = false
 }
 
 async function getMovieList() {
     const res = await $axios.get(
-        `/movie/${data.selected}?page=${page.value}&region=TW`
+        `/movie/${current.key}?page=${filmTv.page}&region=TW`
     )
-    data.movies = data.movies.concat(res.data.results)
-    data.movies.forEach(el => {
-        currentRate.value.push(0)
-        el.media_type = 'movie'
-    })
-    if (page.value === 1) {
-        totalPages.value = res.data.total_pages
-    }
-    page.value++
+    setMoviesData(res.data, 'movie')
 }
 
 async function getTVList() {
-    const key = data.selected.replace(/tv_/, '')
-    const res = await $axios.get(`/tv/${key}?page=${page.value}&region=TW`)
-    data.movies = data.movies.concat(res.data.results)
-    data.movies.forEach(el => {
-        currentRate.value.push(0)
-        el.media_type = 'tv'
+    const key = current.key.replace(/tv_/, '')
+    const res = await $axios.get(`/tv/${key}?page=${filmTv.page}&region=TW`)
+    setMoviesData(res.data, 'tv')
+}
+
+async function getSearchList(val) {
+    const res = await $axios.get(
+        `search/multi?page=${filmTv.page}&query=${val}`
+    )
+    res.data.results = res.data.results.filter(el =>
+        ['movie', 'tv'].includes(el.media_type)
+    )
+    setMoviesData(res.data)
+}
+
+function setMoviesData(items, type = null) {
+    items.results.forEach(el => {
+        filmTv.rates.push(0)
+        el.media_type = el.media_type ? el.media_type : type
     })
-    if (page.value === 1) {
-        totalPages.value = res.data.total_pages
+    filmTv.list = filmTv.list.concat(items.results)
+    if (filmTv.page === 1) {
+        filmTv.totalPages = items.total_pages
     }
-    page.value++
+    filmTv.page++
+    finishLoading()
 }
 
 function selectType(item) {
     reset()
-    search.value = ''
-    data.selected = item.key
-    data.nowType = item.type
-    router.push(`?t=${item.key}`)
+    const { search, searchTmp } = initCurrent
+    const { type, key } = item
+    Object.assign(current, {
+        type,
+        key,
+        search,
+        searchTmp,
+    })
+    router.push(`?t=${key}`)
     getData()
+}
+
+function onSearch(val) {
+    if (!val) return
+    reset()
+    current.key = 'search'
+    current.type = 'search'
+    current.searchTmp = val
+    getData()
+}
+
+function onClear(val) {
+    if (!val || current.type !== 'search') return
+    reset()
+    init()
 }
 
 function getColor(val) {
@@ -248,41 +280,24 @@ function getColor(val) {
     }
 }
 
-async function getSearchList(val) {
-    if (!val) return
-    data.selected = 'search'
-    data.nowType = 'search'
-    const res = await $axios.get(`search/multi?page=${page.value}&query=${val}`)
+function reset() {
+    const { type, key } = initCurrent
+    Object.assign(current, { type, key })
 
-    data.movies = data.movies
-        .concat(res.data.results)
-        .filter(el => ['movie', 'tv'].includes(el.media_type))
-    data.movies.forEach(el => currentRate.value.push(0))
-    if (page.value === 1) {
-        totalPages.value = res.data.total_pages
-    }
-    page.value++
-}
-
-function onSearch(val) {
-    reset()
-    getSearchList(val)
-}
-
-function onClear(val) {
-    if (!val || data.nowType !== 'search') return
-    reset()
-    init()
+    Object.assign(filmTv, initFilmTv)
+    loading.value = false
+    finished.value = false
 }
 
 async function init() {
     await router.isReady()
-    data.selected = route.query.t ? route.query.t : data.selected
+    current.key = route.query.t ? route.query.t : current.key
     const regex = new RegExp(/tv_(.*)/)
-    const tv = regex.test(data.selected)
-    data.nowType = tv ? 'tv' : 'movie'
+    const tv = regex.test(current.key)
+    current.type = tv ? 'tv' : 'movie'
     getData()
 }
+
 onBeforeMount(async () => {
     init()
 })
