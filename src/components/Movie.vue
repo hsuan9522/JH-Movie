@@ -10,7 +10,7 @@
     >
         <div v-if="!isError" class="backdrop">
             <div
-                :style="{ backgroundImage: backgroundImage }"
+                :style="{ backgroundImage: data.backgroundImage }"
                 class="backdrop__image"
             ></div>
             <div class="backdrop__left"></div>
@@ -33,7 +33,8 @@
             </div>
             <!-- runtime & date -->
             <div class="pl-0.5 mt-3 font-sans">
-                {{ data.info?.release_date.replace(/-/g, '/') }} · {{ runTime }}
+                {{ data.info?.release_date.replace(/-/g, '/') }} ·
+                {{ data.info.runtime }} min
             </div>
             <!-- genres -->
             <div class="flex items-center mt-4">
@@ -133,7 +134,7 @@
             <!-- self rate -->
             <div class="flex items-center mt-8">
                 <span class="text-stone-400 font-medium mr-1"> 評分： </span>
-                <van-rate v-model="rate" allow-half />
+                <van-rate v-model="usrRate" allow-half />
             </div>
             <!-- trailer -->
             <div v-if="data.trailer" class="w-full md:w-1/2 mt-8">
@@ -293,28 +294,30 @@ import {
     ref,
     computed,
     watch,
-    onUpdated
+    onUpdated,
 } from 'vue'
 import { useRoute } from 'vue-router'
 import { useLoading, useError } from '@/hook'
 
 const { $axios, $filterNum, $omdb, IMAGE_URL } = inject('$global')
 const route = useRoute()
-const { isLoading, startLoading, finishLoading } = useLoading();
-const { isError, setError, unsetError } = useError() 
+const { isLoading, startLoading, finishLoading } = useLoading()
+const { isError, setError, unsetError } = useError()
 
-const data = reactive({
+const initData = {
     info: null,
     ratings: null,
     cast: null,
     trailer: null,
     similar: null,
     series: null,
-})
+    backgroundImage: 'url()',
+}
+
+const data = reactive({ ...initData })
+
 const infoRef = ref(null)
-const backgroundImage = ref('url()')
-const rate = ref(0)
-const runTime = ref('')
+const usrRate = ref(0)
 const moreCast = ref(false)
 const seriesRef = ref(null)
 const seriesEl = reactive({
@@ -331,12 +334,10 @@ async function getMovie() {
         // 拿電影資訊
         const res = await $axios.get(`movie/${id.value}`)
         data.info = res.data
-        backgroundImage.value = `url(${IMAGE_URL}w1280${data.info.backdrop_path})`
-        // tmdb 時長抓不到，所以打 omdb 拿時間和其他評分
+        data.backgroundImage = `url(${IMAGE_URL}w1280${data.info.backdrop_path})`
         const imdbId = data.info.imdb_id
         if (imdbId) {
             const omdb = await $omdb.get(`?i=${imdbId}`)
-            runTime.value = omdb.data.Runtime
             data.ratings = omdb.data.Ratings?.map(el => {
                 const path = '@/assets/images/'
                 switch (el.Source) {
@@ -376,13 +377,12 @@ async function getMovie() {
         const res_similar = await $axios.get(`movie/${id.value}/similar?page=1`)
         data.similar = res_similar.data.results.splice(0, 8)
 
+        // 系列電影
         const seriesId = data.info.belongs_to_collection?.id
         if (seriesId) {
-            // 系列電影
             const res_series = await $axios.get(`collection/${seriesId}`)
             data.series = res_series.data
         }
-
     } catch (err) {
         console.log(err)
         setError()
@@ -412,16 +412,9 @@ function scrollSeries(direction) {
 function reset() {
     startLoading()
     unsetError()
-    backgroundImage.value = 'url()'
-    rate.value = 0
-    runTime.value = ''
+    usrRate.value = 0
     moreCast.value = false
-    data.info = null
-    data.ratings = null
-    data.cast = null
-    data.trailer = null
-    data.similar = null
-    data.series = null
+    Object.assign(data, initData)
 }
 
 function toFixed(val) {

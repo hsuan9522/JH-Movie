@@ -10,7 +10,7 @@
     >
         <div v-if="!isError" class="backdrop">
             <div
-                :style="{ backgroundImage: backgroundImage }"
+                :style="{ backgroundImage: data.backgroundImage }"
                 class="backdrop__image"
             ></div>
             <div class="backdrop__left"></div>
@@ -33,7 +33,9 @@
             </div>
             <!-- runtime & date -->
             <div class="pl-0.5 mt-3 font-sans">
-                <!-- {{ data.info.release_date.replace(/-/g, '/') }} · {{ runTime }} -->
+                TV series · 
+                {{ data.info.first_air_date.replace(/-(.*)/g, '') }} · 
+                {{ data.info.episode_run_time[0] }} min
             </div>
             <!-- genres -->
             <div class="flex items-center mt-4">
@@ -109,7 +111,7 @@
             <!-- self rate -->
             <div class="flex items-center mt-8">
                 <span class="text-stone-400 font-medium mr-1"> 評分： </span>
-                <van-rate v-model="rate" allow-half />
+                <van-rate v-model="usrRate" allow-half />
             </div>
             <!-- trailer -->
             <div v-if="data.trailer" class="w-full md:w-1/2 mt-8">
@@ -238,33 +240,25 @@
 </template>
 
 <script setup>
-import {
-    inject,
-    onBeforeMount,
-    reactive,
-    ref,
-    computed,
-    watch,
-} from 'vue'
+import { inject, onBeforeMount, reactive, ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useLoading, useError } from '@/hook'
 
 const { $axios, $filterNum, IMAGE_URL } = inject('$global')
 const route = useRoute()
-const { isLoading, startLoading, finishLoading} = useLoading()
+const { isLoading, startLoading, finishLoading } = useLoading()
 const { isError, setError, unsetError } = useError()
 
-const data = reactive({
+const initData = {
     info: null,
     cast: null,
-    trailer: null,
-    similar: null,
-    series: null,
-})
+    backgroundImage: 'url()',
+}
+
+const data = reactive({ ...initData })
 const infoRef = ref(null)
-const backgroundImage = ref('url()')
-const rate = ref(0)
-const runTime = ref('')
+const usrRate = ref(0)
+
 const moreCast = ref(false)
 
 const id = computed(() => {
@@ -273,12 +267,12 @@ const id = computed(() => {
 
 async function getTV() {
     try {
-        // 拿電影資訊
+        // 拿電視劇資訊
         const res = await $axios.get(`tv/${id.value}`)
         data.info = res.data
-        backgroundImage.value = `url(${IMAGE_URL}w1280${data.info.backdrop_path})`
+        data.backgroundImage = `url(${IMAGE_URL}w1280${data.info.backdrop_path})`
 
-        // 電影卡司
+        // 卡司
         const res_cast = await $axios.get(`tv/${id.value}/credits`)
         data.cast = res_cast.data.cast
             .slice(0, 20)
@@ -309,15 +303,9 @@ async function getTV() {
 function reset() {
     startLoading()
     unsetError()
-    backgroundImage.value = 'url()'
-    rate.value = 0
-    runTime.value = ''
+    usrRate.value = 0
     moreCast.value = false
-    data.info = null
-    data.cast = null
-    data.trailer = null
-    data.similar = null
-    data.series = null
+    Object.assign(data, initData)
 }
 
 function toFixed(val) {
