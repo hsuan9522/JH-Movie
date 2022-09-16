@@ -1,1257 +1,1266 @@
-[
-    {
-        "chinese": "安道爾",
-        "code": "AD",
-        "english": "Andorra"
-    },
-    {
-        "chinese": "阿聯",
-        "code": "AE",
-        "english": "United Arab Emirates"
-    },
-    {
-        "chinese": "阿富汗",
-        "code": "AF",
-        "english": "Afghanistan"
-    },
-    {
-        "chinese": "安地卡及巴布達",
-        "code": "AG",
-        "english": "Antigua and Barbuda"
-    },
-    {
-        "chinese": "安圭拉",
-        "code": "AI",
-        "english": "Anguilla"
-    },
-    {
-        "chinese": "阿爾巴尼亞",
-        "code": "AL",
-        "english": "Albania"
-    },
-    {
-        "chinese": "亞美尼亞",
-        "code": "AM",
-        "english": "Armenia"
-    },
-    {
-        "chinese": "安哥拉",
-        "code": "AO",
-        "english": "Angola"
-    },
-    {
-        "chinese": "南極洲",
-        "code": "AQ",
-        "english": "Antarctica"
-    },
-    {
-        "chinese": "阿根廷",
-        "code": "AR",
-        "english": "Argentina"
-    },
-    {
-        "chinese": "美屬薩摩亞",
-        "code": "AS",
-        "english": "American Samoa"
-    },
-    {
-        "chinese": "奧地利",
-        "code": "AT",
-        "english": "Austria"
-    },
-    {
-        "chinese": "澳大利亞",
-        "code": "AU",
-        "english": "Australia"
-    },
-    {
-        "chinese": "阿魯巴",
-        "code": "AW",
-        "english": "Aruba"
-    },
-    {
-        "chinese": "奧蘭",
-        "code": "AX",
-        "english": "Åland Islands"
-    },
-    {
-        "chinese": "亞塞拜然",
-        "code": "AZ",
-        "english": "Azerbaijan"
-    },
-    {
-        "chinese": "波士尼亞與赫塞哥維納",
-        "code": "BA",
-        "english": "Bosnia and Herzegovina"
-    },
-    {
-        "chinese": "巴貝多",
-        "code": "BB",
-        "english": "Barbados"
-    },
-    {
-        "chinese": "孟加拉",
-        "code": "BD",
-        "english": "Bangladesh"
-    },
-    {
-        "chinese": "比利時",
-        "code": "BE",
-        "english": "Belgium"
-    },
-    {
-        "chinese": "布吉納法索",
-        "code": "BF",
-        "english": "Burkina Faso"
-    },
-    {
-        "chinese": "保加利亞",
-        "code": "BG",
-        "english": "Bulgaria"
-    },
-    {
-        "chinese": "巴林",
-        "code": "BH",
-        "english": "Bahrain"
-    },
-    {
-        "chinese": "蒲隆地",
-        "code": "BI",
-        "english": "Burundi"
-    },
-    {
-        "chinese": "貝南",
-        "code": "BJ",
-        "english": "Benin"
-    },
-    {
-        "chinese": "聖巴瑟米",
-        "code": "BL",
-        "english": "Saint Barthélemy"
-    },
-    {
-        "chinese": "百慕達",
-        "code": "BM",
-        "english": "Bermuda"
-    },
-    {
-        "chinese": "汶萊",
-        "code": "BN",
-        "english": "Brunei Darussalam"
-    },
-    {
-        "chinese": "玻利維亞",
-        "code": "BO",
-        "english": "Bolivia, Plurinational State of"
-    },
-    {
-        "chinese": "荷蘭加勒比區",
-        "code": "BQ",
-        "english": "Bonaire, Sint Eustatius and Saba"
-    },
-    {
-        "chinese": "巴西",
-        "code": "BR",
-        "english": "Brazil"
-    },
-    {
-        "chinese": "巴哈馬",
-        "code": "BS",
-        "english": "Bahamas"
-    },
-    {
-        "chinese": "不丹",
-        "code": "BT",
-        "english": "Bhutan"
-    },
-    {
-        "chinese": "布韋島",
-        "code": "BV",
-        "english": "Bouvet Island"
-    },
-    {
-        "chinese": "波札那",
-        "code": "BW",
-        "english": "Botswana"
-    },
-    {
-        "chinese": "白俄羅斯",
-        "code": "BY",
-        "english": "Belarus"
-    },
-    {
-        "chinese": "貝里斯",
-        "code": "BZ",
-        "english": "Belize"
-    },
-    {
-        "chinese": "加拿大",
-        "code": "CA",
-        "english": "Canada"
-    },
-    {
-        "chinese": "科科斯（基林）群島",
-        "code": "CC",
-        "english": "Cocos (Keeling) Islands"
-    },
-    {
-        "chinese": "剛果民主共和國",
-        "code": "CD",
-        "english": "Congo, the Democratic Republic of the"
-    },
-    {
-        "chinese": "中非",
-        "code": "CF",
-        "english": "Central African Republic"
-    },
-    {
-        "chinese": "剛果共和國",
-        "code": "CG",
-        "english": "Congo"
-    },
-    {
-        "chinese": "瑞士",
-        "code": "CH",
-        "english": "Switzerland"
-    },
-    {
-        "chinese": "象牙海岸",
-        "code": "CI",
-        "english": "Côte d'Ivoire"
-    },
-    {
-        "chinese": "庫克群島",
-        "code": "CK",
-        "english": "Cook Islands"
-    },
-    {
-        "chinese": "智利",
-        "code": "CL",
-        "english": "Chile"
-    },
-    {
-        "chinese": "喀麥隆",
-        "code": "CM",
-        "english": "Cameroon"
-    },
-    {
-        "chinese": "中國",
-        "code": "CN",
-        "english": "China"
-    },
-    {
-        "chinese": "哥倫比亞",
-        "code": "CO",
-        "english": "Colombia"
-    },
-    {
-        "chinese": "哥斯大黎加",
-        "code": "CR",
-        "english": "Costa Rica"
-    },
-    {
-        "chinese": "古巴",
-        "code": "CU",
-        "english": "Cuba"
-    },
-    {
-        "chinese": "維德角",
-        "code": "CV",
-        "english": "Cabo Verde"
-    },
-    {
-        "chinese": "古拉索",
-        "code": "CW",
-        "english": "Curaçao"
-    },
-    {
-        "chinese": "聖誕島",
-        "code": "CX",
-        "english": "Christmas Island"
-    },
-    {
-        "chinese": "賽普勒斯",
-        "code": "CY",
-        "english": "Cyprus"
-    },
-    {
-        "chinese": "捷克",
-        "code": "CZ",
-        "english": "Czechia"
-    },
-    {
-        "chinese": "德國",
-        "code": "DE",
-        "english": "Germany"
-    },
-    {
-        "chinese": "吉布地",
-        "code": "DJ",
-        "english": "Djibouti"
-    },
-    {
-        "chinese": "丹麥",
-        "code": "DK",
-        "english": "Denmark"
-    },
-    {
-        "chinese": "多米尼克",
-        "code": "DM",
-        "english": "Dominica"
-    },
-    {
-        "chinese": "多明尼加",
-        "code": "DO",
-        "english": "Dominican Republic"
-    },
-    {
-        "chinese": "阿爾及利亞",
-        "code": "DZ",
-        "english": "Algeria"
-    },
-    {
-        "chinese": "厄瓜多",
-        "code": "EC",
-        "english": "Ecuador"
-    },
-    {
-        "chinese": "愛沙尼亞",
-        "code": "EE",
-        "english": "Estonia"
-    },
-    {
-        "chinese": "埃及",
-        "code": "EG",
-        "english": "Egypt"
-    },
-    {
-        "chinese": "西撒哈拉",
-        "code": "EH",
-        "english": "Western Sahara"
-    },
-    {
-        "chinese": "厄利垂亞",
-        "code": "ER",
-        "english": "Eritrea"
-    },
-    {
-        "chinese": "西班牙",
-        "code": "ES",
-        "english": "Spain"
-    },
-    {
-        "chinese": "衣索比亞",
-        "code": "ET",
-        "english": "Ethiopia"
-    },
-    {
-        "chinese": "芬蘭",
-        "code": "FI",
-        "english": "Finland"
-    },
-    {
-        "chinese": "斐濟",
-        "code": "FJ",
-        "english": "Fiji"
-    },
-    {
-        "chinese": "福克蘭群島",
-        "code": "FK",
-        "english": "Falkland Islands (Malvinas)"
-    },
-    {
-        "chinese": "密克羅尼西亞聯邦",
-        "code": "FM",
-        "english": "Micronesia, Federated States of"
-    },
-    {
-        "chinese": "法羅群島",
-        "code": "FO",
-        "english": "Faroe Islands"
-    },
-    {
-        "chinese": "法國",
-        "code": "FR",
-        "english": "France"
-    },
-    {
-        "chinese": "加彭",
-        "code": "GA",
-        "english": "Gabon"
-    },
-    {
-        "chinese": "英國",
-        "code": "GB",
-        "english": "United Kingdom"
-    },
-    {
-        "chinese": "格瑞那達",
-        "code": "GD",
-        "english": "Grenada"
-    },
-    {
-        "chinese": "喬治亞",
-        "code": "GE",
-        "english": "Georgia"
-    },
-    {
-        "chinese": "法屬圭亞那",
-        "code": "GF",
-        "english": "French Guiana"
-    },
-    {
-        "chinese": "根西",
-        "code": "GG",
-        "english": "Guernsey"
-    },
-    {
-        "chinese": "加納",
-        "code": "GH",
-        "english": "Ghana"
-    },
-    {
-        "chinese": "直布羅陀",
-        "code": "GI",
-        "english": "Gibraltar"
-    },
-    {
-        "chinese": "格陵蘭",
-        "code": "GL",
-        "english": "Greenland"
-    },
-    {
-        "chinese": "甘比亞",
-        "code": "GM",
-        "english": "Gambia"
-    },
-    {
-        "chinese": "幾內亞",
-        "code": "GN",
-        "english": "Guinea"
-    },
-    {
-        "chinese": "瓜地洛普",
-        "code": "GP",
-        "english": "Guadeloupe"
-    },
-    {
-        "chinese": "赤道幾內亞",
-        "code": "GQ",
-        "english": "Equatorial Guinea"
-    },
-    {
-        "chinese": "希臘",
-        "code": "GR",
-        "english": "Greece"
-    },
-    {
-        "chinese": "南喬治亞和南桑威奇群島",
-        "code": "GS",
-        "english": "South Georgia and the South Sandwich Islands"
-    },
-    {
-        "chinese": "瓜地馬拉",
-        "code": "GT",
-        "english": "Guatemala"
-    },
-    {
-        "chinese": "關島",
-        "code": "GU",
-        "english": "Guam"
-    },
-    {
-        "chinese": "幾內亞比索",
-        "code": "GW",
-        "english": "Guinea-Bissau"
-    },
-    {
-        "chinese": "蓋亞那",
-        "code": "GY",
-        "english": "Guyana"
-    },
-    {
-        "chinese": "香港",
-        "code": "HK",
-        "english": "Hong Kong"
-    },
-    {
-        "chinese": "赫德島和麥克唐納群島",
-        "code": "HM",
-        "english": "Heard Island and McDonald Islands"
-    },
-    {
-        "chinese": "宏都拉斯",
-        "code": "HN",
-        "english": "Honduras"
-    },
-    {
-        "chinese": "克羅埃西亞",
-        "code": "HR",
-        "english": "Croatia"
-    },
-    {
-        "chinese": "海地",
-        "code": "HT",
-        "english": "Haiti"
-    },
-    {
-        "chinese": "匈牙利",
-        "code": "HU",
-        "english": "Hungary"
-    },
-    {
-        "chinese": "印度尼西亞",
-        "code": "ID",
-        "english": "Indonesia"
-    },
-    {
-        "chinese": "愛爾蘭",
-        "code": "IE",
-        "english": "Ireland"
-    },
-    {
-        "chinese": "以色列",
-        "code": "IL",
-        "english": "Israel"
-    },
-    {
-        "chinese": "曼島",
-        "code": "IM",
-        "english": "Isle of Man"
-    },
-    {
-        "chinese": "印度",
-        "code": "IN",
-        "english": "India"
-    },
-    {
-        "chinese": "英屬印度洋領地",
-        "code": "IO",
-        "english": "British Indian Ocean Territory"
-    },
-    {
-        "chinese": "伊拉克",
-        "code": "IQ",
-        "english": "Iraq"
-    },
-    {
-        "chinese": "伊朗",
-        "code": "IR",
-        "english": "Iran, Islamic Republic of"
-    },
-    {
-        "chinese": "冰島",
-        "code": "IS",
-        "english": "Iceland"
-    },
-    {
-        "chinese": "義大利",
-        "code": "IT",
-        "english": "Italy"
-    },
-    {
-        "chinese": "澤西",
-        "code": "JE",
-        "english": "Jersey"
-    },
-    {
-        "chinese": "牙買加",
-        "code": "JM",
-        "english": "Jamaica"
-    },
-    {
-        "chinese": "約旦",
-        "code": "JO",
-        "english": "Jordan"
-    },
-    {
-        "chinese": "日本",
-        "code": "JP",
-        "english": "Japan"
-    },
-    {
-        "chinese": "肯亞",
-        "code": "KE",
-        "english": "Kenya"
-    },
-    {
-        "chinese": "吉爾吉斯",
-        "code": "KG",
-        "english": "Kyrgyzstan"
-    },
-    {
-        "chinese": "柬埔寨",
-        "code": "KH",
-        "english": "Cambodia"
-    },
-    {
-        "chinese": "吉里巴斯",
-        "code": "KI",
-        "english": "Kiribati"
-    },
-    {
-        "chinese": "葛摩",
-        "code": "KM",
-        "english": "Comoros"
-    },
-    {
-        "chinese": "聖克里斯多福及尼維斯",
-        "code": "KN",
-        "english": "Saint Kitts and Nevis"
-    },
-    {
-        "chinese": "北韓",
-        "code": "KP",
-        "english": "Korea, Democratic People's Republic of"
-    },
-    {
-        "chinese": "南韓",
-        "code": "KR",
-        "english": "Korea, Republic of"
-    },
-    {
-        "chinese": "科威特",
-        "code": "KW",
-        "english": "Kuwait"
-    },
-    {
-        "chinese": "開曼群島",
-        "code": "KY",
-        "english": "Cayman Islands"
-    },
-    {
-        "chinese": "哈薩克",
-        "code": "KZ",
-        "english": "Kazakhstan"
-    },
-    {
-        "chinese": "寮國",
-        "code": "LA",
-        "english": "Lao People's Democratic Republic"
-    },
-    {
-        "chinese": "黎巴嫩",
-        "code": "LB",
-        "english": "Lebanon"
-    },
-    {
-        "chinese": "聖露西亞",
-        "code": "LC",
-        "english": "Saint Lucia"
-    },
-    {
-        "chinese": "列支敦斯登",
-        "code": "LI",
-        "english": "Liechtenstein"
-    },
-    {
-        "chinese": "斯里蘭卡",
-        "code": "LK",
-        "english": "Sri Lanka"
-    },
-    {
-        "chinese": "賴比瑞亞",
-        "code": "LR",
-        "english": "Liberia"
-    },
-    {
-        "chinese": "賴索托",
-        "code": "LS",
-        "english": "Lesotho"
-    },
-    {
-        "chinese": "立陶宛",
-        "code": "LT",
-        "english": "Lithuania"
-    },
-    {
-        "chinese": "盧森堡",
-        "code": "LU",
-        "english": "Luxembourg"
-    },
-    {
-        "chinese": "拉脫維亞",
-        "code": "LV",
-        "english": "Latvia"
-    },
-    {
-        "chinese": "利比亞",
-        "code": "LY",
-        "english": "Libya"
-    },
-    {
-        "chinese": "摩洛哥",
-        "code": "MA",
-        "english": "Morocco"
-    },
-    {
-        "chinese": "摩納哥",
-        "code": "MC",
-        "english": "Monaco"
-    },
-    {
-        "chinese": "摩爾多瓦",
-        "code": "MD",
-        "english": "Moldova, Republic of"
-    },
-    {
-        "chinese": "蒙特內哥羅",
-        "code": "ME",
-        "english": "Montenegro"
-    },
-    {
-        "chinese": "法屬聖馬丁",
-        "code": "MF",
-        "english": "Saint Martin (French part)"
-    },
-    {
-        "chinese": "馬達加斯加",
-        "code": "MG",
-        "english": "Madagascar"
-    },
-    {
-        "chinese": "馬紹爾群島",
-        "code": "MH",
-        "english": "Marshall Islands"
-    },
-    {
-        "chinese": "北馬其頓",
-        "code": "MK",
-        "english": "North Macedonia"
-    },
-    {
-        "chinese": "馬利",
-        "code": "ML",
-        "english": "Mali"
-    },
-    {
-        "chinese": "緬甸",
-        "code": "MM",
-        "english": "Myanmar"
-    },
-    {
-        "chinese": "蒙古",
-        "code": "MN",
-        "english": "Mongolia"
-    },
-    {
-        "chinese": "澳門",
-        "code": "MO",
-        "english": "Macao"
-    },
-    {
-        "chinese": "北馬利安納群島",
-        "code": "MP",
-        "english": "Northern Mariana Islands"
-    },
-    {
-        "chinese": "馬丁尼克",
-        "code": "MQ",
-        "english": "Martinique"
-    },
-    {
-        "chinese": "茅利塔尼亞",
-        "code": "MR",
-        "english": "Mauritania"
-    },
-    {
-        "chinese": "蒙特塞拉特",
-        "code": "MS",
-        "english": "Montserrat"
-    },
-    {
-        "chinese": "馬爾他",
-        "code": "MT",
-        "english": "Malta"
-    },
-    {
-        "chinese": "模里西斯",
-        "code": "MU",
-        "english": "Mauritius"
-    },
-    {
-        "chinese": "馬爾地夫",
-        "code": "MV",
-        "english": "Maldives"
-    },
-    {
-        "chinese": "馬拉威",
-        "code": "MW",
-        "english": "Malawi"
-    },
-    {
-        "chinese": "墨西哥",
-        "code": "MX",
-        "english": "Mexico"
-    },
-    {
-        "chinese": "馬來西亞",
-        "code": "MY",
-        "english": "Malaysia"
-    },
-    {
-        "chinese": "莫三比克",
-        "code": "MZ",
-        "english": "Mozambique"
-    },
-    {
-        "chinese": "納米比亞",
-        "code": "NA",
-        "english": "Namibia"
-    },
-    {
-        "chinese": "新喀里多尼亞",
-        "code": "NC",
-        "english": "New Caledonia"
-    },
-    {
-        "chinese": "尼日",
-        "code": "NE",
-        "english": "Niger"
-    },
-    {
-        "chinese": "諾福克島",
-        "code": "NF",
-        "english": "Norfolk Island"
-    },
-    {
-        "chinese": "奈及利亞",
-        "code": "NG",
-        "english": "Nigeria"
-    },
-    {
-        "chinese": "尼加拉瓜",
-        "code": "NI",
-        "english": "Nicaragua"
-    },
-    {
-        "chinese": "荷蘭",
-        "code": "NL",
-        "english": "Netherlands"
-    },
-    {
-        "chinese": "挪威",
-        "code": "NO",
-        "english": "Norway"
-    },
-    {
-        "chinese": "尼泊爾",
-        "code": "NP",
-        "english": "Nepal"
-    },
-    {
-        "chinese": "諾魯",
-        "code": "NR",
-        "english": "Nauru"
-    },
-    {
-        "chinese": "紐埃",
-        "code": "NU",
-        "english": "Niue"
-    },
-    {
-        "chinese": "紐西蘭",
-        "code": "NZ",
-        "english": "New Zealand"
-    },
-    {
-        "chinese": "阿曼",
-        "code": "OM",
-        "english": "Oman"
-    },
-    {
-        "chinese": "巴拿馬",
-        "code": "PA",
-        "english": "Panama"
-    },
-    {
-        "chinese": "秘魯",
-        "code": "PE",
-        "english": "Peru"
-    },
-    {
-        "chinese": "法屬玻里尼西亞",
-        "code": "PF",
-        "english": "French Polynesia"
-    },
-    {
-        "chinese": "巴布亞紐幾內亞",
-        "code": "PG",
-        "english": "Papua New Guinea"
-    },
-    {
-        "chinese": "菲律賓",
-        "code": "PH",
-        "english": "Philippines"
-    },
-    {
-        "chinese": "巴基斯坦",
-        "code": "PK",
-        "english": "Pakistan"
-    },
-    {
-        "chinese": "波蘭",
-        "code": "PL",
-        "english": "Poland"
-    },
-    {
-        "chinese": "聖皮埃與密克隆群島",
-        "code": "PM",
-        "english": "Saint Pierre and Miquelon"
-    },
-    {
-        "chinese": "皮特凱恩群島",
-        "code": "PN",
-        "english": "Pitcairn"
-    },
-    {
-        "chinese": "波多黎各",
-        "code": "PR",
-        "english": "Puerto Rico"
-    },
-    {
-        "chinese": "巴勒斯坦",
-        "code": "PS",
-        "english": "Palestine, State of"
-    },
-    {
-        "chinese": "葡萄牙",
-        "code": "PT",
-        "english": "Portugal"
-    },
-    {
-        "chinese": "帛琉",
-        "code": "PW",
-        "english": "Palau"
-    },
-    {
-        "chinese": "巴拉圭",
-        "code": "PY",
-        "english": "Paraguay"
-    },
-    {
-        "chinese": "卡達",
-        "code": "QA",
-        "english": "Qatar"
-    },
-    {
-        "chinese": "留尼旺",
-        "code": "RE",
-        "english": "Réunion"
-    },
-    {
-        "chinese": "羅馬尼亞",
-        "code": "RO",
-        "english": "Romania"
-    },
-    {
-        "chinese": "塞爾維亞",
-        "code": "RS",
-        "english": "Serbia"
-    },
-    {
-        "chinese": "俄羅斯",
-        "code": "RU",
-        "english": "Russian Federation"
-    },
-    {
-        "chinese": "盧安達",
-        "code": "RW",
-        "english": "Rwanda"
-    },
-    {
-        "chinese": "沙烏地阿拉伯",
-        "code": "SA",
-        "english": "Saudi Arabia"
-    },
-    {
-        "chinese": "索羅門群島",
-        "code": "SB",
-        "english": "Solomon Islands"
-    },
-    {
-        "chinese": "塞席爾",
-        "code": "SC",
-        "english": "Seychelles"
-    },
-    {
-        "chinese": "蘇丹",
-        "code": "SD",
-        "english": "Sudan"
-    },
-    {
-        "chinese": "瑞典",
-        "code": "SE",
-        "english": "Sweden"
-    },
-    {
-        "chinese": "新加坡",
-        "code": "SG",
-        "english": "Singapore"
-    },
-    {
-        "chinese": "聖赫倫那、阿森松和特里斯坦-達庫尼亞",
-        "code": "SH",
-        "english": "Saint Helena, Ascension and Tristan da Cunha"
-    },
-    {
-        "chinese": "斯洛維尼亞",
-        "code": "SI",
-        "english": "Slovenia"
-    },
-    {
-        "chinese": "斯瓦爾巴和揚馬延",
-        "code": "SJ",
-        "english": "Svalbard and Jan Mayen"
-    },
-    {
-        "chinese": "斯洛伐克",
-        "code": "SK",
-        "english": "Slovakia"
-    },
-    {
-        "chinese": "獅子山",
-        "code": "SL",
-        "english": "Sierra Leone"
-    },
-    {
-        "chinese": "聖馬利諾",
-        "code": "SM",
-        "english": "San Marino"
-    },
-    {
-        "chinese": "塞內加爾",
-        "code": "SN",
-        "english": "Senegal"
-    },
-    {
-        "chinese": "索馬利亞",
-        "code": "SO",
-        "english": "Somalia"
-    },
-    {
-        "chinese": "蘇利南",
-        "code": "SR",
-        "english": "Suriname"
-    },
-    {
-        "chinese": "南蘇丹",
-        "code": "SS",
-        "english": "South Sudan"
-    },
-    {
-        "chinese": "聖多美普林西比",
-        "code": "ST",
-        "english": "Sao Tome and Principe"
-    },
-    {
-        "chinese": "薩爾瓦多",
-        "code": "SV",
-        "english": "El Salvador"
-    },
-    {
-        "chinese": "荷屬聖馬丁",
-        "code": "SX",
-        "english": "Sint Maarten (Dutch part)"
-    },
-    {
-        "chinese": "敘利亞",
-        "code": "SY",
-        "english": "Syrian Arab Republic"
-    },
-    {
-        "chinese": "史瓦帝尼",
-        "code": "SZ",
-        "english": "Eswatini"
-    },
-    {
-        "chinese": "特克斯與凱科斯群島",
-        "code": "TC",
-        "english": "Turks and Caicos Islands"
-    },
-    {
-        "chinese": "查德",
-        "code": "TD",
-        "english": "Chad"
-    },
-    {
-        "chinese": "法屬南部和南極領地",
-        "code": "TF",
-        "english": "French Southern Territories"
-    },
-    {
-        "chinese": "多哥",
-        "code": "TG",
-        "english": "Togo"
-    },
-    {
-        "chinese": "泰國",
-        "code": "TH",
-        "english": "Thailand"
-    },
-    {
-        "chinese": "塔吉克",
-        "code": "TJ",
-        "english": "Tajikistan"
-    },
-    {
-        "chinese": "托克勞",
-        "code": "TK",
-        "english": "Tokelau"
-    },
-    {
-        "chinese": "東帝汶",
-        "code": "TL",
-        "english": "Timor-Leste"
-    },
-    {
-        "chinese": "土庫曼",
-        "code": "TM",
-        "english": "Turkmenistan"
-    },
-    {
-        "chinese": "突尼西亞",
-        "code": "TN",
-        "english": "Tunisia"
-    },
-    {
-        "chinese": "東加",
-        "code": "TO",
-        "english": "Tonga"
-    },
-    {
-        "chinese": "土耳其",
-        "code": "TR",
-        "english": "Turkey"
-    },
-    {
-        "chinese": "千里達及托巴哥",
-        "code": "TT",
-        "english": "Trinidad and Tobago"
-    },
-    {
-        "chinese": "吐瓦魯",
-        "code": "TV",
-        "english": "Tuvalu"
-    },
-    {
-        "chinese": "臺灣",
-        "code": "TW",
-        "english": "Taiwan"
-    },
-    {
-        "chinese": "坦尚尼亞",
-        "code": "TZ",
-        "english": "Tanzania"
-    },
-    {
-        "chinese": "烏克蘭",
-        "code": "UA",
-        "english": "Ukraine"
-    },
-    {
-        "chinese": "烏干達",
-        "code": "UG",
-        "english": "Uganda"
-    },
-    {
-        "chinese": "美國本土外小島嶼",
-        "code": "UM",
-        "english": "United States Minor Outlying Islands"
-    },
-    {
-        "chinese": "美國",
-        "code": "US",
-        "english": "United States"
-    },
-    {
-        "chinese": "烏拉圭",
-        "code": "UY",
-        "english": "Uruguay"
-    },
-    {
-        "chinese": "烏茲別克",
-        "code": "UZ",
-        "english": "Uzbekistan"
-    },
-    {
-        "chinese": "梵蒂岡",
-        "code": "VA",
-        "english": "Holy See"
-    },
-    {
-        "chinese": "聖文森及格瑞那丁",
-        "code": "VC",
-        "english": "Saint Vincent and the Grenadines"
-    },
-    {
-        "chinese": "委內瑞拉",
-        "code": "VE",
-        "english": "Venezuela, Bolivarian Republic of"
-    },
-    {
-        "chinese": "英屬維京群島",
-        "code": "VG",
-        "english": "Virgin Islands, British"
-    },
-    {
-        "chinese": "美屬維京群島",
-        "code": "VI",
-        "english": "Virgin Islands, U.S."
-    },
-    {
-        "chinese": "越南",
-        "code": "VN",
-        "english": "Viet Nam"
-    },
-    {
-        "chinese": "萬那杜",
-        "code": "VU",
-        "english": "Vanuatu"
-    },
-    {
-        "chinese": "瓦利斯和富圖那",
-        "code": "WF",
-        "english": "Wallis and Futuna"
-    },
-    {
-        "chinese": "薩摩亞",
-        "code": "WS",
-        "english": "Samoa"
-    },
-    {
-        "chinese": "葉門",
-        "code": "YE",
-        "english": "Yemen"
-    },
-    {
-        "chinese": "馬約特",
-        "code": "YT",
-        "english": "Mayotte"
-    },
-    {
-        "chinese": "南非",
-        "code": "ZA",
-        "english": "South Africa"
-    },
-    {
-        "chinese": "尚比亞",
-        "code": "ZM",
-        "english": "Zambia"
-    },
-    {
-        "chinese": "辛巴威",
-        "code": "ZW",
-        "english": "Zimbabwe"
-    },
-    {
-        "chinese": "英國",
-        "code": "UK",
-        "english": "United Kingdom"
-    },
-    {
-        "chinese": "聯合國",
-        "code": "UN",
-        "english": "United Nations"
+{
+    "ad":{
+       "chinese":"安道爾",
+       "code":"AD",
+       "english":"Andorra"
+    },
+    "ae":{
+       "chinese":"阿聯",
+       "code":"AE",
+       "english":"United Arab Emirates"
+    },
+    "af":{
+       "chinese":"阿富汗",
+       "code":"AF",
+       "english":"Afghanistan"
+    },
+    "ag":{
+       "chinese":"安地卡及巴布達",
+       "code":"AG",
+       "english":"Antigua and Barbuda"
+    },
+    "ai":{
+       "chinese":"安圭拉",
+       "code":"AI",
+       "english":"Anguilla"
+    },
+    "al":{
+       "chinese":"阿爾巴尼亞",
+       "code":"AL",
+       "english":"Albania"
+    },
+    "am":{
+       "chinese":"亞美尼亞",
+       "code":"AM",
+       "english":"Armenia"
+    },
+    "ao":{
+       "chinese":"安哥拉",
+       "code":"AO",
+       "english":"Angola"
+    },
+    "aq":{
+       "chinese":"南極洲",
+       "code":"AQ",
+       "english":"Antarctica"
+    },
+    "ar":{
+       "chinese":"阿根廷",
+       "code":"AR",
+       "english":"Argentina"
+    },
+    "as":{
+       "chinese":"美屬薩摩亞",
+       "code":"AS",
+       "english":"American Samoa"
+    },
+    "at":{
+       "chinese":"奧地利",
+       "code":"AT",
+       "english":"Austria"
+    },
+    "au":{
+       "chinese":"澳大利亞",
+       "code":"AU",
+       "english":"Australia"
+    },
+    "aw":{
+       "chinese":"阿魯巴",
+       "code":"AW",
+       "english":"Aruba"
+    },
+    "ax":{
+       "chinese":"奧蘭",
+       "code":"AX",
+       "english":"Åland Islands"
+    },
+    "az":{
+       "chinese":"亞塞拜然",
+       "code":"AZ",
+       "english":"Azerbaijan"
+    },
+    "ba":{
+       "chinese":"波士尼亞與赫塞哥維納",
+       "code":"BA",
+       "english":"Bosnia and Herzegovina"
+    },
+    "bb":{
+       "chinese":"巴貝多",
+       "code":"BB",
+       "english":"Barbados"
+    },
+    "bd":{
+       "chinese":"孟加拉",
+       "code":"BD",
+       "english":"Bangladesh"
+    },
+    "be":{
+       "chinese":"比利時",
+       "code":"BE",
+       "english":"Belgium"
+    },
+    "bf":{
+       "chinese":"布吉納法索",
+       "code":"BF",
+       "english":"Burkina Faso"
+    },
+    "bg":{
+       "chinese":"保加利亞",
+       "code":"BG",
+       "english":"Bulgaria"
+    },
+    "bh":{
+       "chinese":"巴林",
+       "code":"BH",
+       "english":"Bahrain"
+    },
+    "bi":{
+       "chinese":"蒲隆地",
+       "code":"BI",
+       "english":"Burundi"
+    },
+    "bj":{
+       "chinese":"貝南",
+       "code":"BJ",
+       "english":"Benin"
+    },
+    "bl":{
+       "chinese":"聖巴瑟米",
+       "code":"BL",
+       "english":"Saint Barthélemy"
+    },
+    "bm":{
+       "chinese":"百慕達",
+       "code":"BM",
+       "english":"Bermuda"
+    },
+    "bn":{
+       "chinese":"汶萊",
+       "code":"BN",
+       "english":"Brunei Darussalam"
+    },
+    "bo":{
+       "chinese":"玻利維亞",
+       "code":"BO",
+       "english":"Bolivia, Plurinational State of"
+    },
+    "bq":{
+       "chinese":"荷蘭加勒比區",
+       "code":"BQ",
+       "english":"Bonaire, Sint Eustatius and Saba"
+    },
+    "br":{
+       "chinese":"巴西",
+       "code":"BR",
+       "english":"Brazil"
+    },
+    "bs":{
+       "chinese":"巴哈馬",
+       "code":"BS",
+       "english":"Bahamas"
+    },
+    "bt":{
+       "chinese":"不丹",
+       "code":"BT",
+       "english":"Bhutan"
+    },
+    "bv":{
+       "chinese":"布韋島",
+       "code":"BV",
+       "english":"Bouvet Island"
+    },
+    "bw":{
+       "chinese":"波札那",
+       "code":"BW",
+       "english":"Botswana"
+    },
+    "by":{
+       "chinese":"白俄羅斯",
+       "code":"BY",
+       "english":"Belarus"
+    },
+    "bz":{
+       "chinese":"貝里斯",
+       "code":"BZ",
+       "english":"Belize"
+    },
+    "ca":{
+       "chinese":"加拿大",
+       "code":"CA",
+       "english":"Canada"
+    },
+    "cc":{
+       "chinese":"科科斯（基林）群島",
+       "code":"CC",
+       "english":"Cocos (Keeling) Islands"
+    },
+    "cd":{
+       "chinese":"剛果民主共和國",
+       "code":"CD",
+       "english":"Congo, the Democratic Republic of the"
+    },
+    "cf":{
+       "chinese":"中非",
+       "code":"CF",
+       "english":"Central African Republic"
+    },
+    "cg":{
+       "chinese":"剛果共和國",
+       "code":"CG",
+       "english":"Congo"
+    },
+    "ch":{
+       "chinese":"瑞士",
+       "code":"CH",
+       "english":"Switzerland"
+    },
+    "ci":{
+       "chinese":"象牙海岸",
+       "code":"CI",
+       "english":"Côte d'Ivoire"
+    },
+    "ck":{
+       "chinese":"庫克群島",
+       "code":"CK",
+       "english":"Cook Islands"
+    },
+    "cl":{
+       "chinese":"智利",
+       "code":"CL",
+       "english":"Chile"
+    },
+    "cm":{
+       "chinese":"喀麥隆",
+       "code":"CM",
+       "english":"Cameroon"
+    },
+    "cn":{
+       "chinese":"中國",
+       "code":"CN",
+       "english":"China",
+       "drama_cn":"陸劇"
+    },
+    "co":{
+       "chinese":"哥倫比亞",
+       "code":"CO",
+       "english":"Colombia"
+    },
+    "cr":{
+       "chinese":"哥斯大黎加",
+       "code":"CR",
+       "english":"Costa Rica"
+    },
+    "cu":{
+       "chinese":"古巴",
+       "code":"CU",
+       "english":"Cuba"
+    },
+    "cv":{
+       "chinese":"維德角",
+       "code":"CV",
+       "english":"Cabo Verde"
+    },
+    "cw":{
+       "chinese":"古拉索",
+       "code":"CW",
+       "english":"Curaçao"
+    },
+    "cx":{
+       "chinese":"聖誕島",
+       "code":"CX",
+       "english":"Christmas Island"
+    },
+    "cy":{
+       "chinese":"賽普勒斯",
+       "code":"CY",
+       "english":"Cyprus"
+    },
+    "cz":{
+       "chinese":"捷克",
+       "code":"CZ",
+       "english":"Czechia"
+    },
+    "de":{
+       "chinese":"德國",
+       "code":"DE",
+       "english":"Germany"
+    },
+    "dj":{
+       "chinese":"吉布地",
+       "code":"DJ",
+       "english":"Djibouti"
+    },
+    "dk":{
+       "chinese":"丹麥",
+       "code":"DK",
+       "english":"Denmark"
+    },
+    "dm":{
+       "chinese":"多米尼克",
+       "code":"DM",
+       "english":"Dominica"
+    },
+    "do":{
+       "chinese":"多明尼加",
+       "code":"DO",
+       "english":"Dominican Republic"
+    },
+    "dz":{
+       "chinese":"阿爾及利亞",
+       "code":"DZ",
+       "english":"Algeria"
+    },
+    "ec":{
+       "chinese":"厄瓜多",
+       "code":"EC",
+       "english":"Ecuador"
+    },
+    "ee":{
+       "chinese":"愛沙尼亞",
+       "code":"EE",
+       "english":"Estonia"
+    },
+    "eg":{
+       "chinese":"埃及",
+       "code":"EG",
+       "english":"Egypt"
+    },
+    "eh":{
+       "chinese":"西撒哈拉",
+       "code":"EH",
+       "english":"Western Sahara"
+    },
+    "er":{
+       "chinese":"厄利垂亞",
+       "code":"ER",
+       "english":"Eritrea"
+    },
+    "es":{
+       "chinese":"西班牙",
+       "code":"ES",
+       "english":"Spain"
+    },
+    "et":{
+       "chinese":"衣索比亞",
+       "code":"ET",
+       "english":"Ethiopia"
+    },
+    "fi":{
+       "chinese":"芬蘭",
+       "code":"FI",
+       "english":"Finland"
+    },
+    "fj":{
+       "chinese":"斐濟",
+       "code":"FJ",
+       "english":"Fiji"
+    },
+    "fk":{
+       "chinese":"福克蘭群島",
+       "code":"FK",
+       "english":"Falkland Islands (Malvinas)"
+    },
+    "fm":{
+       "chinese":"密克羅尼西亞聯邦",
+       "code":"FM",
+       "english":"Micronesia, Federated States of"
+    },
+    "fo":{
+       "chinese":"法羅群島",
+       "code":"FO",
+       "english":"Faroe Islands"
+    },
+    "fr":{
+       "chinese":"法國",
+       "code":"FR",
+       "english":"France"
+    },
+    "ga":{
+       "chinese":"加彭",
+       "code":"GA",
+       "english":"Gabon"
+    },
+    "gb":{
+       "chinese":"英國",
+       "code":"GB",
+       "english":"United Kingdom",
+       "drama_cn":"英劇"
+    },
+    "gd":{
+       "chinese":"格瑞那達",
+       "code":"GD",
+       "english":"Grenada"
+    },
+    "ge":{
+       "chinese":"喬治亞",
+       "code":"GE",
+       "english":"Georgia"
+    },
+    "gf":{
+       "chinese":"法屬圭亞那",
+       "code":"GF",
+       "english":"French Guiana"
+    },
+    "gg":{
+       "chinese":"根西",
+       "code":"GG",
+       "english":"Guernsey"
+    },
+    "gh":{
+       "chinese":"加納",
+       "code":"GH",
+       "english":"Ghana"
+    },
+    "gi":{
+       "chinese":"直布羅陀",
+       "code":"GI",
+       "english":"Gibraltar"
+    },
+    "gl":{
+       "chinese":"格陵蘭",
+       "code":"GL",
+       "english":"Greenland"
+    },
+    "gm":{
+       "chinese":"甘比亞",
+       "code":"GM",
+       "english":"Gambia"
+    },
+    "gn":{
+       "chinese":"幾內亞",
+       "code":"GN",
+       "english":"Guinea"
+    },
+    "gp":{
+       "chinese":"瓜地洛普",
+       "code":"GP",
+       "english":"Guadeloupe"
+    },
+    "gq":{
+       "chinese":"赤道幾內亞",
+       "code":"GQ",
+       "english":"Equatorial Guinea"
+    },
+    "gr":{
+       "chinese":"希臘",
+       "code":"GR",
+       "english":"Greece"
+    },
+    "gs":{
+       "chinese":"南喬治亞和南桑威奇群島",
+       "code":"GS",
+       "english":"South Georgia and the South Sandwich Islands"
+    },
+    "gt":{
+       "chinese":"瓜地馬拉",
+       "code":"GT",
+       "english":"Guatemala"
+    },
+    "gu":{
+       "chinese":"關島",
+       "code":"GU",
+       "english":"Guam"
+    },
+    "gw":{
+       "chinese":"幾內亞比索",
+       "code":"GW",
+       "english":"Guinea-Bissau"
+    },
+    "gy":{
+       "chinese":"蓋亞那",
+       "code":"GY",
+       "english":"Guyana"
+    },
+    "hk":{
+       "chinese":"香港",
+       "code":"HK",
+       "english":"Hong Kong",
+       "drama_cn": "港劇"
+    },
+    "hm":{
+       "chinese":"赫德島和麥克唐納群島",
+       "code":"HM",
+       "english":"Heard Island and McDonald Islands"
+    },
+    "hn":{
+       "chinese":"宏都拉斯",
+       "code":"HN",
+       "english":"Honduras"
+    },
+    "hr":{
+       "chinese":"克羅埃西亞",
+       "code":"HR",
+       "english":"Croatia"
+    },
+    "ht":{
+       "chinese":"海地",
+       "code":"HT",
+       "english":"Haiti"
+    },
+    "hu":{
+       "chinese":"匈牙利",
+       "code":"HU",
+       "english":"Hungary"
+    },
+    "id":{
+       "chinese":"印度尼西亞",
+       "code":"ID",
+       "english":"Indonesia"
+    },
+    "ie":{
+       "chinese":"愛爾蘭",
+       "code":"IE",
+       "english":"Ireland"
+    },
+    "il":{
+       "chinese":"以色列",
+       "code":"IL",
+       "english":"Israel"
+    },
+    "im":{
+       "chinese":"曼島",
+       "code":"IM",
+       "english":"Isle of Man"
+    },
+    "in":{
+       "chinese":"印度",
+       "code":"IN",
+       "english":"India"
+    },
+    "io":{
+       "chinese":"英屬印度洋領地",
+       "code":"IO",
+       "english":"British Indian Ocean Territory"
+    },
+    "iq":{
+       "chinese":"伊拉克",
+       "code":"IQ",
+       "english":"Iraq"
+    },
+    "ir":{
+       "chinese":"伊朗",
+       "code":"IR",
+       "english":"Iran, Islamic Republic of"
+    },
+    "is":{
+       "chinese":"冰島",
+       "code":"IS",
+       "english":"Iceland"
+    },
+    "it":{
+       "chinese":"義大利",
+       "code":"IT",
+       "english":"Italy"
+    },
+    "je":{
+       "chinese":"澤西",
+       "code":"JE",
+       "english":"Jersey"
+    },
+    "jm":{
+       "chinese":"牙買加",
+       "code":"JM",
+       "english":"Jamaica"
+    },
+    "jo":{
+       "chinese":"約旦",
+       "code":"JO",
+       "english":"Jordan"
+    },
+    "jp":{
+       "chinese":"日本",
+       "code":"JP",
+       "english":"Japan",
+       "drama_cn": "日劇"
+    },
+    "ke":{
+       "chinese":"肯亞",
+       "code":"KE",
+       "english":"Kenya"
+    },
+    "kg":{
+       "chinese":"吉爾吉斯",
+       "code":"KG",
+       "english":"Kyrgyzstan"
+    },
+    "kh":{
+       "chinese":"柬埔寨",
+       "code":"KH",
+       "english":"Cambodia"
+    },
+    "ki":{
+       "chinese":"吉里巴斯",
+       "code":"KI",
+       "english":"Kiribati"
+    },
+    "km":{
+       "chinese":"葛摩",
+       "code":"KM",
+       "english":"Comoros"
+    },
+    "kn":{
+       "chinese":"聖克里斯多福及尼維斯",
+       "code":"KN",
+       "english":"Saint Kitts and Nevis"
+    },
+    "kp":{
+       "chinese":"北韓",
+       "code":"KP",
+       "english":"Korea, Democratic People's Republic of"
+    },
+    "kr":{
+       "chinese":"南韓",
+       "code":"KR",
+       "english":"Korea, Republic of",
+       "drama_cn":"韓劇"
+    },
+    "kw":{
+       "chinese":"科威特",
+       "code":"KW",
+       "english":"Kuwait"
+    },
+    "ky":{
+       "chinese":"開曼群島",
+       "code":"KY",
+       "english":"Cayman Islands"
+    },
+    "kz":{
+       "chinese":"哈薩克",
+       "code":"KZ",
+       "english":"Kazakhstan"
+    },
+    "la":{
+       "chinese":"寮國",
+       "code":"LA",
+       "english":"Lao People's Democratic Republic"
+    },
+    "lb":{
+       "chinese":"黎巴嫩",
+       "code":"LB",
+       "english":"Lebanon"
+    },
+    "lc":{
+       "chinese":"聖露西亞",
+       "code":"LC",
+       "english":"Saint Lucia"
+    },
+    "li":{
+       "chinese":"列支敦斯登",
+       "code":"LI",
+       "english":"Liechtenstein"
+    },
+    "lk":{
+       "chinese":"斯里蘭卡",
+       "code":"LK",
+       "english":"Sri Lanka"
+    },
+    "lr":{
+       "chinese":"賴比瑞亞",
+       "code":"LR",
+       "english":"Liberia"
+    },
+    "ls":{
+       "chinese":"賴索托",
+       "code":"LS",
+       "english":"Lesotho"
+    },
+    "lt":{
+       "chinese":"立陶宛",
+       "code":"LT",
+       "english":"Lithuania"
+    },
+    "lu":{
+       "chinese":"盧森堡",
+       "code":"LU",
+       "english":"Luxembourg"
+    },
+    "lv":{
+       "chinese":"拉脫維亞",
+       "code":"LV",
+       "english":"Latvia"
+    },
+    "ly":{
+       "chinese":"利比亞",
+       "code":"LY",
+       "english":"Libya"
+    },
+    "ma":{
+       "chinese":"摩洛哥",
+       "code":"MA",
+       "english":"Morocco"
+    },
+    "mc":{
+       "chinese":"摩納哥",
+       "code":"MC",
+       "english":"Monaco"
+    },
+    "md":{
+       "chinese":"摩爾多瓦",
+       "code":"MD",
+       "english":"Moldova, Republic of"
+    },
+    "me":{
+       "chinese":"蒙特內哥羅",
+       "code":"ME",
+       "english":"Montenegro"
+    },
+    "mf":{
+       "chinese":"法屬聖馬丁",
+       "code":"MF",
+       "english":"Saint Martin (French part)"
+    },
+    "mg":{
+       "chinese":"馬達加斯加",
+       "code":"MG",
+       "english":"Madagascar"
+    },
+    "mh":{
+       "chinese":"馬紹爾群島",
+       "code":"MH",
+       "english":"Marshall Islands"
+    },
+    "mk":{
+       "chinese":"北馬其頓",
+       "code":"MK",
+       "english":"North Macedonia"
+    },
+    "ml":{
+       "chinese":"馬利",
+       "code":"ML",
+       "english":"Mali"
+    },
+    "mm":{
+       "chinese":"緬甸",
+       "code":"MM",
+       "english":"Myanmar"
+    },
+    "mn":{
+       "chinese":"蒙古",
+       "code":"MN",
+       "english":"Mongolia"
+    },
+    "mo":{
+       "chinese":"澳門",
+       "code":"MO",
+       "english":"Macao"
+    },
+    "mp":{
+       "chinese":"北馬利安納群島",
+       "code":"MP",
+       "english":"Northern Mariana Islands"
+    },
+    "mq":{
+       "chinese":"馬丁尼克",
+       "code":"MQ",
+       "english":"Martinique"
+    },
+    "mr":{
+       "chinese":"茅利塔尼亞",
+       "code":"MR",
+       "english":"Mauritania"
+    },
+    "ms":{
+       "chinese":"蒙特塞拉特",
+       "code":"MS",
+       "english":"Montserrat"
+    },
+    "mt":{
+       "chinese":"馬爾他",
+       "code":"MT",
+       "english":"Malta"
+    },
+    "mu":{
+       "chinese":"模里西斯",
+       "code":"MU",
+       "english":"Mauritius"
+    },
+    "mv":{
+       "chinese":"馬爾地夫",
+       "code":"MV",
+       "english":"Maldives"
+    },
+    "mw":{
+       "chinese":"馬拉威",
+       "code":"MW",
+       "english":"Malawi"
+    },
+    "mx":{
+       "chinese":"墨西哥",
+       "code":"MX",
+       "english":"Mexico"
+    },
+    "my":{
+       "chinese":"馬來西亞",
+       "code":"MY",
+       "english":"Malaysia"
+    },
+    "mz":{
+       "chinese":"莫三比克",
+       "code":"MZ",
+       "english":"Mozambique"
+    },
+    "na":{
+       "chinese":"納米比亞",
+       "code":"NA",
+       "english":"Namibia"
+    },
+    "nc":{
+       "chinese":"新喀里多尼亞",
+       "code":"NC",
+       "english":"New Caledonia"
+    },
+    "ne":{
+       "chinese":"尼日",
+       "code":"NE",
+       "english":"Niger"
+    },
+    "nf":{
+       "chinese":"諾福克島",
+       "code":"NF",
+       "english":"Norfolk Island"
+    },
+    "ng":{
+       "chinese":"奈及利亞",
+       "code":"NG",
+       "english":"Nigeria"
+    },
+    "ni":{
+       "chinese":"尼加拉瓜",
+       "code":"NI",
+       "english":"Nicaragua"
+    },
+    "nl":{
+       "chinese":"荷蘭",
+       "code":"NL",
+       "english":"Netherlands"
+    },
+    "no":{
+       "chinese":"挪威",
+       "code":"NO",
+       "english":"Norway"
+    },
+    "np":{
+       "chinese":"尼泊爾",
+       "code":"NP",
+       "english":"Nepal"
+    },
+    "nr":{
+       "chinese":"諾魯",
+       "code":"NR",
+       "english":"Nauru"
+    },
+    "nu":{
+       "chinese":"紐埃",
+       "code":"NU",
+       "english":"Niue"
+    },
+    "nz":{
+       "chinese":"紐西蘭",
+       "code":"NZ",
+       "english":"New Zealand"
+    },
+    "om":{
+       "chinese":"阿曼",
+       "code":"OM",
+       "english":"Oman"
+    },
+    "pa":{
+       "chinese":"巴拿馬",
+       "code":"PA",
+       "english":"Panama"
+    },
+    "pe":{
+       "chinese":"秘魯",
+       "code":"PE",
+       "english":"Peru"
+    },
+    "pf":{
+       "chinese":"法屬玻里尼西亞",
+       "code":"PF",
+       "english":"French Polynesia"
+    },
+    "pg":{
+       "chinese":"巴布亞紐幾內亞",
+       "code":"PG",
+       "english":"Papua New Guinea"
+    },
+    "ph":{
+       "chinese":"菲律賓",
+       "code":"PH",
+       "english":"Philippines"
+    },
+    "pk":{
+       "chinese":"巴基斯坦",
+       "code":"PK",
+       "english":"Pakistan"
+    },
+    "pl":{
+       "chinese":"波蘭",
+       "code":"PL",
+       "english":"Poland"
+    },
+    "pm":{
+       "chinese":"聖皮埃與密克隆群島",
+       "code":"PM",
+       "english":"Saint Pierre and Miquelon"
+    },
+    "pn":{
+       "chinese":"皮特凱恩群島",
+       "code":"PN",
+       "english":"Pitcairn"
+    },
+    "pr":{
+       "chinese":"波多黎各",
+       "code":"PR",
+       "english":"Puerto Rico"
+    },
+    "ps":{
+       "chinese":"巴勒斯坦",
+       "code":"PS",
+       "english":"Palestine, State of"
+    },
+    "pt":{
+       "chinese":"葡萄牙",
+       "code":"PT",
+       "english":"Portugal"
+    },
+    "pw":{
+       "chinese":"帛琉",
+       "code":"PW",
+       "english":"Palau"
+    },
+    "py":{
+       "chinese":"巴拉圭",
+       "code":"PY",
+       "english":"Paraguay"
+    },
+    "qa":{
+       "chinese":"卡達",
+       "code":"QA",
+       "english":"Qatar"
+    },
+    "re":{
+       "chinese":"留尼旺",
+       "code":"RE",
+       "english":"Réunion"
+    },
+    "ro":{
+       "chinese":"羅馬尼亞",
+       "code":"RO",
+       "english":"Romania"
+    },
+    "rs":{
+       "chinese":"塞爾維亞",
+       "code":"RS",
+       "english":"Serbia"
+    },
+    "ru":{
+       "chinese":"俄羅斯",
+       "code":"RU",
+       "english":"Russian Federation"
+    },
+    "rw":{
+       "chinese":"盧安達",
+       "code":"RW",
+       "english":"Rwanda"
+    },
+    "sa":{
+       "chinese":"沙烏地阿拉伯",
+       "code":"SA",
+       "english":"Saudi Arabia"
+    },
+    "sb":{
+       "chinese":"索羅門群島",
+       "code":"SB",
+       "english":"Solomon Islands"
+    },
+    "sc":{
+       "chinese":"塞席爾",
+       "code":"SC",
+       "english":"Seychelles"
+    },
+    "sd":{
+       "chinese":"蘇丹",
+       "code":"SD",
+       "english":"Sudan"
+    },
+    "se":{
+       "chinese":"瑞典",
+       "code":"SE",
+       "english":"Sweden"
+    },
+    "sg":{
+       "chinese":"新加坡",
+       "code":"SG",
+       "english":"Singapore"
+    },
+    "sh":{
+       "chinese":"聖赫倫那、阿森松和特里斯坦-達庫尼亞",
+       "code":"SH",
+       "english":"Saint Helena, Ascension and Tristan da Cunha"
+    },
+    "si":{
+       "chinese":"斯洛維尼亞",
+       "code":"SI",
+       "english":"Slovenia"
+    },
+    "sj":{
+       "chinese":"斯瓦爾巴和揚馬延",
+       "code":"SJ",
+       "english":"Svalbard and Jan Mayen"
+    },
+    "sk":{
+       "chinese":"斯洛伐克",
+       "code":"SK",
+       "english":"Slovakia"
+    },
+    "sl":{
+       "chinese":"獅子山",
+       "code":"SL",
+       "english":"Sierra Leone"
+    },
+    "sm":{
+       "chinese":"聖馬利諾",
+       "code":"SM",
+       "english":"San Marino"
+    },
+    "sn":{
+       "chinese":"塞內加爾",
+       "code":"SN",
+       "english":"Senegal"
+    },
+    "so":{
+       "chinese":"索馬利亞",
+       "code":"SO",
+       "english":"Somalia"
+    },
+    "sr":{
+       "chinese":"蘇利南",
+       "code":"SR",
+       "english":"Suriname"
+    },
+    "ss":{
+       "chinese":"南蘇丹",
+       "code":"SS",
+       "english":"South Sudan"
+    },
+    "st":{
+       "chinese":"聖多美普林西比",
+       "code":"ST",
+       "english":"Sao Tome and Principe"
+    },
+    "sv":{
+       "chinese":"薩爾瓦多",
+       "code":"SV",
+       "english":"El Salvador"
+    },
+    "sx":{
+       "chinese":"荷屬聖馬丁",
+       "code":"SX",
+       "english":"Sint Maarten (Dutch part)"
+    },
+    "sy":{
+       "chinese":"敘利亞",
+       "code":"SY",
+       "english":"Syrian Arab Republic"
+    },
+    "sz":{
+       "chinese":"史瓦帝尼",
+       "code":"SZ",
+       "english":"Eswatini"
+    },
+    "tc":{
+       "chinese":"特克斯與凱科斯群島",
+       "code":"TC",
+       "english":"Turks and Caicos Islands"
+    },
+    "td":{
+       "chinese":"查德",
+       "code":"TD",
+       "english":"Chad"
+    },
+    "tf":{
+       "chinese":"法屬南部和南極領地",
+       "code":"TF",
+       "english":"French Southern Territories"
+    },
+    "tg":{
+       "chinese":"多哥",
+       "code":"TG",
+       "english":"Togo"
+    },
+    "th":{
+       "chinese":"泰國",
+       "code":"TH",
+       "english":"Thailand",
+       "drama_cn":"泰劇"
+    },
+    "tj":{
+       "chinese":"塔吉克",
+       "code":"TJ",
+       "english":"Tajikistan"
+    },
+    "tk":{
+       "chinese":"托克勞",
+       "code":"TK",
+       "english":"Tokelau"
+    },
+    "tl":{
+       "chinese":"東帝汶",
+       "code":"TL",
+       "english":"Timor-Leste"
+    },
+    "tm":{
+       "chinese":"土庫曼",
+       "code":"TM",
+       "english":"Turkmenistan"
+    },
+    "tn":{
+       "chinese":"突尼西亞",
+       "code":"TN",
+       "english":"Tunisia"
+    },
+    "to":{
+       "chinese":"東加",
+       "code":"TO",
+       "english":"Tonga"
+    },
+    "tr":{
+       "chinese":"土耳其",
+       "code":"TR",
+       "english":"Turkey"
+    },
+    "tt":{
+       "chinese":"千里達及托巴哥",
+       "code":"TT",
+       "english":"Trinidad and Tobago"
+    },
+    "tv":{
+       "chinese":"吐瓦魯",
+       "code":"TV",
+       "english":"Tuvalu"
+    },
+    "tw":{
+       "chinese":"臺灣",
+       "code":"TW",
+       "english":"Taiwan",
+       "drama_cn":"台劇"
+    },
+    "tz":{
+       "chinese":"坦尚尼亞",
+       "code":"TZ",
+       "english":"Tanzania"
+    },
+    "ua":{
+       "chinese":"烏克蘭",
+       "code":"UA",
+       "english":"Ukraine"
+    },
+    "ug":{
+       "chinese":"烏干達",
+       "code":"UG",
+       "english":"Uganda"
+    },
+    "um":{
+       "chinese":"美國本土外小島嶼",
+       "code":"UM",
+       "english":"United States Minor Outlying Islands"
+    },
+    "us":{
+       "chinese":"美國",
+       "code":"US",
+       "english":"United States",
+       "drama_cn":"美劇"
+    },
+    "uy":{
+       "chinese":"烏拉圭",
+       "code":"UY",
+       "english":"Uruguay"
+    },
+    "uz":{
+       "chinese":"烏茲別克",
+       "code":"UZ",
+       "english":"Uzbekistan"
+    },
+    "va":{
+       "chinese":"梵蒂岡",
+       "code":"VA",
+       "english":"Holy See"
+    },
+    "vc":{
+       "chinese":"聖文森及格瑞那丁",
+       "code":"VC",
+       "english":"Saint Vincent and the Grenadines"
+    },
+    "ve":{
+       "chinese":"委內瑞拉",
+       "code":"VE",
+       "english":"Venezuela, Bolivarian Republic of"
+    },
+    "vg":{
+       "chinese":"英屬維京群島",
+       "code":"VG",
+       "english":"Virgin Islands, British"
+    },
+    "vi":{
+       "chinese":"美屬維京群島",
+       "code":"VI",
+       "english":"Virgin Islands, U.S."
+    },
+    "vn":{
+       "chinese":"越南",
+       "code":"VN",
+       "english":"Viet Nam"
+    },
+    "vu":{
+       "chinese":"萬那杜",
+       "code":"VU",
+       "english":"Vanuatu"
+    },
+    "wf":{
+       "chinese":"瓦利斯和富圖那",
+       "code":"WF",
+       "english":"Wallis and Futuna"
+    },
+    "ws":{
+       "chinese":"薩摩亞",
+       "code":"WS",
+       "english":"Samoa"
+    },
+    "ye":{
+       "chinese":"葉門",
+       "code":"YE",
+       "english":"Yemen"
+    },
+    "yt":{
+       "chinese":"馬約特",
+       "code":"YT",
+       "english":"Mayotte"
+    },
+    "za":{
+       "chinese":"南非",
+       "code":"ZA",
+       "english":"South Africa"
+    },
+    "zm":{
+       "chinese":"尚比亞",
+       "code":"ZM",
+       "english":"Zambia"
+    },
+    "zw":{
+       "chinese":"辛巴威",
+       "code":"ZW",
+       "english":"Zimbabwe"
+    },
+    "uk":{
+       "chinese":"英國",
+       "code":"UK",
+       "english":"United Kingdom",
+       "drama_cn":"英劇"
+    },
+    "un":{
+       "chinese":"聯合國",
+       "code":"UN",
+       "english":"United Nations"
     }
-]
+ }
