@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { tmdb, omdb } from './axios'
+import { getCountryTag } from './common'
 import './assets/css/index.css'
 import '@vant/touch-emulator' // 沒有這個，vant 有些 click 不會被觸發，例如: Search 裡的 clear
 import {
@@ -30,6 +31,7 @@ const global = {
             : Math.sign(num) * Math.abs(num)
     },
     $omdb: omdb,
+    $getCountryTag: getCountryTag
 }
 
 app.provide('$global', global)
