@@ -12,7 +12,7 @@
             <div class="flex items-center">
                 <img src="/images/logo.png" class="w-12 h-12" />
                 <div class="line"></div>
-                <div class="type">
+                <div class="type hide-scrollbar">
                     <div
                         v-for="item in menu"
                         :key="`type-${item.id}`"
@@ -40,7 +40,7 @@
         </div>
         <div
             v-if="filmTv.list.length > 0"
-            class="h-full w-full overflow-y-auto hide-scrollbar mt-10"
+            class="h-full w-full overflow-y-auto hide-scrollbar mt-4 md:mt-10"
         >
             <van-list
                 v-model:loading="loading"
@@ -69,7 +69,7 @@
                                 lazy-load
                                 :src="`${IMAGE_URL}w342${item.poster_path}`"
                             />
-                            <!-- <img  /> -->
+                            <div v-if="item.country_tag" class="country-tag">{{ item.country_tag }}</div>
                         </div>
 
                         <div class="detail">
@@ -145,7 +145,7 @@
 import { reactive, inject, ref, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useLoading } from '@/hook'
-const { $axios, IMAGE_URL } = inject('$global')
+const { $axios, IMAGE_URL, $getCountryTag } = inject('$global')
 const router = useRouter()
 const route = useRoute()
 const { isLoading, startLoading, finishLoading } = useLoading()
@@ -170,7 +170,7 @@ const menu = ref([
     { label: '熱門電影', id: 1, key: 'popular', type: 'movie' },
     { label: '現正熱映', id: 3, key: 'now_playing', type: 'movie' },
     { label: '即將上映', id: 4, key: 'upcoming', type: 'movie' },
-    // { label: '電視劇', id: 5, key: 'tv_popular', type: 'tv' }, // 正在寫
+    { label: '電視劇', id: 5, key: 'tv_popular', type: 'tv' }, // 正在寫
 ])
 
 const loading = ref(false)
@@ -206,13 +206,13 @@ async function getMovieList() {
     const res = await $axios.get(
         `/movie/${current.key}?page=${filmTv.page}&region=TW`
     )
-    setMoviesData(res.data, 'movie')
+    setData(res.data, 'movie')
 }
 
 async function getTVList() {
     const key = current.key.replace(/tv_/, '')
     const res = await $axios.get(`/tv/${key}?page=${filmTv.page}&region=TW`)
-    setMoviesData(res.data, 'tv')
+    setData(res.data, 'tv')
 }
 
 async function getSearchList(val) {
@@ -222,13 +222,16 @@ async function getSearchList(val) {
     res.data.results = res.data.results.filter(el =>
         ['movie', 'tv'].includes(el.media_type)
     )
-    setMoviesData(res.data)
+    setData(res.data)
 }
 
-function setMoviesData(items, type = null) {
+function setData(items, type = null) {
     items.results.forEach(el => {
         filmTv.rates.push(0)
         el.media_type = el.media_type ? el.media_type : type
+        if (el.media_type === 'tv') {
+            el.country_tag = $getCountryTag(el.origin_country[0], 'tv')
+        }
     })
     filmTv.list = filmTv.list.concat(items.results)
     if (filmTv.page === 1) {
@@ -310,7 +313,7 @@ onBeforeMount(async () => {
     @apply w-36 md:w-50;
 }
 .poster {
-    @apply overflow-hidden w-full;
+    @apply relative overflow-hidden w-full;
     @apply h-50 md:h-72;
 
     img {
@@ -330,9 +333,9 @@ onBeforeMount(async () => {
 }
 
 .type {
-    @apply ml-0 md:ml-8 flex items-end gap-x-8 font-semibold;
+    @apply ml-0 md:ml-8 flex items-end gap-x-8 font-semibold overflow-x-auto overflow-y-hidden;
     &__label {
-        @apply px-1;
+        @apply flex-shrink-0 px-1;
         @apply cursor-pointer;
         &-active {
             @apply relative;
@@ -370,5 +373,10 @@ onBeforeMount(async () => {
     ::v-deep input::placeholder {
         @apply text-gray-400 text-opacity-80;
     }
+}
+
+.country-tag {
+    @apply absolute top-1 right-1 text-xs py-0.5 px-1 rounded;
+    @apply transform scale-90 origin-top-right bg-purple-600 bg-opacity-90 text-white;
 }
 </style>

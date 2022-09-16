@@ -33,8 +33,8 @@
             </div>
             <!-- runtime & date -->
             <div class="pl-0.5 mt-3 font-sans">
-                TV series · 
-                {{ data.info.first_air_date.replace(/-(.*)/g, '') }} · 
+                TV series ·
+                {{ data.info.first_air_date.replace(/-(.*)/g, '') }} ·
                 {{ data.info.episode_run_time[0] }} min
             </div>
             <!-- genres -->
@@ -243,6 +243,7 @@
 import { inject, onBeforeMount, reactive, ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useLoading, useError } from '@/hook'
+import country from '@/assets/json/country.json'
 
 const { $axios, $filterNum, IMAGE_URL } = inject('$global')
 const route = useRoute()
@@ -271,6 +272,10 @@ async function getTV() {
         const res = await $axios.get(`tv/${id.value}`)
         data.info = res.data
         data.backgroundImage = `url(${IMAGE_URL}w1280${data.info.backdrop_path})`
+        data.info.country = data.info.origin_country.map(el => {
+            return country.find(e => e.code === el)
+        })
+        console.log(data.info.country)
 
         // 卡司
         const res_cast = await $axios.get(`tv/${id.value}/credits`)
