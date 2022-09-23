@@ -243,9 +243,8 @@
 import { inject, onBeforeMount, reactive, ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useLoading, useError } from '@/hook'
-import country from '@/assets/json/country.json'
 
-const { $axios, $filterNum, IMAGE_URL } = inject('$global')
+const { $axios, $filterNum, IMAGE_URL, $getCountryTag } = inject('$global')
 const route = useRoute()
 const { isLoading, startLoading, finishLoading } = useLoading()
 const { isError, setError, unsetError } = useError()
@@ -273,9 +272,8 @@ async function getTV() {
         data.info = res.data
         data.backgroundImage = `url(${IMAGE_URL}w1280${data.info.backdrop_path})`
         data.info.country = data.info.origin_country.map(el => {
-            return country.find(e => e.code === el)
+            return $getCountryTag(el, 'tv')
         })
-        console.log(data.info.country)
 
         // 卡司
         const res_cast = await $axios.get(`tv/${id.value}/credits`)
