@@ -113,8 +113,29 @@
                 <span class="text-stone-400 font-medium mr-1"> 評分： </span>
                 <van-rate v-model="usrRate" allow-half />
             </div>
+
+            <!-- networks -->
+            <div
+                v-if="data.info.networks.length > 0"
+                class="mt-8 flex items-center"
+            >
+                <span class="text-stone-400 font-medium mr-2"> 平台： </span>
+                <div
+                    v-for="item in data.info.networks"
+                    :key="item.name"
+                    class="streaming-icon"
+                    @click="goStreamHomepage(item.homepage, item.name)"
+                >
+                    <van-image
+                        height="20px"
+                        fit="cover"
+                        lazy-load
+                        :src="`${IMAGE_URL}w154${item.logo_path}`"
+                    />
+                </div>
+            </div>
             <!-- trailer -->
-            <div v-if="data.trailer" class="w-full md:w-1/2 mt-8">
+            <!-- <div v-if="data.trailer" class="w-full md:w-1/2 mt-8">
                 <div class="trailer">
                     <iframe
                         width="950"
@@ -126,55 +147,9 @@
                         allowfullscreen
                     ></iframe>
                 </div>
-            </div>
-            <!-- series -->
-            <div v-if="data.series" class="series">
-                <div class="relative w-full h-full">
-                    <van-image
-                        v-if="data.series.backdrop_path"
-                        width="100%"
-                        height="100%"
-                        position="left top"
-                        fit="cover"
-                        lazy-load
-                        :src="`${IMAGE_URL}w780${data.series.backdrop_path}`"
-                    />
-                    <div class="series-mask"></div>
-                </div>
-                <div class="series-name">{{ data.series.name }}</div>
-                <div class="series-movies hide-scrollbar">
-                    <template v-for="item in data.series.parts">
-                        <!-- 沒有 poster 就不要顯示了 -->
-                        <div
-                            v-if="item.poster_path"
-                            :key="`series-${item.id}`"
-                            class="movie-block flex-shrink-0"
-                            @click="$router.replace(`/movie?id=${item.id}`)"
-                        >
-                            <div class="poster">
-                                <van-image
-                                    width="100%"
-                                    height="100%"
-                                    lazy-load
-                                    :src="`${IMAGE_URL}w185${item.poster_path}`"
-                                />
-                            </div>
-                            <div class="text-xs mt-1">
-                                {{ item.title }}
-                                <span
-                                    class="ml-2 font-semibold text-yellow-500"
-                                >
-                                    {{ toFixed(item.vote_average) }}
-                                </span>
-                            </div>
-                        </div>
-                    </template>
-                </div>
-                <div class="series-right-mask"></div>
-                <div class="series-left-mask"></div>
-            </div>
+            </div> -->
             <!-- similar -->
-            <div v-if="data.similar" class="mt-10">
+            <!-- <div v-if="data.similar" class="mt-10">
                 <div class="text-stone-400 font-medium mb-2">相似電影：</div>
                 <div
                     class="flex justify-start gap-x-5 overflow-x-auto hide-scrollbar"
@@ -202,7 +177,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- more cast -->
@@ -244,6 +219,10 @@ import { inject, onBeforeMount, reactive, ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useLoading, useError } from '@/hook'
 
+// 找不到解法，全域引入 notify 使用會噴 undefined，只能個別 import 了
+import { Notify } from 'vant'
+import 'vant/lib/index.css'
+
 const { $axios, $filterNum, IMAGE_URL, $getCountryTag } = inject('$global')
 const route = useRoute()
 const { isLoading, startLoading, finishLoading } = useLoading()
@@ -281,6 +260,11 @@ async function getTV() {
             .slice(0, 20)
             .filter(el => el.profile_path)
 
+        // 串流平台
+        data.info.networks.forEach(async el => {
+            const res_network = await $axios.get(`network/${el.id}`)
+            el.homepage = res_network.data.homepage
+        })
         // // 預告片
         // const res_video = await $axios.get(`movie/${id.value}/videos`)
         // data.trailer = res_video.data.results.find(el => el.site === 'YouTube')
@@ -311,8 +295,16 @@ function reset() {
     Object.assign(data, initData)
 }
 
-function toFixed(val) {
-    return val.toFixed(1)
+function goStreamHomepage(url, name) {
+    if (url) {
+        window.open(url);
+    } else {
+        Notify({
+            background: '#ee0a24ba',
+            message: `無連結，請自行搜尋 ${name}。`,
+            duration: 2000,
+        })
+    }
 }
 
 onBeforeMount(async () => {
@@ -360,13 +352,6 @@ watch(id, () => {
     @apply mx-5;
     height: 20px;
     width: 1px;
-}
-.trailer {
-    @apply relative w-full h-0;
-    padding-bottom: 56.25%;
-    iframe {
-        @apply absolute top-0 left-0 w-full h-full;
-    }
 }
 .movie-block {
     @apply cursor-pointer;
@@ -448,53 +433,16 @@ watch(id, () => {
     min-width: 500px;
     max-height: 600px;
 }
-.series {
-    @apply relative w-full;
-    @apply mt-8 rounded-xl overflow-hidden;
-    height: 400px;
-    .movie-block {
-        width: 173px;
-    }
-    .poster {
-        height: 260px;
-        width: 100%;
-    }
 
-    .series-mask {
-        @apply absolute bottom-0 w-full h-full;
-        background: rgba(26, 17, 5, 0.85);
-    }
-
-    .series-movies {
-        @apply absolute top-1/2;
-        @apply flex justify-start items-start gap-x-5 overflow-x-auto;
-        @apply w-full pl-28 pr-16 pt-2;
-        transform: translateY(-48%);
-    }
-    .series-name {
-        @apply absolute top-0 h-full text-center px-9 py-4 text-lg font-medium;
-        @apply overflow-hidden whitespace-nowrap;
-        z-index: 1;
-        writing-mode: vertical-lr;
-        background: rgba(19, 12, 3, 0.9);
-        text-overflow: ellipsis;
-    }
-
-    .series-right-mask {
-        @apply absolute right-0 bottom-0 w-40 h-full;
-        background: linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(11, 10, 9, 1) 80%
-        );
-    }
-    .series-left-mask {
-        @apply absolute left-0 bottom-0 w-36 h-full;
-        background: linear-gradient(
-            90deg,
-            rgba(11, 10, 9, 1) 20%,
-            rgba(255, 255, 255, 0) 80%
-        );
+.streaming-icon {
+    @apply flex items-center py-2 px-3 bg-white mx-1 rounded-full cursor-pointer;
+    transition: all 0.3s;
+    &:hover {
+        @apply mx-4;
+        transform: scale(1.15);
+        &:first-of-type {
+            @apply ml-0;
+        }
     }
 }
 </style>
