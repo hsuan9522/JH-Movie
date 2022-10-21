@@ -114,6 +114,12 @@
                 <van-rate v-model="usrRate" allow-half />
             </div>
 
+            <!-- 集數 -->
+            <div v-if="data.info.seasons.length === 1" class="mt-8">
+                <span class="text-stone-400 font-medium mr-2"> 集數：</span>
+                <span class="font-medium">{{ data.info.seasons[0].episode_count }} 集</span>
+            </div>
+
             <!-- networks -->
             <div
                 v-if="data.info.networks.length > 0"
@@ -132,6 +138,39 @@
                         lazy-load
                         :src="`${IMAGE_URL}w154${item.logo_path}`"
                     />
+                </div>
+            </div>
+
+            <!-- season -->
+            <div v-if="data.info.seasons.length > 1" class="mt-8">
+                <span class="inline-block text-stone-400 font-medium mr-2 mb-2"> 季數： </span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-3">
+                    <div
+                        v-for="item in data.info.seasons"
+                        :key="`season-${item.id}`"
+                        class="season-block"
+                    >
+                        <div class="poster sm flex-shrink-0">
+                            <van-image
+                                width="100%"
+                                height="100%"
+                                lazy-load
+                                :src="`${IMAGE_URL}w185${item.poster_path}`"
+                            />
+                        </div>
+                        <div class="py-4 px-6">
+                            <div class="text-lg font-medium">
+                                {{ item.name }}
+                            </div>
+                            <div class="text-sm">
+                                {{ item.air_date.replace(/-(.*)/g, '') }} |
+                                {{ item.episode_count }} 集
+                            </div>
+                            <div class="text-sm text-stone-400 three-lines pt-0.5">
+                                {{ item.overview || '-' }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- trailer -->
@@ -297,7 +336,7 @@ function reset() {
 
 function goStreamHomepage(url, name) {
     if (url) {
-        window.open(url);
+        window.open(url)
     } else {
         Notify({
             background: '#ee0a24ba',
@@ -378,6 +417,10 @@ watch(id, () => {
             rgb(17, 19, 25) 99%
         );
     }
+    &.sm {
+        width: 100px;
+        height: 143px;
+    }
 }
 .backdrop {
     @apply absolute flex justify-end w-full bg-gray-500;
@@ -444,5 +487,17 @@ watch(id, () => {
             @apply ml-0;
         }
     }
+}
+
+.season-block {
+    @apply flex items-center;
+    @apply bg-gray-800 bg-opacity-60 my-2 rounded-lg overflow-hidden;
+}
+
+.three-lines {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 </style>
