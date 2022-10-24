@@ -6,13 +6,13 @@
             @click="isShow = false"
         >
             <div class="flex h-full justify-center items-center">
-                <div class="popup-dialog" :style="{width: width}">
+                <div class="popup-dialog" :style="{width: width}" @click.stop>
                     <div class="flex justify-end -mt-3 -mr-2">
                         <span class="cursor-pointer" @click="isShow = false">
                             <van-icon name="cross" />
                         </span>
                     </div>
-                    <div class="px-10 overflow-y-auto hide-scrollbar">
+                    <div class="h-full px-10 overflow-y-auto hide-scrollbar">
                         <slot />
                     </div>
                 </div>
@@ -46,8 +46,7 @@ const isShow = computed({
 
 <style lang="scss" scoped>
 .popup-dialog {
-    @apply rounded-lg;
-    @apply bg-gray-500 p-8 overflow-hidden;
+    @apply h-full bg-gray-500 p-8 overflow-hidden rounded-lg;
     box-shadow: 0px 1px 7px #494949;
     max-height: 80%;
 }
