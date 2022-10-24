@@ -188,8 +188,8 @@
                 </div>
             </div> -->
             <!-- similar -->
-            <!-- <div v-if="data.similar" class="mt-10">
-                <div class="text-stone-400 font-medium mb-2">相似電影：</div>
+            <div v-if="data.similar" class="mt-10">
+                <div class="text-stone-400 font-medium mb-2">相似電視劇：</div>
                 <div
                     class="flex justify-start gap-x-5 overflow-x-auto hide-scrollbar"
                 >
@@ -209,14 +209,14 @@
                             <div class="poster__bottom"></div>
                         </div>
                         <div class="text-xs mt-1">
-                            {{ item.title }}
+                            {{ item.name }}
                             <span class="ml-2 font-semibold text-yellow-500">
                                 {{ toFixed(item.vote_average) }}
                             </span>
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
     <!-- more cast -->
@@ -278,9 +278,9 @@ async function getTV() {
         // const res_video = await $axios.get(`movie/${id.value}/videos`)
         // data.trailer = res_video.data.results.find(el => el.site === 'YouTube')
 
-        // // 相關影片
-        // const res_similar = await $axios.get(`movie/${id.value}/similar?page=1`)
-        // data.similar = res_similar.data.results.splice(0, 8)
+        // 相似電視劇
+        const res_similar = await $axios.get(`tv/${id.value}/similar?page=1`)
+        data.similar = res_similar.data.results.splice(0, 8)
 
         // const seriesId = data.info.belongs_to_collection?.id
         // if (seriesId) {
@@ -314,6 +314,10 @@ function goStreamHomepage(url, name) {
             duration: 2000,
         })
     }
+}
+
+function toFixed(val) {
+    return val.toFixed(1)
 }
 
 onBeforeMount(async () => {
