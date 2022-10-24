@@ -249,37 +249,7 @@
         </div>
     </div>
     <!-- more cast -->
-    <transition name="van-fade">
-        <div
-            v-show="moreCast"
-            class="w-full h-full absolute top-0 z-10 text-white bg-black bg-opacity-80"
-            @click="moreCast = false"
-        >
-            <div class="flex h-full justify-center items-center">
-                <div class="popup-dialog">
-                    <div class="flex justify-end -mt-3 -mr-2">
-                        <span class="cursor-pointer" @click="moreCast = false">
-                            <van-icon name="cross" />
-                        </span>
-                    </div>
-                    <div
-                        class="divide-y divide-gray-800 h-full px-10 overflow-y-auto hide-scrollbar"
-                    >
-                        <div
-                            v-for="item in data.cast"
-                            :key="`cast-m-${item.id}`"
-                            class="text-center py-4"
-                        >
-                            <div class="font-bold">{{ item.name }}</div>
-                            <div class="text-sm text-stone-400">
-                                {{ item.character.replace(/ \/.*/g, '') }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </transition>
+    <CastDialog v-model="moreCast" :data="data.cast"></CastDialog>
 </template>
 
 <script setup>
