@@ -5,6 +5,7 @@ const tmdb = axios.create({
     params: {
         api_key: import.meta.env.VITE_API_KEY,
         language: 'zh-TW',
+        t: new Date().getTime() // 有時候會出現 304 cache，加上時間戳記避掉
     },
 })
 

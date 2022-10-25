@@ -1,4 +1,4 @@
-import countries from './assets/json/country.json'
+import countries from '../assets/json/country.json'
 
 const getCountryTag = (countryCode, type = 'movie') => {
     if(!countryCode) return null
