@@ -9,6 +9,11 @@
         "deploy": "sh deploy.sh"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^6.2.0",
+        "@fortawesome/free-brands-svg-icons": "^6.2.0",
+        "@fortawesome/free-regular-svg-icons": "^6.2.0",
+        "@fortawesome/free-solid-svg-icons": "^6.2.0",
+        "@fortawesome/vue-fontawesome": "^3.0.1",
         "@vant/touch-emulator": "^1.4.0",
         "axios": "^0.27.2",
         "vant": "3.6.4",
