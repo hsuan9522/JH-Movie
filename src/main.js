@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import './assets/css/index.css'
+import './assets/css/main.scss'
 import '@vant/touch-emulator' // 沒有這個，vant 有些 click 不會被觸發，例如: Search 裡的 clear
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './plugins/fontawesome.js'

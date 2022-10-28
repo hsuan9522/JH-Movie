@@ -25,7 +25,7 @@
             <van-empty image="error" description="發生錯誤，回去重來吧！" />
         </div>
 
-        <div class="info hide-scrollbar" v-if="data.info" ref="infoRef">
+        <div class="content-body hide-scrollbar" v-if="data.info" ref="infoRef">
             <!-- title -->
             <div class="text-3xl font-bold">{{ data.info.title }}</div>
             <div class="text-sm font-medium">
@@ -73,7 +73,7 @@
                         :key="item.Source"
                         class="flex items-center mr-4"
                     >
-                        <img :src="item.icon" class="icon" />
+                        <img :src="item.icon" class="company-icon" />
                         <!-- 下面的方法 github page 還是吃不到 -->
                         <!-- <Image :path="item.icon" :css="'icon'" /> -->
                         <div class="flex items-center">
@@ -126,7 +126,7 @@
                         <!-- <div class="text-xs">{{item.name}}</div> -->
                     </div>
                     <div class="ml-4">
-                        <div class="more" @click="moreCast = true">
+                        <div class="more-btn" @click="moreCast = true">
                             <van-icon name="arrow" size="12" />
                         </div>
                     </div>
@@ -208,7 +208,7 @@
                                     <span
                                         class="ml-2 font-semibold text-yellow-500"
                                     >
-                                        {{ toFixed(item.vote_average) }}
+                                        {{ item.vote_average.toFixed(1) }}
                                     </span>
                                 </div>
                             </div>
@@ -219,35 +219,7 @@
                 <div class="series-left-mask"></div>
             </div>
             <!-- similar -->
-            <div v-if="data.similar" class="mt-10">
-                <div class="text-stone-400 font-medium mb-2">相似電影：</div>
-                <div
-                    class="flex justify-start gap-x-5 overflow-x-auto hide-scrollbar"
-                >
-                    <div
-                        v-for="item in data.similar"
-                        :key="`similar-${item.id}`"
-                        class="movie-block"
-                        @click="$router.replace(`/movie?id=${item.id}`)"
-                    >
-                        <div class="poster">
-                            <van-image
-                                width="100%"
-                                height="100%"
-                                lazy-load
-                                :src="`${IMAGE_URL}w185${item.poster_path}`"
-                            />
-                            <div class="poster__bottom"></div>
-                        </div>
-                        <div class="text-xs mt-1">
-                            {{ item.title }}
-                            <span class="ml-2 font-semibold text-yellow-500">
-                                {{ toFixed(item.vote_average) }}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <FilmList :data="data.similar" title="相似電影" />
         </div>
     </div>
     <!-- more cast -->
@@ -281,7 +253,7 @@ const initData = {
     ratings: null,
     cast: null,
     trailer: null,
-    similar: null,
+    similar: [],
     series: null,
     backgroundImage: 'url()',
 }
@@ -395,10 +367,6 @@ function reset() {
     Object.assign(data, initData)
 }
 
-function toFixed(val) {
-    return val.toFixed(1)
-}
-
 onBeforeMount(async () => {
     reset()
     getMovie()
@@ -421,36 +389,19 @@ watch(id, () => {
 </script>
 
 <style lang="scss" scoped>
-.icon {
+.company-icon {
     @apply mr-2;
     height: 25px;
     width: 25px;
 }
-.avator {
-    @apply w-16 h-16 rounded-full overflow-hidden;
-    @apply mx-2;
-    ::v-deep img {
-        object-position: 50% 30%;
-    }
-}
-.info {
-    @apply w-full;
-    @apply relative h-full overflow-y-auto overflow-x-hidden;
-    @apply text-left p-10 pt-2;
-    z-index: 1;
-}
 
-.tag {
-    @apply text-sm text-stone-300;
-    @apply px-2.5 py-0.5 mr-1.5;
-    @apply rounded-md bg-gray-300 bg-opacity-20;
-}
 .line {
     @apply bg-gray-400 bg-opacity-25;
     @apply mx-5;
     height: 20px;
     width: 1px;
 }
+
 .trailer {
     @apply relative w-full h-0;
     padding-bottom: 56.25%;
@@ -458,86 +409,7 @@ watch(id, () => {
         @apply absolute top-0 left-0 w-full h-full;
     }
 }
-.movie-block {
-    @apply cursor-pointer;
-    width: 150px;
-}
-.poster {
-    @apply overflow-hidden relative;
-    width: 150px;
-    height: 214px;
-    img {
-        @apply w-full h-full;
-    }
-    &__bottom {
-        @apply absolute bottom-0 w-full h-1/2;
-        background-image: linear-gradient(
-            179deg,
-            rgba(17, 19, 25, 0) 1%,
-            rgba(17, 19, 25, 0.05) 17%,
-            rgba(17, 19, 25, 0.2) 31%,
-            rgba(17, 19, 25, 0.39) 44%,
-            rgba(17, 19, 25, 0.61) 56%,
-            rgba(17, 19, 25, 0.8) 69%,
-            rgba(17, 19, 25, 0.95) 83%,
-            rgb(17, 19, 25) 99%
-        );
-    }
-}
-.backdrop {
-    @apply absolute flex justify-end w-full bg-gray-500;
-    height: 500px;
-    &__image {
-        @apply w-3/4 bg-cover;
-    }
 
-    &__left {
-        @apply absolute w-1/3 h-full left-0;
-        transform: translate(68%);
-        background-image: linear-gradient(
-            270deg,
-            rgba(17, 19, 25, 0) 0%,
-            rgba(17, 19, 25, 0.05) 16%,
-            rgba(17, 19, 25, 0.2) 30%,
-            rgba(17, 19, 25, 0.39) 43%,
-            rgba(17, 19, 25, 0.61) 55%,
-            rgba(17, 19, 25, 0.8) 68%,
-            rgba(17, 19, 25, 0.95) 82%,
-            rgb(17, 19, 25) 98%
-        );
-    }
-
-    &__bottom {
-        @apply absolute w-full h-3/4 bottom-0;
-        background-image: linear-gradient(
-            179deg,
-            rgba(17, 19, 25, 0) 1%,
-            rgba(17, 19, 25, 0.05) 17%,
-            rgba(17, 19, 25, 0.2) 31%,
-            rgba(17, 19, 25, 0.39) 44%,
-            rgba(17, 19, 25, 0.61) 56%,
-            rgba(17, 19, 25, 0.8) 69%,
-            rgba(17, 19, 25, 0.95) 83%,
-            rgb(17, 19, 25) 99%
-        );
-    }
-}
-.more {
-    @apply flex items-center justify-center;
-    @apply w-5 h-5;
-    @apply border rounded-full cursor-pointer;
-    &:hover {
-        @apply bg-gray-200 bg-opacity-20;
-    }
-}
-
-.popup-dialog {
-    @apply rounded-lg;
-    @apply bg-gray-500 p-8 overflow-hidden h-full;
-    box-shadow: 0px 1px 7px #494949;
-    min-width: 500px;
-    max-height: 600px;
-}
 .series {
     @apply relative w-full;
     @apply mt-8 rounded-xl overflow-hidden;

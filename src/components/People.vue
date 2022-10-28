@@ -24,7 +24,7 @@
         <div v-if="isError" class="h-full flex items-center justify-center">
             <van-empty image="error" description="發生錯誤，回去重來吧！" />
         </div>
-        <div class="info hide-scrollbar">
+        <div class="content-body hide-scrollbar">
             <div class="flex items-center text-3xl font-bold mb-12">
                 {{ data.info.name }}
                 <span class="ml-4 text-lg">
@@ -52,65 +52,10 @@
                 </span>
             </div>
             <!-- tv -->
-            <div v-if="tv" class="mt-8">
-                <div class="text-stone-400 font-medium mb-2">最新電視劇：</div>
-                <div
-                    class="flex justify-start gap-x-5 overflow-x-auto hide-scrollbar"
-                >
-                    <div
-                        v-for="item in tv"
-                        :key="`similar-${item.id}`"
-                        class="movie-block"
-                        @click="$router.replace(`/tv?id=${item.id}`)"
-                    >
-                        <div class="poster">
-                            <van-image
-                                width="100%"
-                                height="100%"
-                                lazy-load
-                                :src="`${IMAGE_URL}w185${item.poster_path}`"
-                            />
-                            <div class="poster__bottom"></div>
-                        </div>
-                        <div class="text-xs mt-1">
-                            {{ item.name }}
-                            <span class="ml-2 font-semibold text-yellow-500">
-                                {{ toFixed(item.vote_average) }}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <FilmList :data="tv" title="最新電視劇" type="tv"/>
+
             <!-- movie -->
-            <div v-if="movie" class="mt-8">
-                <div class="text-stone-400 font-medium mb-2">最新電影：</div>
-                <div
-                    class="flex justify-start gap-x-5 overflow-x-auto hide-scrollbar"
-                >
-                    <div
-                        v-for="item in movie"
-                        :key="`similar-${item.id}`"
-                        class="movie-block"
-                        @click="$router.replace(`/movie?id=${item.id}`)"
-                    >
-                        <div class="poster">
-                            <van-image
-                                width="100%"
-                                height="100%"
-                                lazy-load
-                                :src="`${IMAGE_URL}w185${item.poster_path}`"
-                            />
-                            <div class="poster__bottom"></div>
-                        </div>
-                        <div class="text-xs mt-1">
-                            {{ item.name }}
-                            <span class="ml-2 font-semibold text-yellow-500">
-                                {{ toFixed(item.vote_average) }}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <FilmList :data="movie" title="最新電影"/>
 
             <!-- all -->
             <div v-if="data.credits" class="mt-8">
@@ -240,91 +185,28 @@ function getAge() {
     return new Date().getFullYear() - new Date(data.info.birthday).getFullYear()
 }
 
-function toFixed(val) {
-    return val.toFixed(1)
-}
-
 onBeforeMount(() => {
     getPeopleInfo()
 })
 </script>
 
 <style lang="scss" scoped>
-.info {
-    @apply w-full;
-    @apply relative h-full overflow-y-auto overflow-x-hidden;
-    @apply text-left p-10 pt-2;
-    z-index: 1;
-}
-
 .backdrop {
-    @apply absolute flex justify-end w-full bg-gray-500;
-    height: 500px;
     &__image {
-        @apply w-1/2 bg-cover;
+        @apply w-1/2;
         background-position: 20% 20%;
     }
 
     &__left {
-        @apply absolute w-4/5 h-full left-0;
+        @apply w-4/5;
         transform: translate(58%);
-        background-image: linear-gradient(
-            270deg,
-            rgba(17, 19, 25, 0) 0%,
-            rgba(17, 19, 25, 0.05) 16%,
-            rgba(17, 19, 25, 0.2) 30%,
-            rgba(17, 19, 25, 0.39) 43%,
-            rgba(17, 19, 25, 0.61) 55%,
-            rgba(17, 19, 25, 0.8) 68%,
-            rgba(17, 19, 25, 0.95) 82%,
-            rgb(17, 19, 25) 98%
-        );
-    }
-
-    &__bottom {
-        @apply absolute w-full h-3/4 bottom-0;
-        background-image: linear-gradient(
-            179deg,
-            rgba(17, 19, 25, 0) 1%,
-            rgba(17, 19, 25, 0.05) 17%,
-            rgba(17, 19, 25, 0.2) 31%,
-            rgba(17, 19, 25, 0.39) 44%,
-            rgba(17, 19, 25, 0.61) 56%,
-            rgba(17, 19, 25, 0.8) 69%,
-            rgba(17, 19, 25, 0.95) 83%,
-            rgb(17, 19, 25) 99%
-        );
     }
 }
 
-.movie-block {
-    @apply cursor-pointer;
-    width: 150px;
-}
-.poster {
-    @apply overflow-hidden relative;
-    width: 150px;
-    height: 214px;
-    img {
-        @apply w-full h-full;
-    }
+::v-deep .poster {
     &__bottom {
-        @apply absolute bottom-0 w-full h-1/3;
-        background-image: linear-gradient(
-            179deg,
-            rgba(17, 19, 25, 0) 1%,
-            rgba(17, 19, 25, 0.05) 17%,
-            rgba(17, 19, 25, 0.2) 31%,
-            rgba(17, 19, 25, 0.39) 44%,
-            rgba(17, 19, 25, 0.61) 56%,
-            rgba(17, 19, 25, 0.8) 69%,
-            rgba(17, 19, 25, 0.95) 83%,
-            rgb(17, 19, 25) 99%
-        );
-    }
-    &.sm {
-        width: 100px;
-        height: 143px;
+        @apply h-1/3;
+        
     }
 }
 
