@@ -18,8 +18,8 @@
                     <div class="poster__bottom"></div>
                 </div>
                 <div class="text-xs mt-1">
-                    {{ item.name }}
-                    <span class="ml-2 font-semibold text-yellow-500">
+                    <span class="mr-2">{{ item.name }}</span>
+                    <span class="font-semibold text-yellow-500">
                         {{ item.vote_average.toFixed(1) }}
                     </span>
                 </div>
@@ -43,8 +43,8 @@ const props = defineProps({
     },
     type: {
         type: String,
-        default: 'movie'
-    }
+        default: 'movie',
+    },
 })
 const formatData = computed(() => {
     return props.data.map(e => {
@@ -54,5 +54,19 @@ const formatData = computed(() => {
         }
     })
 })
-
 </script>
+
+<style lang="scss" scoped>
+.movie-block {
+    ::v-deep .van-image {
+        transition: transform 0.2s ease-in-out;
+    }
+    &:hover {
+        .poster {
+            ::v-deep .van-image {
+                transform: scale(1.15);
+            }
+        }
+    }
+}
+</style>

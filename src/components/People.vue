@@ -33,17 +33,25 @@
                 </span>
             </div>
             <div class="w-1 h-1 rounded-full bg-white mb-12"></div>
-            <div>
+            <div
+                v-if="
+                    data.info.also_known_as &&
+                    data.info.also_known_as.length > 0
+                "
+                class="mb-8"
+            >
                 <span class="text-stone-400 font-medium"> 別名： </span>
-                <span>{{ data.info.also_known_as?.join('、') }}</span>
+                <span>{{
+                    data.info.also_known_as?.slice(0, 10).join('、')
+                }}</span>
             </div>
-            <div class="flex mt-4">
+            <div class="flex">
                 <span class="flex-shrink-0 text-stone-400 font-medium">
                     生日：
                 </span>
                 <span class="flex flex-col">
                     <div>
-                        <span>{{ data.info.birthday }}</span>
+                        <span>{{ data.info.birthday || '-' }}</span>
                         <span class="text-sm"> ({{ getAge() }}歲)</span>
                     </div>
                     <div class="text-sm pl-0.5 -mt-0.5">
@@ -52,10 +60,10 @@
                 </span>
             </div>
             <!-- tv -->
-            <FilmList :data="tv" title="最新電視劇" type="tv"/>
+            <FilmList :data="tv" title="最新電視劇" type="tv" />
 
             <!-- movie -->
-            <FilmList :data="movie" title="最新電影"/>
+            <FilmList :data="movie" title="最新電影" />
 
             <!-- all -->
             <div v-if="data.credits" class="mt-8">
@@ -72,11 +80,11 @@
                             </span>
                             <fa
                                 icon="fa-regular fa-circle"
-                                class="relative top-0.5 mr-6"
+                                class="relative top-0.5 mr-6 text-sm"
                             />
                             <span class="inline-flex items-center flex-wrap">
                                 <span
-                                    class="font-medium flex-shrink-0 mr-1.5 cursor-pointer hover:underline"
+                                    class="font-medium mr-1.5 cursor-pointer hover:underline"
                                     @click="
                                         $router.replace(
                                             `/${item.media_type}?id=${item.id}`
@@ -147,7 +155,7 @@ const allYear = computed(() => {
     let tmp = Object.keys(allByYear.value)
         .sort((a, b) => b - a)
         .filter(e => e !== '-')
-    tmp.unshift('-')
+    tmp.includes('-') && tmp.unshift('-')
     return tmp
 })
 
@@ -182,6 +190,7 @@ async function getPeopleInfo() {
 }
 // https://www.imdb.com/name/nm8784654/ imdb
 function getAge() {
+    if (!data.info.birthday) return '?'
     return new Date().getFullYear() - new Date(data.info.birthday).getFullYear()
 }
 
@@ -206,7 +215,6 @@ onBeforeMount(() => {
 ::v-deep .poster {
     &__bottom {
         @apply h-1/3;
-        
     }
 }
 
