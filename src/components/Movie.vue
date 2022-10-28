@@ -111,6 +111,8 @@
                     <div
                         v-for="item in data.cast.slice(0, 6)"
                         :key="'cast' + item.id"
+                        class="cursor-pointer transition-transform transofrm hover:scale-110"
+                        @click="$router.push({ path, query: {...query, p: item.id} })"
                     >
                         <div class="avator">
                             <van-image
@@ -297,6 +299,12 @@ const seriesEl = reactive({
 })
 const id = computed(() => {
     return route.query.id
+})
+const path = computed(()=> {
+    return route.path
+})
+const query = computed(()=> {
+    return route.query
 })
 
 async function getMovie() {

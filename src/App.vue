@@ -6,6 +6,11 @@ const route = useRoute()
 const pathName = computed(() => {
     return route.path.replace(/\//g, '').toLowerCase()
 })
+
+const peopleId = computed(()=> {
+    return route.query.p
+})
+
 </script>
 
 <template>
@@ -21,6 +26,11 @@ const pathName = computed(() => {
         <transition name="van-slide-right">
             <div v-if="pathName === 'tv'" class="absolute top-0 h-screen w-full overflow-hidden">
                 <TV />
+            </div>
+        </transition>
+        <transition name="van-slide-right">
+            <div v-if="peopleId" class="absolute top-0 h-screen w-full overflow-hidden z-10">
+                <People :id="peopleId"/>
             </div>
         </transition>
     </div>
