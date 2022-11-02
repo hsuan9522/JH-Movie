@@ -8,14 +8,7 @@
     <div
         class="relative text-white w-full h-full bg-gray-500 pb-5 flex flex-col"
     >
-        <div v-if="!isError" class="backdrop">
-            <div
-                :style="{ backgroundImage: data.backgroundImage }"
-                class="backdrop__image"
-            ></div>
-            <div class="backdrop__left"></div>
-            <div class="backdrop__bottom"></div>
-        </div>
+        <Backdrop v-if="!isError" :bg="data.backgroundImage" />
         <div class="flex py-4 pl-4" @click="$router.go(-1)">
             <div class="cursor-pointer">
                 <van-icon name="arrow-left" size="30" />
@@ -200,7 +193,7 @@ onBeforeMount(() => {
 </script>
 
 <style lang="scss" scoped>
-.backdrop {
+::v-deep .backdrop {
     &__image {
         @apply w-1/2;
         background-position: 20% 20%;
