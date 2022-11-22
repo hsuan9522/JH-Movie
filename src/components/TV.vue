@@ -82,7 +82,12 @@
                         v-for="item in data.cast.slice(0, 6)"
                         :key="'cast' + item.id"
                         class="cursor-pointer transition-transform transofrm hover:scale-110"
-                        @click="$router.push({ path, query: {...query, p: item.id} })"
+                        @click="
+                            $router.push({
+                                path,
+                                query: { ...query, p: item.id },
+                            })
+                        "
                     >
                         <div class="avator">
                             <van-image
@@ -112,7 +117,9 @@
             <!-- 集數 -->
             <div v-if="data.info.seasons.length === 1" class="mt-8">
                 <span class="text-stone-400 font-medium mr-2"> 集數：</span>
-                <span class="font-medium">{{ data.info.seasons[0].episode_count }} 集</span>
+                <span class="font-medium">
+                    {{ data.info.seasons[0].episode_count }} 集
+                </span>
             </div>
 
             <!-- networks -->
@@ -138,8 +145,12 @@
 
             <!-- season -->
             <div v-if="data.info.seasons.length > 1" class="mt-8">
-                <span class="inline-block text-stone-400 font-medium mr-2 mb-2"> 季數： </span>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-3">
+                <span class="inline-block text-stone-400 font-medium mr-2 mb-2">
+                    季數：
+                </span>
+                <div
+                    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-3"
+                >
                     <div
                         v-for="item in data.info.seasons"
                         :key="`season-${item.id}`"
@@ -161,7 +172,9 @@
                                 {{ item.air_date.replace(/-(.*)/g, '') }} |
                                 {{ item.episode_count }} 集
                             </div>
-                            <div class="text-sm text-stone-400 three-lines pt-0.5">
+                            <div
+                                class="text-sm text-stone-400 three-lines pt-0.5"
+                            >
                                 {{ item.overview || '-' }}
                             </div>
                         </div>
@@ -183,7 +196,7 @@
                 </div>
             </div> -->
             <!-- similar -->
-            <FilmList :data="data.similar" title="相似劇集" type="tv"/>
+            <FilmList :data="data.similar" title="相似劇集" type="tv" />
         </div>
     </div>
     <!-- more cast -->
@@ -191,9 +204,17 @@
 </template>
 
 <script setup>
-import { inject, onBeforeMount, reactive, ref, computed, watch } from 'vue'
+import {
+    inject,
+    onBeforeMount,
+    reactive,
+    ref,
+    computed,
+    watch,
+    toRefs,
+} from 'vue'
 import { useRoute } from 'vue-router'
-import { useLoading, useError } from '@/hook'
+import store from '@/store'
 
 // 找不到解法，全域引入 notify 使用會噴 undefined，只能個別 import 了
 import { Notify } from 'vant'
@@ -201,8 +222,9 @@ import 'vant/lib/index.css'
 
 const { $axios, $filterNum, IMAGE_URL, $getCountryTag } = inject('$global')
 const route = useRoute()
-const { isLoading, startLoading, finishLoading } = useLoading()
-const { isError, setError, unsetError } = useError()
+
+const { state, startLoading, finishLoading, setError, unsetError } = store
+const { isLoading, isError } = toRefs(state)
 
 const initData = {
     info: null,
@@ -220,10 +242,10 @@ const id = computed(() => {
     return route.query.id
 })
 
-const path = computed(()=> {
+const path = computed(() => {
     return route.path
 })
-const query = computed(()=> {
+const query = computed(() => {
     return route.query
 })
 

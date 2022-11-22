@@ -103,11 +103,12 @@
 </template>
 
 <script setup>
-import { useLoading, useError } from '@/hook'
-import { computed, inject, onBeforeMount, reactive } from 'vue'
+import { computed, inject, onBeforeMount, reactive, toRefs } from 'vue'
+import store from '@/store'
 
-const { isLoading, startLoading, finishLoading } = useLoading()
-const { isError, setError, unsetError } = useError()
+const { state, startLoading, finishLoading, setError, unsetError } = store
+const { isLoading, isError } = toRefs(state)
+
 const { $axios, IMAGE_URL } = inject('$global')
 
 const props = defineProps({
@@ -154,6 +155,8 @@ const allYear = computed(() => {
 
 async function getPeopleInfo() {
     try {
+        startLoading()
+        unsetError()
         const res = await $axios.get(`/person/${props.id}`)
         data.info = res.data
         data.backgroundImage = `url(${IMAGE_URL}h632${data.info.profile_path})`

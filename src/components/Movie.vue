@@ -105,7 +105,12 @@
                         v-for="item in data.cast.slice(0, 6)"
                         :key="'cast' + item.id"
                         class="cursor-pointer transition-transform transofrm hover:scale-110"
-                        @click="$router.push({ path, query: {...query, p: item.id} })"
+                        @click="
+                            $router.push({
+                                path,
+                                query: { ...query, p: item.id },
+                            })
+                        "
                     >
                         <div class="avator">
                             <van-image
@@ -232,14 +237,16 @@ import {
     computed,
     watch,
     onUpdated,
+    toRefs
 } from 'vue'
 import { useRoute } from 'vue-router'
-import { useLoading, useError } from '@/hook'
+import store from '@/store'
 
 const { $axios, $filterNum, $omdb, IMAGE_URL } = inject('$global')
 const route = useRoute()
-const { isLoading, startLoading, finishLoading } = useLoading()
-const { isError, setError, unsetError } = useError()
+
+const { state, startLoading, finishLoading, setError, unsetError } = store
+const { isLoading, isError } = toRefs(state)
 
 const initData = {
     info: null,
@@ -265,10 +272,10 @@ const seriesEl = reactive({
 const id = computed(() => {
     return route.query.id
 })
-const path = computed(()=> {
+const path = computed(() => {
     return route.path
 })
-const query = computed(()=> {
+const query = computed(() => {
     return route.query
 })
 

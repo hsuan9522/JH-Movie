@@ -69,7 +69,9 @@
                                 lazy-load
                                 :src="`${IMAGE_URL}w342${item.poster_path}`"
                             />
-                            <div v-if="item.country_tag" class="country-tag">{{ item.country_tag }}</div>
+                            <div v-if="item.country_tag" class="country-tag">
+                                {{ item.country_tag }}
+                            </div>
                         </div>
 
                         <div class="detail">
@@ -142,13 +144,16 @@
 </template>
 
 <script setup>
-import { reactive, inject, ref, onBeforeMount } from 'vue'
+import { reactive, inject, ref, onBeforeMount,toRefs } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useLoading } from '@/hook'
+import store from '@/store'
+
 const { $axios, IMAGE_URL, $getCountryTag } = inject('$global')
 const router = useRouter()
 const route = useRoute()
-const { isLoading, startLoading, finishLoading } = useLoading()
+
+const { state, startLoading, finishLoading } = store
+const { isLoading } = toRefs(state)
 
 const initFilmTv = {
     list: [],
