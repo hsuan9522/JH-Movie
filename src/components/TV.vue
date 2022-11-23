@@ -67,46 +67,11 @@
                 <span>{{ data.info.overview || '-' }}</span>
             </div>
             <!-- cast -->
-            <div class="mt-5" v-if="data.cast">
-                <div class="text-stone-400 font-medium mb-2">
-                    主演：
-                    <span v-if="data.cast.length === 0" class="text-white">
-                        -
-                    </span>
-                </div>
-                <div
-                    v-if="data.cast.length > 0"
-                    class="flex flex-wrap gap-y-2 items-center"
-                >
-                    <div
-                        v-for="item in data.cast.slice(0, 6)"
-                        :key="'cast' + item.id"
-                        class="cursor-pointer transition-transform transofrm hover:scale-110"
-                        @click="
-                            $router.push({
-                                path,
-                                query: { ...query, p: item.id },
-                            })
-                        "
-                    >
-                        <div class="avator">
-                            <van-image
-                                width="100%"
-                                height="100%"
-                                fit="cover"
-                                lazy-load
-                                :src="`${IMAGE_URL}w185${item.profile_path}`"
-                            />
-                        </div>
-                        <!-- <div class="text-xs">{{item.name}}</div> -->
-                    </div>
-                    <div class="ml-4">
-                        <div class="more-btn" @click="moreCast = true">
-                            <van-icon name="arrow" size="12" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <CastList
+                class="mt-5"
+                :data="data.cast"
+                @click-more="moreCast = true"
+            />
 
             <!-- self rate -->
             <div class="flex items-center mt-8">
