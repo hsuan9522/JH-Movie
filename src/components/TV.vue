@@ -64,7 +64,7 @@
             <!-- desc -->
             <div class="mt-4 w-full lg:w-1/2">
                 <span class="text-stone-400 font-medium"> 描述： </span>
-                <span>{{ data.info.overview || '-' }}</span>
+                <span v-html="overview"></span>
             </div>
             <!-- cast -->
             <CastList
@@ -212,6 +212,11 @@ const path = computed(() => {
 })
 const query = computed(() => {
     return route.query
+})
+
+const overview = computed(() => {
+    // overview 有可能帶有中文的段落縮兩格，開頭不需要，其餘塞 <br /> 斷行
+    return data.info.overview.replace(/(^　　)/, '').replace(/　　/g, '<br />') || '-'
 })
 
 async function getTV() {
