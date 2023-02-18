@@ -115,7 +115,7 @@
                                         >
                                             {{
                                                 item.vote_average
-                                                    ? item.vote_average * 10
+                                                    ? Math.round(item.vote_average * 10)
                                                     : 'NaN'
                                             }}
                                         </span>
