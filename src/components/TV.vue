@@ -207,13 +207,6 @@ const id = computed(() => {
     return route.query.id
 })
 
-const path = computed(() => {
-    return route.path
-})
-const query = computed(() => {
-    return route.query
-})
-
 const overview = computed(() => {
     // overview 有可能帶有中文的段落縮兩格，開頭不需要，其餘塞 <br /> 斷行
     return data.info.overview.replace(/(^　　)/, '').replace(/　　/g, '<br />') || '-'

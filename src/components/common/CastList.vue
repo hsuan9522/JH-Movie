@@ -41,8 +41,11 @@
 
 <script setup>
 import { computed, inject } from 'vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const { IMAGE_URL } = inject('$global')
+
 const props = defineProps({
     data: {
         type: Array,
@@ -54,6 +57,12 @@ const props = defineProps({
     },
 })
 
+const path = computed(() => {
+    return route.path
+})
+const query = computed(() => {
+    return route.query
+})
 const topSix = computed(() => {
     return props.data.slice(0, 6)
 })

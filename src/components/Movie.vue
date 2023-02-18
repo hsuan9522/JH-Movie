@@ -236,12 +236,6 @@ const seriesEl = reactive({
 const id = computed(() => {
     return route.query.id
 })
-const path = computed(() => {
-    return route.path
-})
-const query = computed(() => {
-    return route.query
-})
 const overview = computed(() => {
     return data.info.overview.replace(/(^　　)/, '').replace(/　　/g, '<br />') || '-'
 })
