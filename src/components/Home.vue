@@ -366,16 +366,16 @@ onBeforeMount(async () => {
 
 .search {
     @apply w-64 ml-auto pt-4 sm:pt-0;
-    ::v-deep .van-field__left-icon {
+    :deep(.van-field__left-icon) {
         @apply cursor-pointer;
     }
-    ::v-deep .van-search__content {
+    :deep(.van-search__content) {
         @apply bg-black;
     }
-    ::v-deep .van-field__control {
+    :deep(.van-field__control) {
         @apply text-white;
     }
-    ::v-deep input::placeholder {
+    :deep(input::placeholder) {
         @apply text-gray-400 text-opacity-80;
     }
 }

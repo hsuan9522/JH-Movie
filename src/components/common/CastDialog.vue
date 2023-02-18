@@ -36,12 +36,12 @@ const isShow = computed({
 </script>
 
 <style lang="scss" scoped>
-::v-deep .popup-dialog {
+:deep(.popup-dialog) {
     min-width: 500px;
 }
 
 @media (max-width: 480px) {
-    ::v-deep .popup-dialog {
+    :deep(.popup-dialog) {
         min-width: 85%;
     }
 }

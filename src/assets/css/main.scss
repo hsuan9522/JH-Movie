@@ -81,7 +81,7 @@
 .avator {
     @apply w-16 h-16 rounded-full overflow-hidden;
     @apply mx-2;
-    ::v-deep img {
+    :deep(img) {
         object-position: 50% 30%;
     }
 }

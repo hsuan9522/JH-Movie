@@ -196,21 +196,22 @@ onBeforeMount(() => {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .backdrop {
-    &__image {
-        @apply w-1/2;
-        background-position: 20% 20%;
-    }
+:deep(*) {
+    .backdrop {
+        &__image {
+            @apply w-1/2;
+            background-position: 20% 20%;
+        }
 
-    &__left {
-        @apply w-4/5;
-        transform: translate(58%);
+        &__left {
+            @apply w-4/5;
+            transform: translate(58%);
+        }
     }
-}
-
-::v-deep .poster {
-    &__bottom {
-        @apply h-1/3;
+    .poster {
+        &__bottom {
+            @apply h-1/3;
+        }
     }
 }
 

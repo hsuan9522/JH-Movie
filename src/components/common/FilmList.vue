@@ -58,12 +58,12 @@ const formatData = computed(() => {
 
 <style lang="scss" scoped>
 .movie-block {
-    ::v-deep .van-image {
+    :deep(.van-image) {
         transition: transform 0.2s ease-in-out;
     }
     &:hover {
         .poster {
-            ::v-deep .van-image {
+            :deep(.van-image) {
                 transform: scale(1.15);
             }
         }
