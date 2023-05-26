@@ -38,9 +38,20 @@
                 />
             </div>
         </div>
+        <div class="filter" :class="{ 'active': showFilter }">
+            <div class="cursor-pointer" @click="showFilter = !showFilter">
+                <van-icon name="wap-nav" size="20" class="bg-gray-400 p-3 rounded-lg"/>
+            </div>
+            <div v-if="showFilter" class="p-4">
+                <div>
+                    <span>語言：</span>
+                    <span v-for="item in lang" :key="`filter-${item}`">{{ item.label }}</span>
+                </div>
+            </div>
+        </div>
         <div
             v-if="filmTv.list.length > 0"
-            class="h-full w-full overflow-y-auto hide-scrollbar mt-4 md:mt-10"
+            class="h-full w-full overflow-y-auto hide-scrollbar mt-4 md:mt-8"
         >
             <van-list
                 v-model:loading="loading"
@@ -176,6 +187,14 @@ const menu = ref([
     { label: '現正熱映', id: 3, key: 'now_playing', type: 'movie' },
     { label: '即將上映', id: 4, key: 'upcoming', type: 'movie' },
     { label: '電視劇', id: 5, key: 'tv_popular', type: 'tv' }, // 正在寫
+])
+
+const showFilter = ref(false)
+const lang = ref([
+    { label: '中文', key: 'zh' },
+    { label: '英文', key: 'en' },
+    { label: '日語', key: 'ja' },
+    { label: '韓語', key: 'ko' },
 ])
 
 const loading = ref(false)
@@ -383,5 +402,15 @@ onBeforeMount(async () => {
 .country-tag {
     @apply absolute top-1 right-1 text-xs py-0.5 px-1 rounded;
     @apply transform scale-90 origin-top-right bg-purple-600 bg-opacity-90 text-white;
+}
+
+.filter {
+    @apply mt-4 mx-11 text-left p-4 pt-3 pl-3 rounded-lg;
+    width: fit-content;
+    transition: all 1s ease;
+    &.active {
+        @apply bg-gray-400 ;
+        width: inherit;
+    }
 }
 </style>
