@@ -40,14 +40,16 @@
         </div>
         <div class="filter" :class="{ 'active': showFilter }">
             <div class="cursor-pointer" @click="showFilter = !showFilter">
-                <van-icon name="wap-nav" size="20" class="bg-gray-400 p-3 rounded-lg"/>
+                <van-icon name="wap-nav" size="20" />
             </div>
-            <div v-if="showFilter" class="p-4">
-                <div>
-                    <span>語言：</span>
-                    <span v-for="item in lang" :key="`filter-${item}`">{{ item.label }}</span>
+            <Transition :duration="{ enter: 150, leave: 0 }" @after-enter="isTransitionEnd = true" @before-enter="isTransitionEnd = false">
+                <div v-show="showFilter" class="pt-4 pb-2 px-2">
+                    <div v-show="isTransitionEnd">
+                        <span>語言：</span>
+                        <span v-for="item in lang" :key="`filter-${item}`">{{ item.label }}</span>
+                    </div>
                 </div>
-            </div>
+            </Transition>
         </div>
         <div
             v-if="filmTv.list.length > 0"
@@ -190,6 +192,8 @@ const menu = ref([
 ])
 
 const showFilter = ref(false)
+const isTransitionEnd = ref(false)
+
 const lang = ref([
     { label: '中文', key: 'zh' },
     { label: '英文', key: 'en' },
@@ -405,12 +409,13 @@ onBeforeMount(async () => {
 }
 
 .filter {
-    @apply mt-4 mx-11 text-left p-4 pt-3 pl-3 rounded-lg;
-    width: fit-content;
-    transition: all 1s ease;
+    @apply mt-6 p-4 text-left rounded-lg bg-gray-400;
+    width: 52px;
+    height: 52px;
+    transition: width 1s ease, height 1.5s ease-out;
     &.active {
-        @apply bg-gray-400 ;
-        width: inherit;
+        width: 100%;
+        height: auto;
     }
 }
 </style>
