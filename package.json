@@ -28,5 +28,9 @@
         "tailwindcss": "^3.1.4",
         "unplugin-vue-components": "^0.20.1",
         "vite": "^2.9.9"
+    },
+    "volta": {
+        "node": "16.20.2",
+        "yarn": "1.22.19"
     }
 }
